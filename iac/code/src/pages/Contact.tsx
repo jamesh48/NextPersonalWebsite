@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Box, Button, List, ListItem, OutlinedInput } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ContactDescription } from './ContactDescription';
-import { ContactInput } from './ContactInput';
+import { ContactDescription } from '../features/ContactComponents/ContactDescription';
+import { ContactInput } from '../features/ContactComponents/ContactInput';
 
 const ContactForm = (props: { mobileBrowser: boolean }) => {
   useEffect(() => {
