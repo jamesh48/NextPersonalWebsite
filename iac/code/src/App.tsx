@@ -1,7 +1,9 @@
 import Head from 'next/head';
+import PortfolioJSON from '../Data/PortfolioDataJSON';
 import { Provider } from 'react-redux';
 import GlobalStore from '@app/store';
 import MarqueeContainer from './features/Marquee/MarqueeContainer';
+import PortfolioCarousel from './features/Portfolio/PortfolioCarousel/Carousel';
 import { mobileBrowserCheck, smallWindowCheck } from './shared/globalUtils';
 import styles from './styles/Home.module.scss';
 import { Box } from '@mui/material';
@@ -10,7 +12,7 @@ import { appInitialState, setPortraitState } from '@app/appSlice';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from '@app/reduxHooks';
 
-const Home = () => {
+const Home = (props: { portfolioJSON: {}[] }) => {
   const [smileLoaded, setSmileLoaded] = useState(false);
   const dispatch = useDispatch();
 
@@ -53,6 +55,23 @@ const Home = () => {
           >
             <MarqueeContainer smileCallback={smileCallback} />
           </Box>
+
+          <Box
+            data-name="Portfolio"
+            id="portfolio-root"
+            sx={{
+              minHeight: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              paddingBottom: 0,
+              marginBottom: 0,
+              width: '100%',
+              margin: '0 auto',
+              'p, h3, h4, h5, h6': { margin: '1%' },
+            }}
+          >
+            <PortfolioCarousel portfolioJSON={props.portfolioJSON} />
+          </Box>
         </Box>
       </main>
 
@@ -78,7 +97,7 @@ const App = (props: {}) => {
   });
   return (
     <Provider store={GlobalStore.prototype.getStore()}>
-      <Home />
+      <Home portfolioJSON={PortfolioJSON} />
     </Provider>
   );
 };

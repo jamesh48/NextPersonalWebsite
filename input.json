@@ -1,0 +1,40 @@
+[
+  {
+    "title": "Strava Results Generator",
+    "cssStyles": { "backgroundColor": "ivory", "color": "black" },
+    "imgUrl": "https://static.fullstackhrivnak.com/main/main-images/Strava_Results_Generator.jpg",
+    "github": [
+      {
+        "title": "Deployed Website",
+        "link": "https://www.stravareportgenerator.app"
+      },
+      {
+        "title": "Github",
+        "link": "https://github.com/jamesh48/Strava-Report-Generator"
+      }
+    ]
+  },
+  {
+    "title": "steammop.app",
+    "cssStyles": { "backgroundColor": "black", "color": "ivory" },
+    "imgUrl": "https://static.fullstackhrivnak.com/main/main-images/backendArchitecture.jpeg",
+    "github": [
+      {
+        "title": "Steammop.app Proxy Server",
+        "link": "https://github.com/rpt26-sdc-prototype/tim-proxy"
+      },
+      {
+        "title": "Steammop.app Reviews Service",
+        "link": "https://github.com/rpt26-sdc-prototype/tim-review-service"
+      },
+      {
+        "title": "Steammop.app Reviews Database",
+        "link": "https://github.com/rpt26-sdc-prototype/sdc-reviews-db"
+      },
+      {
+        "title": "Steammop.app App Server",
+        "link": "https://github.com/rpt26-sdc-prototype/app-server-1"
+      }
+    ]
+  }
+]
