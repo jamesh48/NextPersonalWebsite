@@ -4,7 +4,10 @@ import { useState } from 'react';
 interface ContactInputProps {
   labelName: string;
   inputType: string;
-  valCallback: (ev: React.ChangeEvent<HTMLInputElement>, ind: string) => void;
+  valCallback: (
+    ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ind: string
+  ) => void;
   indicator: string;
   localValue: string;
 }
