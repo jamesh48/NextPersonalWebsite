@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   getMobileBrowserState,
   getPortraitState,
@@ -5,13 +6,8 @@ import {
 } from '@app/appSlice';
 import { useDispatch, useSelector } from '@app/reduxHooks';
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
 import NestedGithubLink from './NestedGithubLink';
-import {
-  getHoveredIndexes,
-  getNestedContainerData,
-  setHoveredIndexes,
-} from './nestedSlice';
+import { getHoveredIndexes, setHoveredIndexes } from './nestedSlice';
 import { GithubEntry, PortfolioJSONEntry } from './portfolioTypes';
 
 import { handleNestedContainerData } from './publicViewPortfolioUtils';
@@ -26,9 +22,8 @@ const ApplicationImgContainer = (props: {
   const smallWindowState = useSelector(getSmallWindowState);
   const mobileBrowserState = useSelector(getMobileBrowserState);
   const [landScapeOrPortraitRenderData, setLandScapeOrPortraitRenderData] =
-    useState([[], []]);
+    useState([[], []] as GithubEntry[][][]);
   const [nestedIndicator, setNestedIndicator] = useState(false);
-  const nestedContainerData = useSelector(getNestedContainerData);
   const [hoveredColumn, hoveredRow] = useSelector(getHoveredIndexes);
 
   useEffect(() => {
@@ -42,7 +37,7 @@ const ApplicationImgContainer = (props: {
   useEffect(() => {
     const nestedRenderData = handleNestedContainerData(props.appData.github);
 
-    setLandScapeOrPortraitRenderData(nestedRenderData);
+    setLandScapeOrPortraitRenderData(nestedRenderData as GithubEntry[][][]);
   }, [smallWindowState, mobileBrowserState]);
 
   const renderData = portraitState
