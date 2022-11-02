@@ -1,7 +1,28 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { MarqueeInnerProps } from './marqueeTypes';
 
 const MCLandscape = (props: MarqueeInnerProps) => {
+  const bigSmile = useMediaQuery('(min-width:1600px) and (max-width: 1750px)');
+  const mediumSmile = useMediaQuery(
+    '(min-width:1300px) and (max-width: 1500px)'
+  );
+  const smallSmile = useMediaQuery(
+    '(min-width:1150px) and (max-width: 1300px)'
+  );
+
+  const smileFlex = (() => {
+    if (bigSmile) {
+      return 0.4;
+    }
+    if (mediumSmile) {
+      return 0.5;
+    }
+
+    if (smallSmile) {
+      return 0.6;
+    }
+    return 0.5;
+  })();
   return (
     <Box
       id="marquee-container"
@@ -55,6 +76,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
             <Box
               id="smile-container"
               sx={{
+                minHeight: '40rem',
                 backgroundImage: `url(${props.smileImage.url})`,
                 maxWidth: '50%',
                 minWidth: '27.5%',
@@ -64,7 +86,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
                 backgroundPositionX: '75%',
                 backgroundRepeat: 'no-repeat',
                 borderRadius: '50%',
-                flex: 0.4,
+                flex: smileFlex,
               }}
             />
           </Box>

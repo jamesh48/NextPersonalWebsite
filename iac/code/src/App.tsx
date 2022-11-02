@@ -8,9 +8,15 @@ import { mobileBrowserCheck, smallWindowCheck } from './shared/globalUtils';
 import styles from './styles/Home.module.scss';
 import { Box } from '@mui/material';
 import { useIsSsr } from 'shared/customHooks';
-import { appInitialState, setPortraitState } from '@app/appSlice';
+import {
+  appInitialState,
+  getMobileBrowserState,
+  getSmallWindowState,
+  setPortraitState,
+} from '@app/appSlice';
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from '@app/reduxHooks';
+import { useDispatch, useSelector } from '@app/reduxHooks';
+import Resume from 'features/Resume/Resume';
 
 const Home = (props: { portfolioJSON: {}[] }) => {
   const [smileLoaded, setSmileLoaded] = useState(false);
@@ -29,6 +35,9 @@ const Home = (props: { portfolioJSON: {}[] }) => {
   const smileCallback = useCallback(() => {
     setSmileLoaded(true);
   }, []);
+
+  const smallWindowState = useSelector(getSmallWindowState);
+  const mobileBrowserState = useSelector(getMobileBrowserState);
 
   return (
     <Box className={styles.container}>
@@ -54,6 +63,18 @@ const Home = (props: { portfolioJSON: {}[] }) => {
             data-name="About Me"
           >
             <MarqueeContainer smileCallback={smileCallback} />
+          </Box>
+
+          <Box
+            data-name="Resume"
+            id="resume-root"
+            className="container"
+            sx={{ minHeight: '90vh', display: 'flex', flexDirection: 'column' }}
+          >
+            <Resume
+              smallWindowState={smallWindowState}
+              mobileBrowserState={mobileBrowserState}
+            />
           </Box>
 
           <Box

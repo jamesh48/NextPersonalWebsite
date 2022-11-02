@@ -97,7 +97,6 @@ const MinesweeperHome = () => {
       >
         <p className="loading-indicator">Loading...</p>
       </Box>
-      <Script src="https://static.fullstackhrivnak.com/mines/build/public/public-bundle.js" />
     </Box>
   );
 };
