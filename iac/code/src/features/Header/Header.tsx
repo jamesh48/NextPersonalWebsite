@@ -27,9 +27,33 @@ const Header = () => {
           margin: '0 auto',
         }}
       >
-        <Tab label="Home" sx={{ backgroundColor: 'ivory' }} />
-        <Tab label="Minesweeper" sx={{ backgroundColor: 'ivory' }} />
-        <Tab label="Contact" sx={{ backgroundColor: 'ivory' }} />
+        <Tab
+          label="Home"
+          sx={{
+            backgroundColor: 'ivory',
+            flex: 1,
+            minWidth: 'unset',
+            maxWidth: 'unset',
+          }}
+        />
+        <Tab
+          label="Minesweeper"
+          sx={{
+            backgroundColor: 'ivory',
+            flex: 1,
+            minWidth: 'unset',
+            maxWidth: 'unset',
+          }}
+        />
+        <Tab
+          label="Contact"
+          sx={{
+            backgroundColor: 'ivory',
+            flex: 1,
+            minWidth: 'unset',
+            maxWidth: 'unset',
+          }}
+        />
       </Tabs>
     </>
   );

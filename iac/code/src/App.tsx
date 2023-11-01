@@ -59,7 +59,10 @@ const Home = (props: { portfolioJSON: {}[] }) => {
         >
           <Box
             id="about-me-root"
-            sx={{ height: '90vh', paddingBottom: '5%' }}
+            sx={{
+              height: '90vh',
+              paddingBottom: '5%',
+            }}
             data-name="About Me"
           >
             <MarqueeContainer smileCallback={smileCallback} />
