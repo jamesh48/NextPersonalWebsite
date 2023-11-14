@@ -7,6 +7,7 @@ import {
   getHoverParams,
   updateHoverParams,
 } from './resumeSlice';
+import { useEffectOnlyOnUpdate } from '@shared/customHooks';
 import { Box, Typography } from '@mui/material';
 import { keyframes } from '@emotion/react';
 
@@ -39,25 +40,6 @@ const collapseTitleContainer = keyframes`
     padding: 0 0;
   }
 `;
-
-// import { useResumeContext } from 'ResumeStore';
-
-// https://www.robinwieruch.de/react-useeffect-only-on-update
-const useEffectOnlyOnUpdate = (
-  callback: (args: any) => void,
-  dependencies: any[],
-  args: any
-) => {
-  const didMount = React.useRef(false);
-
-  React.useEffect(() => {
-    if (didMount.current) {
-      callback(args);
-    } else {
-      didMount.current = true;
-    }
-  }, [...dependencies]);
-};
 
 interface IterateContainersProps {
   resumeDetails: {

@@ -139,3 +139,22 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+#cursor {
+  pointer-events: none !important;
+  z-index: 1;
+  height: 20px;
+  width: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+* {
+  cursor: none !important;
+}

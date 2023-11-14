@@ -6,6 +6,8 @@ import Header from '../features/Header/Header';
 import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import { useEffectOnlyOnUpdate, useIsSsr } from '@shared/customHooks';
+import { handleMouseMove, mobileBrowserCheck } from '@shared/globalUtils';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -33,6 +35,25 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       router.events.off('routeChangeStart', handleRouteChange);
     };
   }, []);
+
+  const isSsr = useIsSsr();
+  // Cursor
+  // Only on update prevents two events listeners from being added on initial render
+  useEffectOnlyOnUpdate(
+    () => {
+      const mobileBrowserState = mobileBrowserCheck();
+      if (mobileBrowserState) {
+        window.removeEventListener('mousemove', handleMouseMove, true);
+        // If it exists remove it, if it doesn't exist (initial page load), skip...
+        if (document.getElementById('cursor')) {
+          document.getElementById('cursor')?.remove();
+        }
+      }
+      window.addEventListener('mousemove', handleMouseMove, true);
+    },
+    [isSsr],
+    []
+  );
 
   // useEffect(() => {
   //   if (router.pathname !== '/fullstack/minesweeper') {

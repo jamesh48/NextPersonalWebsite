@@ -23,3 +23,22 @@ export const smallWindowCheck = () => {
 };
 
 export const portraitModeCheck = () => {};
+
+export const handleMouseMove = (event: MouseEvent) => {
+  if (!document.getElementById('cursor')) {
+    const newCursor = document.createElement('div');
+    newCursor.id = 'cursor';
+    newCursor.style.backgroundImage = `url(https://static.fullstackhrivnak.com/main/main-images/cursor.png)`;
+    document.querySelector('body')?.appendChild(newCursor);
+  }
+
+  const scrollYOffset = window.scrollY;
+  const x = event.clientX;
+  const y = event.clientY;
+
+  let cursor = document.getElementById('cursor');
+  if (cursor) {
+    cursor.style.left = x + 'px';
+    cursor.style.top = scrollYOffset + y + 'px';
+  }
+};

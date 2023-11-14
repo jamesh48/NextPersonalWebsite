@@ -7,7 +7,7 @@ import PortfolioCarousel from './features/Portfolio/PortfolioCarousel/Carousel';
 import { mobileBrowserCheck, smallWindowCheck } from './shared/globalUtils';
 import styles from './styles/Home.module.scss';
 import { Box } from '@mui/material';
-import { useIsSsr } from 'shared/customHooks';
+import { useIsSsr } from '@shared/customHooks';
 import {
   appInitialState,
   getMobileBrowserState,
