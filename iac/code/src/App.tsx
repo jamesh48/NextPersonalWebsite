@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import PortfolioJSON from '../Data/PortfolioDataJSON';
+import PortfolioJSON from './Data/PortfolioDataJSON';
 import { Provider } from 'react-redux';
 import GlobalStore from '@app/store';
 import MarqueeContainer from './features/Marquee/MarqueeContainer';
