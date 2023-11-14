@@ -5,7 +5,7 @@ interface HandleFadingClassNamesProps {
   hoverDepth: number;
   mobileBrowser: boolean;
   itrDepth: number;
-  hoveredIndex: number;
+  hoveredIndex: number | string;
 }
 
 const handleFadingClassNames = ({

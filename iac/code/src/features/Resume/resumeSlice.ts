@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
 interface ResumeInitialState {
-  hoverParams: (null | number)[];
+  hoverParams: [null | number, number | string | null];
 }
 const resumeInitialState: ResumeInitialState = {
   hoverParams: [null, null],
@@ -15,7 +15,10 @@ export const resumeSlice = createSlice({
     exitHoverParams: (state) => {
       state.hoverParams = [null, null];
     },
-    updateHoverParams: (state, action: PayloadAction<(null | number)[]>) => {
+    updateHoverParams: (
+      state,
+      action: PayloadAction<[null | number, number | string]>
+    ) => {
       state.hoverParams = action.payload;
     },
   },

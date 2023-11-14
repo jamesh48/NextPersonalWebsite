@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
+import React from 'react';
 
 interface PublicDisplayContainerProps {
   displayItem: string;
   depth: number;
-  breadth: number;
+  breadth: string | number;
 }
-
 const PublicDisplayContainer = (props: PublicDisplayContainerProps) => (
   <Typography
     variant="h6"
