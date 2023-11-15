@@ -1,6 +1,6 @@
 const cFLink = process.env.NEXT_PUBLIC_CLOUDFRONTLINK;
 
-export default [
+const portfolioDataJson = [
   {
     title: 'fullstackhrivnak.com',
     cssStyles: {
@@ -110,3 +110,5 @@ export default [
     ],
   },
 ];
+
+export default portfolioDataJson;

@@ -17,6 +17,8 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '@app/reduxHooks';
 import Resume from './features/Resume/Resume';
+import Footer from './features/FooterComponents/Footer';
+import footerJSON from './Data/footerJSON';
 
 const Home = (props: { portfolioJSON: {}[] }) => {
   const [smileLoaded, setSmileLoaded] = useState(false);
@@ -98,8 +100,9 @@ const Home = (props: { portfolioJSON: {}[] }) => {
           </Box>
         </Box>
       </main>
-
-      <footer className={styles.footer}></footer>
+      <footer id="footerroot">
+        <Footer footerJSON={footerJSON} />
+      </footer>
     </Box>
   );
 };

@@ -46,7 +46,7 @@ interface IterateContainersProps {
     title: string;
     detail: {
       title: string;
-      detail: { title: string; detail: [] }[];
+      detail: { title: string; detail: { title: string }[] }[];
       highlightDetail: { title: string }[];
     }[];
   }[];
@@ -420,7 +420,7 @@ interface IterateSectionsProps {
   touchStartPosition: number | null;
   sections: {
     title: string;
-    detail: { title: string; detail: [] }[];
+    detail: { title: string; detail: { title: string }[] }[];
     highlightDetail: { title: string }[];
   }[];
 }
@@ -651,7 +651,7 @@ const IterateSections = (props: IterateSectionsProps) => {
 };
 
 interface IterateDetailsProps {
-  details: { title: string; detail: [] }[];
+  details: { title: string; detail: { title: string }[] }[];
   hoveredIndex: string;
   mobileBrowser: boolean;
   prevTitle: React.MutableRefObject<HTMLElement>;
