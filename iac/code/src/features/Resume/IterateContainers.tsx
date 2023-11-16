@@ -20,6 +20,28 @@ const myEffect = keyframes`
   }
 `;
 
+const disappearTextOnly = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+`;
+
+export const disappearSlidingText = keyframes`
+  0% {
+    opacity: 0.5;
+    max-height: 4em;
+  }
+
+  100% {
+    opacity: 0;
+    max-height: 0rem;
+  }
+`;
+
 const fadeOut = keyframes`
   0% {
     opacity: 1;
@@ -38,6 +60,15 @@ const collapseTitleContainer = keyframes`
   }
   100% {
     padding: 0 0;
+  }
+`;
+
+const initFade = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 `;
 
@@ -180,6 +211,12 @@ const IterateContainers = (props: IterateContainersProps) => {
 
               const testedHoveredIndex = titleIndex;
 
+              const initTitleFadeInCondition =
+                hoverBreadth === null && !prevTitle.current;
+
+              if (initTitleFadeInCondition) {
+                return { animation: `${initFade} ease 3s` };
+              }
               if (hoverDepth === 0) {
                 const fadeInTitleOnTitleChangeCondition =
                   titleIndex &&
@@ -313,12 +350,34 @@ const IterateContainers = (props: IterateContainersProps) => {
             (!hoverDepth || !hoverBreadth) && hoverBreadth !== 0 ? (
               <>
                 <Box
-                  className={`publicColumnContainerTitle ${
-                    prevTitle?.current?.dataset?.titleindex ===
-                    String(titleIndex)
-                      ? 'collapseTitleContainer'
-                      : null
-                  }`}
+                  className="publicColumnContainerTitle"
+                  sx={{
+                    padding: '2% 0',
+                    display: 'flex',
+                    width: '25%',
+                    justifyContent: 'center',
+                    h6: {
+                      display: 'flex',
+                      justifyContent: 'center',
+                      margin: '0 auto',
+                      flex: 1,
+                      alignSelf: 'center',
+                      fontSize: '1.5rem',
+                      color: 'ivory',
+                      textAlign: 'center',
+
+                      // ...(() => {
+                      //   if (
+                      //     prevTitle?.current?.dataset?.titleindex ===
+                      //     String(titleIndex)
+                      //   ) {
+                      //     return {
+                      //       animation: `${myEffect} ease 3s forwards`,
+                      //     };
+                      //   }
+                      // })(),
+                    },
+                  }}
                 >
                   <PublicDisplayContainer
                     key={titleIndex}
@@ -327,7 +386,7 @@ const IterateContainers = (props: IterateContainersProps) => {
                     depth={0}
                   />
                 </Box>
-                <div
+                <Box
                   className="publicColumnContainer"
                   data-breadth={titleIndex}
                   data-depth={1}
@@ -335,6 +394,11 @@ const IterateContainers = (props: IterateContainersProps) => {
                     !mobileBrowser && hoverDebouncer ? handleHover : () => {}
                   }
                   onTouchEnd={mobileBrowser ? handleHover : () => {}}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                  }}
                 >
                   {prevTitle?.current?.dataset?.titleindex ===
                   String(titleIndex)
@@ -344,7 +408,7 @@ const IterateContainers = (props: IterateContainersProps) => {
                         ...defaultParams,
                       })
                     : null}
-                </div>
+                </Box>
               </>
             ) : null
           }
@@ -357,29 +421,74 @@ const IterateContainers = (props: IterateContainersProps) => {
 interface IterateDisappearingSectionsProps {
   sections: { title: string }[];
   titleIndex: number;
+  hoverDepth: number | null;
+  hoverBreadth: string | number | null;
 }
 
 const iterateDisappearingSections = (
   props: IterateDisappearingSectionsProps
 ) => {
   return props.sections.reduce((resultSections, section, sectionIndex) => {
-    // const hoveredIndex = `${props.titleIndex}_${sectionIndex}`;
+    const hoveredIndex = `${props.titleIndex}_${sectionIndex}`;
     return resultSections.concat(
-      <Box className={`resumeParentContainer faderContainerSection`}>
+      <Box
+        className={`resumeParentContainer faderContainerSection`}
+        sx={{
+          animation: `${disappearTextOnly} ease 3s forwards`,
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+        }}
+      >
         <Box
-        // className={hFCN({
-        //   existing: `publicContainerRow publicChildContainerRow`,
-        //   itrDepth: 1,
-        //   hoveredIndex,
-        //   ...props,
-        // })}
+          sx={{
+            display: 'flex',
+            margin: '0 1%',
+            flexDirection: 'column',
+            ...(() => {
+              if (props.hoverDepth === 1) {
+                const testedHoverBreadth =
+                  typeof props.hoverBreadth === 'string'
+                    ? props.hoverBreadth.split('_').map((x) => Number(x))
+                    : props.hoverBreadth;
+                const testedHoveredIndex =
+                  typeof hoveredIndex === 'string'
+                    ? hoveredIndex.split('_').map((y) => Number(y))
+                    : hoveredIndex;
+
+                const sectionPersistOnSelectCondition =
+                  // Selected Section Matches (array of numbers does not prove deep equality)
+                  Array.isArray(testedHoverBreadth) &&
+                  testedHoverBreadth.join('_') === testedHoveredIndex.join('_');
+
+                if (sectionPersistOnSelectCondition) {
+                  return { animation: `${myEffect} ease 3s` };
+                }
+
+                const sectionFadeOutOnSiblingSelectCondition =
+                  Array.isArray(testedHoverBreadth) &&
+                  testedHoverBreadth.join('_') !== testedHoveredIndex.join('_');
+
+                if (sectionFadeOutOnSiblingSelectCondition) {
+                  return { animation: `${fadeOut} ease 2s` };
+                }
+              }
+              return {};
+            })(),
+          }}
+          // className={hFCN({
+          //   existing: `publicContainerRow publicChildContainerRow`,
+          //   itrDepth: 1,
+          //   hoveredIndex,
+          //   ...props,
+          // })}
         >
           <Box
             className="publicColumnContainerSection"
             sx={{
               fontSize: '1.4vmax',
               display: 'flex',
-              width: '25%',
+              width: '100%',
               justifyContent: 'center',
               h6: {
                 display: 'flex',
@@ -464,6 +573,9 @@ const IterateSections = (props: IterateSectionsProps) => {
             display: 'flex',
             flexDirection: 'column',
             ...(() => {
+              if (props.hoverBreadth === null && !props.prevTitle.current) {
+                return { animation: `${initFade} 3s ease` };
+              }
               if (props.hoverDepth === 1) {
                 const testedHoverBreadth =
                   typeof hoverBreadth === 'string'
@@ -566,6 +678,13 @@ const IterateSections = (props: IterateSectionsProps) => {
                 // })}
                 ref={props.loadedSections}
                 data-dex={sectionIndex}
+                sx={{
+                  ...(() => {
+                    if (props.hoverDepth === 1) {
+                      return { animation: `${myEffect} 3s ease` };
+                    }
+                  })(),
+                }}
               >
                 <Typography
                   variant="h5"
@@ -596,11 +715,6 @@ const IterateSections = (props: IterateSectionsProps) => {
               sx={{
                 padding: '0 0',
                 margin: '0 0',
-                '.publicColumnContainer .resumeParentContainer, .minorContainer':
-                  {
-                    // overflow-block: visible;
-                    animation: 'disappearText ease 1s forwards',
-                  },
               }}
             >
               <Box
@@ -608,7 +722,6 @@ const IterateSections = (props: IterateSectionsProps) => {
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  // border: 1px solid white;
                   width: '100%',
                 }}
               >
@@ -621,7 +734,12 @@ const IterateSections = (props: IterateSectionsProps) => {
                   'cancel'
                 )}
               </Box>
-              <Box className="minorContainer">
+              <Box
+                className="minorContainer"
+                sx={{
+                  animation: `${disappearSlidingText} ease 1s forwards`,
+                }}
+              >
                 <Typography
                   variant="h5"
                   className="minorContainerTitle"

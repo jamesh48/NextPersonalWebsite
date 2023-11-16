@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import PublicDisplayContainer from './PublicDisplayContainer';
+import { disappearSlidingText } from './IterateContainers';
 
 interface DetailContainerProps {
   detail: { title: string };
@@ -23,6 +24,11 @@ const DetailContainer = ({
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
+        ...(() => {
+          if (ind === 'cancel') {
+            return { animation: `${disappearSlidingText} ease 1s forwards` };
+          }
+        })(),
       }}
     >
       <Box

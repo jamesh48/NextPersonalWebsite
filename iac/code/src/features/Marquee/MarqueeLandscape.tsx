@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Typography, useMediaQuery } from '@mui/material';
 import { MarqueeInnerProps } from './marqueeTypes';
 
 const MCLandscape = (props: MarqueeInnerProps) => {
@@ -60,6 +60,13 @@ const MCLandscape = (props: MarqueeInnerProps) => {
               >
                 {props.paragraphOne}
               </Typography>
+              <Divider
+                sx={{
+                  background: 'ivory',
+                  marginY: '1rem',
+                  visibility: 'hidden',
+                }}
+              />
               <Typography
                 id="about-me-marquee-description-2"
                 sx={{

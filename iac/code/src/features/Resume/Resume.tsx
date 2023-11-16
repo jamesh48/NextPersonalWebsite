@@ -28,7 +28,9 @@ const Resume = (props: ResumeProps) => {
       </Typography>
       <Box
         className="resumeUIContainer"
-        onMouseLeave={() => dispatch(exitHoverParams)}
+        onMouseLeave={() => {
+          dispatch(exitHoverParams());
+        }}
         sx={{
           margin: '1% 0',
           height: '100%',
