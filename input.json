@@ -2,7 +2,7 @@
   {
     "title": "Strava Results Generator",
     "cssStyles": { "backgroundColor": "ivory", "color": "black" },
-    "imgUrl": "https://static.fullstackhrivnak.com/main/main-images/Strava_Results_Generator.jpg",
+    "imgUrl": "https://d1y3bjxf7c78hf.cloudfront.net/main/main-images/Strava_Results_Generator.jpg",
     "github": [
       {
         "title": "Deployed Website",
@@ -17,7 +17,7 @@
   {
     "title": "steammop.app",
     "cssStyles": { "backgroundColor": "black", "color": "ivory" },
-    "imgUrl": "https://static.fullstackhrivnak.com/main/main-images/backendArchitecture.jpeg",
+    "imgUrl": "https://d1y3bjxf7c78hf.cloudfront.net/main/main-images/backendArchitecture.jpeg",
     "github": [
       {
         "title": "Steammop.app Proxy Server",
