@@ -28,7 +28,7 @@ export const handleMouseMove = (event: MouseEvent) => {
   if (!document.getElementById('cursor')) {
     const newCursor = document.createElement('div');
     newCursor.id = 'cursor';
-    newCursor.style.backgroundImage = `url(https://static.fullstackhrivnak.com/main/main-images/cursor.png)`;
+    newCursor.style.backgroundImage = `url(https://d1y3bjxf7c78hf.cloudfront.net/main/main-images/cursor.png)`;
     document.querySelector('body')?.appendChild(newCursor);
   }
 

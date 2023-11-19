@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         const script = document.createElement('script');
 
         script.src =
-          'https://static.fullstackhrivnak.com/mines/build/public/public-bundle.js';
+          'https://d1y3bjxf7c78hf.cloudfront.net/mines/build/public/public-bundle.js';
         script.async = true;
         document.body.appendChild(script);
       }
@@ -73,7 +73,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="stylesheet"
-          href="https://static.fullstackhrivnak.com/mines/build/public/index.css"
+          href="https://d1y3bjxf7c78hf.cloudfront.net/mines/build/public/index.css"
         />
         <link
           rel="preconnect"
@@ -85,7 +85,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Header />
 
       <Component {...(pageProps as AppProps['pageProps'])} />
-      <Script src="https://static.fullstackhrivnak.com/mines/build/public/public-bundle.js" />
+      <Script src="https://d1y3bjxf7c78hf.cloudfront.net/mines/build/public/public-bundle.js" />
     </>
   );
 };

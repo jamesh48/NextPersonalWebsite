@@ -28,7 +28,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setPortraitState } = appSlice.actions;
+export const { setPortraitState, setMobileBrowserState } = appSlice.actions;
 
 export const getMobileBrowserState = (state: RootState) =>
   state.app.mobileBrowserState;

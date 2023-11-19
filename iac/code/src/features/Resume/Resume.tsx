@@ -1,14 +1,18 @@
-import { useDispatch } from '@app/reduxHooks';
-import { Box, Typography } from '@mui/material';
+import { useDispatch, useSelector } from '@app/reduxHooks';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import resumeDetails from '../../Data/Resume.json';
 import IterateContainers from './IterateContainers';
 import { exitHoverParams } from './resumeSlice';
+import { getMobileBrowserState } from '@app/appSlice';
 interface ResumeProps {
   smallWindowState: boolean;
   mobileBrowserState: boolean;
 }
 const Resume = (props: ResumeProps) => {
   const dispatch = useDispatch();
+  const mobileBrowserState = useSelector(getMobileBrowserState);
+  const landscapeOrientation = useMediaQuery('(orientation: landscape)');
+  const portraitOrientation = useMediaQuery('(orientation: portrait)');
   return (
     <Box
       className="resumeContainer"
@@ -22,7 +26,20 @@ const Resume = (props: ResumeProps) => {
     >
       <Typography
         className="resumeContainerTitle"
-        sx={{ alignSelf: 'center', padding: '5% 0', fontSize: '3rem' }}
+        sx={{
+          alignSelf: 'center',
+          padding: '5% 0',
+          fontSize: mobileBrowserState ? '2.5vmax' : '3rem',
+          ...(() => {
+            if (landscapeOrientation) {
+              return { marginBottom: '5%' };
+            }
+            if (portraitOrientation) {
+              return { paddingBottom: 0 };
+            }
+            return {};
+          })(),
+        }}
       >
         Resume
       </Typography>
@@ -32,14 +49,14 @@ const Resume = (props: ResumeProps) => {
           dispatch(exitHoverParams());
         }}
         sx={{
-          margin: '1% 0',
+          margin: mobileBrowserState ? '5% 0' : '1% 0',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
         }}
       >
         {IterateContainers({
-          mobileBrowser: false,
+          mobileBrowser: mobileBrowserState,
           resumeDetails: resumeDetails,
         })}
       </Box>

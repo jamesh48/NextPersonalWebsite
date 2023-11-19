@@ -13,7 +13,11 @@ import {
 } from '@app/appSlice';
 import { getSmileImage, setSmileImage } from './marqueeSlice';
 import { Box, Typography } from '@mui/material';
-import { MarqueeContainerProps, SmileImageProps } from './marqueeTypes';
+import { SmileImageProps } from './marqueeTypes';
+
+export interface MarqueeContainerProps {
+  smileCallback: () => void;
+}
 
 const MarqueeContainer = (props: MarqueeContainerProps) => {
   const dispatch = useDispatch();
@@ -73,10 +77,13 @@ const MarqueeContainer = (props: MarqueeContainerProps) => {
    OR--
   Load Portrait mode if its a browser and a small window
   */
+  const mobileBrowserWithPortrait = mobileBrowserState && portraitState;
+  const notMobileBrowserAndSmallWindow =
+    !mobileBrowserState && smallWindowState;
+
   const portraitMode =
     smileImage.loaded &&
-    ((mobileBrowserState && portraitState) ||
-      (!mobileBrowserState && smallWindowState));
+    (mobileBrowserWithPortrait || notMobileBrowserAndSmallWindow);
 
   return portraitMode ? (
     <MCPortrait

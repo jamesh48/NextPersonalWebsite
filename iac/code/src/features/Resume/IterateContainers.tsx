@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DetailContainer from './DetailContainer';
 import PublicDisplayContainer from './PublicDisplayContainer';
 import { useDispatch, useSelector } from '@app/reduxHooks';
@@ -251,12 +251,12 @@ const IterateContainers = (props: IterateContainersProps) => {
             display: 'flex',
             '&:hover .publicColumnContainerTitle': {
               // height: 100%;
-              border: '1px solid lightslategray',
-              backgroundColor: 'ivory',
+              border: mobileBrowser ? 'none' : '1px solid lightslategray',
+              backgroundColor: mobileBrowser ? 'transparent' : 'ivory',
               marginLeft: '0.5%',
               h6: {
-                padding: '100% 0',
-                color: 'darkslategray',
+                padding: mobileBrowser ? '100% 10%' : '100% 0',
+                color: mobileBrowser ? 'ivory' : 'darkslategray',
               },
             },
           }}
@@ -294,6 +294,15 @@ const IterateContainers = (props: IterateContainersProps) => {
                       h6: {
                         padding: '100% 0',
                         color: 'darkslategray',
+                        ...(() => {
+                          if (mobileBrowser) {
+                            return {
+                              padding: '100% 0',
+                              fontSize: '2em',
+                              lineHeight: 1.5,
+                            };
+                          }
+                        })(),
                       },
                     },
                   }}
@@ -548,14 +557,20 @@ const IterateSections = (props: IterateSectionsProps) => {
           display: 'flex',
           flex: 1,
           flexDirection: 'column',
+
+          h6: mobileBrowser
+            ? {
+                textAlign: 'center',
+              }
+            : null,
           '&:hover': {
             '.publicColumnContainerSection': {
-              border: '1px solid lightslategrey',
+              border: mobileBrowser ? 'none' : '1px solid lightslategrey',
               h6: {
                 padding: '0 0',
-                lineHeight: 3,
-                backgroundColor: 'ivory !important',
-                color: 'darkslategrey !important',
+                lineHeight: mobileBrowser ? 1.5 : 3,
+                backgroundColor: mobileBrowser ? 'transparent' : 'ivory',
+                color: mobileBrowser ? 'ivory' : 'darkslategrey',
               },
             },
           },
@@ -625,12 +640,27 @@ const IterateSections = (props: IterateSectionsProps) => {
               display: 'flex',
               width: '100%',
               justifyContent: 'center',
+              ...(() => {
+                if (mobileBrowser) {
+                  return { margin: '0 2%' };
+                }
+              })(),
               h6: {
                 display: 'flex',
                 justifyContent: 'center',
                 margin: '0 auto',
                 flex: 1,
                 alignSelf: 'center',
+                ...(() => {
+                  if (mobileBrowser) {
+                    return {
+                      fontSize: '1.2rem',
+                      color: 'ivory',
+                      height: '5rem',
+                      alignItems: 'center',
+                    };
+                  }
+                })(),
               },
               '&:hover': {
                 // border: 1px solid lightslategrey;

@@ -13,16 +13,14 @@ function Footer(props: FooterProps) {
   const [images, setImages] = React.useState([
     { url: '', loaded: false, iconLink: '' },
   ]);
+  const [mb, setMb] = React.useState(false);
   const [isLoaded, setIsLoaded] = React.useState(false);
   // const [{ mobileBrowser }, globalDispatch] = useGlobalContext();
 
   //Set Mobile Browser
-  const mobileBrowser = mobileBrowserCheck();
   React.useEffect(() => {
-    // globalDispatch({
-    //   type: 'TOGGLE MOBILE BROWSER',
-    //   payload: !!mobileBrowserTest,
-    // });
+    const mobileBrowser = mobileBrowserCheck();
+    setMb(mobileBrowser);
   }, []);
 
   const incrementImageLoad = (i: number) => {
@@ -58,15 +56,13 @@ function Footer(props: FooterProps) {
     <Box
       id="footerContainer"
       className={
-        mobileBrowser
-          ? `footer-container footer-container--Mobile`
-          : `footer-container`
+        mb ? `footer-container footer-container--Mobile` : `footer-container`
       }
       sx={{
         display: 'flex',
         justifyContent: 'center',
         height: '5vh',
-        width: '75%',
+        width: mb ? '90%' : '75%',
         margin: '0 auto',
       }}
     >

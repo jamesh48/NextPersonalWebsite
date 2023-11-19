@@ -6,12 +6,13 @@ import MarqueeContainer from './features/Marquee/MarqueeContainer';
 import PortfolioCarousel from './features/Portfolio/PortfolioCarousel/Carousel';
 import { mobileBrowserCheck, smallWindowCheck } from './shared/globalUtils';
 import styles from './styles/Home.module.scss';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { useIsSsr } from '@shared/customHooks';
 import {
   appInitialState,
   getMobileBrowserState,
   getSmallWindowState,
+  setMobileBrowserState,
   setPortraitState,
 } from '@app/appSlice';
 import { useCallback, useEffect, useState } from 'react';
@@ -25,14 +26,24 @@ const Home = (props: { portfolioJSON: {}[] }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const portraitEventListener = (event: MediaQueryListEvent) => {
-      dispatch(setPortraitState(event.matches));
-    };
-    const mediaQueryList = window.matchMedia('(orientation: portrait)');
-    mediaQueryList.addEventListener('change', portraitEventListener);
-    return () =>
-      mediaQueryList.removeEventListener('change', portraitEventListener);
-  }, [dispatch]);
+    dispatch(setMobileBrowserState(mobileBrowserCheck()));
+  }, []);
+
+  const initPortraitState = useMediaQuery('(orientation: portrait)');
+
+  useEffect(() => {
+    dispatch(setPortraitState(initPortraitState));
+  }, [initPortraitState]);
+
+  // useEffect(() => {
+  //   const portraitEventListener = (event: MediaQueryListEvent) => {
+  //     dispatch(setPortraitState(event.matches));
+  //   };
+  //   const mediaQueryList = window.matchMedia('(orientation: portrait)');
+  //   mediaQueryList.addEventListener('change', portraitEventListener);
+  //   return () =>
+  //     mediaQueryList.removeEventListener('change', portraitEventListener);
+  // }, [dispatch]);
 
   const smileCallback = useCallback(() => {
     setSmileLoaded(true);
@@ -56,14 +67,31 @@ const Home = (props: { portfolioJSON: {}[] }) => {
             display: 'flex',
             flexDirection: 'column',
             margin: '0 auto',
-            width: '75%',
+            width: mobileBrowserState ? '90%' : '75%',
           }}
         >
           <Box
             id="about-me-root"
             sx={{
-              height: '90vh',
               paddingBottom: '5%',
+              ...(() => {
+                if (mobileBrowserState) {
+                  return {
+                    minHeight: '90vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                  };
+                }
+                if (smallWindowState) {
+                  return {
+                    minHeight: '180vh',
+                    height: 'unset',
+                  };
+                }
+                return {
+                  height: '90vh',
+                };
+              })(),
             }}
             data-name="About Me"
           >
