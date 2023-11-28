@@ -3,3 +3,5 @@ declare global {
     __INITIAL__DATA__: any;
   }
 }
+
+export {};
