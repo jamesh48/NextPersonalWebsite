@@ -1,10 +1,5 @@
 import { Box, Typography, useMediaQuery } from '@mui/material';
-
-interface MarqueeInnerProps {
-  smileImage: { url: string };
-  paragraphOne: string;
-  paragraphTwo: string;
-}
+import { MarqueeInnerProps } from './marqueeTypes';
 
 const MCPortrait = (props: MarqueeInnerProps) => {
   const portraitOrientation = useMediaQuery('(orientation: portrait)');

@@ -3,3 +3,9 @@ export interface SmileImageProps {
   url: string;
   title: string;
 }
+
+export interface MarqueeInnerProps {
+  smileImage: { url: string };
+  paragraphOne: string;
+  paragraphTwo: string;
+}

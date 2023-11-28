@@ -6,21 +6,48 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
+interface PersonalWebsiteStackProps extends cdk.StackProps {
+  aws_env: {
+    AWS_ACM_CERTIFICATE_ARN: string;
+    AWS_CLUSTER_ARN: string;
+    AWS_DEFAULT_SG: string;
+    AWS_VPC_ID: string;
+  };
+  svc_env: {
+    SVC_CLOUDFRONT_LINK: string;
+  };
+}
+
 export class PersonalWebsiteStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: PersonalWebsiteStackProps) {
     super(scope, id, props);
 
     const _fshService = new ecsPatterns.ApplicationLoadBalancedFargateService(
       this,
       'fsh-fullstack-hrivnak-alb',
       {
-        vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc', {
-          vpcId: 'vpc-081edc60bd2157d7e',
-        }),
         certificate: acm.Certificate.fromCertificateArn(
           this,
           'fsh-imported-certificate',
-          'arn:aws:acm:us-east-1:471507967541:certificate/a1bf61c4-5380-40b8-99a5-4c0bf7d3212e'
+          props.aws_env.AWS_ACM_CERTIFICATE_ARN
+        ),
+        cluster: ecs.Cluster.fromClusterAttributes(
+          this,
+          'fsh-imported-cluster',
+          {
+            securityGroups: [
+              ec2.SecurityGroup.fromSecurityGroupId(
+                this,
+                'imported-default-sg',
+                props.aws_env.AWS_DEFAULT_SG
+              ),
+            ],
+            clusterName: 'jh-e1-ecs-cluster',
+            clusterArn: props.aws_env.AWS_CLUSTER_ARN,
+            vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc', {
+              vpcId: props.aws_env.AWS_VPC_ID,
+            }),
+          }
         ),
         loadBalancerName: 'fsh-fullstack-hrivnak-alb',
         redirectHTTP: true,
@@ -37,7 +64,7 @@ export class PersonalWebsiteStack extends cdk.Stack {
             'jh-ecs-task-execution-role'
           ),
           environment: {
-            NEXT_PUBLIC_CLOUDFRONTLINK: 'https://d1y3bjxf7c78hf.cloudfront.net',
+            NEXT_PUBLIC_CLOUDFRONTLINK: props.svc_env.SVC_CLOUDFRONT_LINK,
           },
         },
         capacityProviderStrategies: [
