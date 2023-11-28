@@ -3,7 +3,6 @@ FROM node:lts-alpine AS deps
 
 WORKDIR /opt/fsh-app
 COPY package*.json ./
-COPY environment.d.ts ./
 RUN npm ci
 
 # Rebuild the source code only when needed
@@ -16,7 +15,7 @@ ENV NODE_ENV=production
 WORKDIR /opt/fsh-app
 COPY . .
 COPY --from=deps /opt/fsh-app/node_modules ./node_modules
-COPY --from=deps /opt/fsh-app/environment.d.ts ./
+RUN ls -ltr
 RUN npm run build
 
 # Production image, copy all the files and run next
