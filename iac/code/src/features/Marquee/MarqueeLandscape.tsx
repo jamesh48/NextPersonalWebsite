@@ -27,7 +27,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
     <Box
       id="marquee-container"
       className={`portfolioFader`}
-      sx={{ display: 'flex', height: '90vh', alignItems: 'center' }}
+      sx={{ display: 'flex' }}
     >
       <Box sx={{ height: '100%' }} id="about-me-marquee-details">
         <Typography
@@ -45,7 +45,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
         <Box>
           <Box id="marquee-contents" sx={{ display: 'flex' }}>
             <Box
-              sx={{ display: 'flex', flexDirection: 'column', flex: 0.9 }}
+              sx={{ display: 'flex', flexDirection: 'column' }}
               id="marquee-paragraphs"
             >
               <Typography

@@ -89,7 +89,7 @@ const Home = (props: { portfolioJSON: {}[] }) => {
                   };
                 }
                 return {
-                  height: '90vh',
+                  minHeight: '90vh',
                 };
               })(),
             }}
