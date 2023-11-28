@@ -88,7 +88,7 @@ const ContactForm = (props: { mobileBrowser: boolean }) => {
 
               <ContactDescription
                 title="E-Mail"
-                descriptor="james@fullstackhrivnak.com"
+                descriptor="jameshrivnak4@gmail.com"
               />
               <ContactDescription title="Phone" descriptor="303-517-2085" />
             </List>
