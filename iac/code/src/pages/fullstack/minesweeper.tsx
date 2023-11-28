@@ -12,8 +12,8 @@ import { Provider } from 'react-redux';
 const MinesweeperHome = () => {
   const _mobileBrowserState = useSelector(getMobileBrowserState);
   const [_isIpad, setIsIpad] = useState(false);
+
   useEffect(() => {
-    window.__INITIAL__DATA__ = {};
     if (navigator.userAgent.match(/iPad/i)) {
       setIsIpad(true);
     }
