@@ -29,6 +29,7 @@ COPY --from=builder /opt/fsh-app/public ./public
 COPY --from=builder /opt/fsh-app/build ./build
 COPY --from=builder /opt/fsh-app/package*.json ./
 COPY --from=builder /opt/fsh-app/node_modules ./node_modules
+COPY --from=builder /opt/fsh-app/environment.d.ts ./
 
 EXPOSE 80
 ENV PORT 80

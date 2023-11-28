@@ -1,4 +1,7 @@
 declare global {
+  interface Window {
+    __INITIAL__DATA__: {};
+  }
   namespace NodeJS {
     interface ProcessEnv {
       AWS_ACCOUNT_NUMBER: string | undefined;
