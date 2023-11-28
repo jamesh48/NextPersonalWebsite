@@ -31,4 +31,4 @@ jobs:
       - name: Deploy to AWS
         run: |
           ls -ltr;
-          cdk deploy --app="${PWD}/iac/bin/iac.ts" --require-approval=never
+          cdk deploy --app=iac/bin/iac.ts --require-approval=never
