@@ -1,5 +1,5 @@
-import Script from 'next/script';
-import Link from 'next/link';
+// import Script from 'next/script';
+// import Link from 'next/link';
 import { appInitialState, getMobileBrowserState } from '@app/appSlice';
 import { useSelector } from '@app/reduxHooks';
 import GlobalStore from '@app/store';

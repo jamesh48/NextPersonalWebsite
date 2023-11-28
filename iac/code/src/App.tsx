@@ -90,6 +90,8 @@ const Home = (props: { portfolioJSON: {}[] }) => {
                 }
                 return {
                   minHeight: '90vh',
+                  display: 'flex',
+                  alignItems: 'center',
                 };
               })(),
             }}
