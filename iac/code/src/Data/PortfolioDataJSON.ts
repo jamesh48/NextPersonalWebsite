@@ -2,7 +2,21 @@ const cFLink = process.env.NEXT_PUBLIC_CLOUDFRONTLINK;
 
 const portfolioDataJson = [
   {
-    title: 'fullstackhrivnak.com',
+    title: 'fullstackhrivnak.com (ts v2)',
+    cssStyles: {
+      backgroundColor: 'ivory',
+      color: 'black',
+    },
+    imgUrl: `${cFLink}/main/main-images/GES.jpg`,
+    github: [
+      {
+        title: 'Github',
+        link: 'https://github.com/jamesh48/NextPersonalWebsite',
+      },
+    ],
+  },
+  {
+    title: 'fullstackhrivnak.com (js v1)',
     cssStyles: {
       backgroundColor: 'ivory',
       color: 'black',
@@ -23,10 +37,10 @@ const portfolioDataJson = [
       color: 'ivory',
     },
     github: [
-      {
-        title: 'Deployed Website',
-        link: 'https://www.beatminesweeper.app',
-      },
+      // {
+      //   title: 'Deployed Website',
+      //   link: 'https://www.beatminesweeper.app',
+      // },
       {
         title: 'Github',
         link: 'https://github.com/jamesh48/Mini-Games/tree/master/beatminesweeper',
