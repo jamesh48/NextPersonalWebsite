@@ -14,6 +14,7 @@ const MinesweeperHome = () => {
   const [_isIpad, setIsIpad] = useState(false);
 
   useEffect(() => {
+    window.__INITIAL__DATA__ = {};
     if (navigator.userAgent.match(/iPad/i)) {
       setIsIpad(true);
     }
