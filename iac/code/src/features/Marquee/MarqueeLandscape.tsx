@@ -43,9 +43,12 @@ const MCLandscape = (props: MarqueeInnerProps) => {
           James Hrivnak
         </Typography>
         <Box>
-          <Box id="marquee-contents" sx={{ display: 'flex' }}>
+          <Box
+            id="marquee-contents"
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
             <Box
-              sx={{ display: 'flex', flexDirection: 'column' }}
+              sx={{ display: 'flex', flexDirection: 'column', flex: 0.9 }}
               id="marquee-paragraphs"
             >
               <Typography
@@ -53,7 +56,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
                 sx={{
                   width: '97.5%',
                   lineHeight: 1.95,
-                  fontSize: '1.5rem',
+                  fontSize: '1.5vw',
                   fontWeight: 200,
                   letterSpacing: '.25px',
                 }}
@@ -72,7 +75,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
                 sx={{
                   width: '97.5%',
                   lineHeight: 1.95,
-                  fontSize: '1.5rem',
+                  fontSize: '1.5vw',
                   fontWeight: 200,
                   letterSpacing: '.25px',
                 }}
@@ -83,7 +86,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
             <Box
               id="smile-container"
               sx={{
-                minHeight: '40rem',
+                minHeight: '25rem',
                 backgroundImage: `url(${props.smileImage.url})`,
                 maxWidth: '50%',
                 minWidth: '27.5%',

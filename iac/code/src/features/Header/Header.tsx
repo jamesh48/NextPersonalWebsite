@@ -23,7 +23,7 @@ const Header = () => {
           display: 'flex',
           zIndex: 1,
           justifyContent: 'center',
-          height: '5.5rem',
+          height: '3rem',
           margin: '0 auto',
         }}
       >
