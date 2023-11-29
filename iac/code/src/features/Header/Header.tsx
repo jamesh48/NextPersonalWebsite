@@ -8,11 +8,21 @@ const Header = () => {
 
   const handleChange = (ev: React.SyntheticEvent, value: '0' | '1' | '2') => {
     ev.preventDefault();
-    const hrefMap = {
-      '0': '/',
-      '1': '/fullstack/minesweeper',
-      '2': '/fullstack/contact',
-    };
+    const hrefMap = (() => {
+      if (mobileBrowserState) {
+        return {
+          '0': '/',
+          '1': '/fullstack/contact',
+          '2': '',
+        };
+      }
+      return {
+        '0': '/',
+        '1': '/fullstack/minesweeper',
+        '2': '/fullstack/contact',
+      };
+    })();
+
     router.push(hrefMap[value]);
   };
 
@@ -41,15 +51,18 @@ const Header = () => {
             maxWidth: 'unset',
           }}
         />
-        <Tab
-          label="Minesweeper"
-          sx={{
-            backgroundColor: 'ivory',
-            flex: 1,
-            minWidth: 'unset',
-            maxWidth: 'unset',
-          }}
-        />
+        {!mobileBrowserState ? (
+          <Tab
+            label="Minesweeper"
+            sx={{
+              backgroundColor: 'ivory',
+              flex: 1,
+              minWidth: 'unset',
+              maxWidth: 'unset',
+            }}
+          />
+        ) : null}
+
         <Tab
           label="Contact"
           sx={{

@@ -1,8 +1,10 @@
-import { ListItem, Typography } from '@mui/material';
+import { Link, ListItem, Typography } from '@mui/material';
 
 interface ContactDescriptionProps {
   title: string;
   descriptor: string;
+  mobileBrowserState?: boolean;
+  isLink?: boolean;
 }
 export const ContactDescription = (props: ContactDescriptionProps) => {
   return (
@@ -12,11 +14,14 @@ export const ContactDescription = (props: ContactDescriptionProps) => {
         mt: '1rem',
         pr: '1rem',
         lineHeight: '2.25rem',
-        transform: 'translate(-1rem, 0rem)',
+        transform: props.mobileBrowserState
+          ? 'unset'
+          : 'translate(-1rem, 0rem)',
+
         transition: 'all 0.4s ease-in-out',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-end',
+        alignItems: props.mobileBrowserState ? 'center' : 'flex-end',
       }}
     >
       <Typography
@@ -25,28 +30,52 @@ export const ContactDescription = (props: ContactDescriptionProps) => {
         sx={{
           fontSize: '3rem',
           textRendering: 'geometricPrecision',
-          textAlign: 'right',
           fontWeight: 150,
           color: 'ivory',
           padding: '.25rem 0',
+          ...(() => {
+            if (props.mobileBrowserState) {
+              return {
+                width: '100%',
+                textAlign: 'center',
+              };
+            }
+            return {
+              textAlign: 'right',
+            };
+          })(),
         }}
       >
         {props.title}
       </Typography>
-      <Typography
-        variant="h5"
-        className="contact-column-descriptor-l"
-        sx={{
-          fontSize: '1.5rem',
-          textRendering: 'geometricPrecision',
-          textAlign: 'right',
-          fontWeight: 150,
-          color: 'ivory',
-          padding: '.25rem 0',
-        }}
-      >
-        {props.descriptor}
-      </Typography>
+      {props.isLink ? (
+        <Link href={props.descriptor} target="_blank" rel="noopener">
+          {(() => {
+            if (props.descriptor.indexOf('mailto:') > -1) {
+              return props.descriptor.split('mailto:')[1];
+            }
+            if (props.descriptor.indexOf('tel:') > -1) {
+              return props.descriptor.split('tel:')[1];
+            }
+            return props.descriptor;
+          })()}
+        </Link>
+      ) : (
+        <Typography
+          variant="h5"
+          className="contact-column-descriptor-l"
+          sx={{
+            fontSize: '1.5rem',
+            textRendering: 'geometricPrecision',
+            textAlign: 'right',
+            fontWeight: 150,
+            color: 'ivory',
+            padding: '.25rem 0',
+          }}
+        >
+          {props.descriptor}
+        </Typography>
+      )}
     </ListItem>
   );
 };
