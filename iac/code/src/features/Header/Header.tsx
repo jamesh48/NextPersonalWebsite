@@ -41,9 +41,8 @@ const Header = () => {
           sx={{
             backgroundColor: 'ivory',
             flex: 1,
-            // flex: 1,
-            // minWidth: 'unset',
-            // maxWidth: 'unset',
+            minWidth: 'unset',
+            maxWidth: 'unset',
           }}
         />
         <Tab
@@ -51,8 +50,8 @@ const Header = () => {
           sx={{
             backgroundColor: 'ivory',
             flex: 1,
-            // minWidth: 'unset',
-            // maxWidth: 'unset',
+            minWidth: 'unset',
+            maxWidth: 'unset',
           }}
         />
         <Tab
@@ -60,8 +59,8 @@ const Header = () => {
           sx={{
             backgroundColor: 'ivory',
             flex: 1,
-            // minWidth: 'unset',
-            // maxWidth: 'unset',
+            minWidth: 'unset',
+            maxWidth: 'unset',
           }}
         />
       </Tabs>

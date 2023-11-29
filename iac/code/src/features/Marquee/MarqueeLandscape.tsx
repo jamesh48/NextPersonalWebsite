@@ -3,9 +3,11 @@ import { MarqueeInnerProps } from './marqueeTypes';
 
 const MCLandscape = (props: MarqueeInnerProps) => {
   const bigSmile = useMediaQuery('(min-width:1600px) and (max-width: 1750px)');
+
   const mediumSmile = useMediaQuery(
     '(min-width:1300px) and (max-width: 1500px)'
   );
+
   const smallSmile = useMediaQuery(
     '(min-width:1150px) and (max-width: 1300px)'
   );
