@@ -14,6 +14,7 @@ import {
   getSmallWindowState,
   setMobileBrowserState,
   setPortraitState,
+  setSmallWindowState,
 } from '@app/appSlice';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '@app/reduxHooks';
@@ -52,6 +53,10 @@ const Home = (props: { portfolioJSON: {}[] }) => {
   const smallWindowState = useSelector(getSmallWindowState);
   const mobileBrowserState = useSelector(getMobileBrowserState);
 
+  useEffect(() => {
+    dispatch(setSmallWindowState(window.innerWidth < 1150));
+  }, []);
+
   return (
     <Box className={styles.container}>
       <Head>
@@ -74,26 +79,29 @@ const Home = (props: { portfolioJSON: {}[] }) => {
             id="about-me-root"
             sx={{
               paddingBottom: '5%',
-              ...(() => {
-                if (mobileBrowserState) {
-                  return {
-                    minHeight: '90vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                  };
-                }
-                if (smallWindowState) {
-                  return {
-                    minHeight: '180vh',
-                    height: 'unset',
-                  };
-                }
-                return {
-                  minHeight: '90vh',
-                  display: 'flex',
-                  alignItems: 'center',
-                };
-              })(),
+              minHeight: '90vh',
+              display: 'flex',
+              alignItems: 'center',
+              // ...(() => {
+              //   if (mobileBrowserState) {
+              //     return {
+              //       minHeight: '90vh',
+              //       display: 'flex',
+              //       alignItems: 'center',
+              //     };
+              //   }
+              //   if (smallWindowState) {
+              //     return {
+              //       minHeight: '180vh',
+              //       height: 'unset',
+              //     };
+              //   }
+              //   return {
+              //     minHeight: '90vh',
+              //     display: 'flex',
+              //     alignItems: 'center',
+              //   };
+              // })(),
             }}
             data-name="About Me"
           >

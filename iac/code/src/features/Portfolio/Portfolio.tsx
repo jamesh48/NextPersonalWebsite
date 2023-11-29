@@ -1,10 +1,6 @@
-import {
-  getMobileBrowserState,
-  getPortraitState,
-  getSmallWindowState,
-} from '@app/appSlice';
+import { getMobileBrowserState, getSmallWindowState } from '@app/appSlice';
 import { useDispatch, useSelector } from '@app/reduxHooks';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { memo, useEffect } from 'react';
 import ApplicationImgContainer from './ApplicationImgContainer';
 import { getOuterContainerData, getPortfolioImages } from './portfolioSlice';
@@ -33,7 +29,7 @@ const Portfolio = (props: PortfolioProps) => {
   const { allLoaded, imgArr } = useSelector(getPortfolioImages);
   const outerContainerData = useSelector(getOuterContainerData);
   const mobileBrowserState = useSelector(getMobileBrowserState);
-  const portraitState = useSelector(getPortraitState);
+  const portraitState = useMediaQuery('(orientation: portrait)');
   const smallWindowState = useSelector(getSmallWindowState);
 
   useEffect(() => {
@@ -57,9 +53,9 @@ const Portfolio = (props: PortfolioProps) => {
       <Typography
         id="portfolioTitle"
         sx={{
-          height: '15vh',
+          height: portraitState ? 'initial' : '15vh',
           display: 'flex',
-          fontSize: '3rem',
+          fontSize: portraitState ? '2rem' : '3rem',
           alignItems: 'center',
           alignSelf: 'center',
           textAlign: 'center',

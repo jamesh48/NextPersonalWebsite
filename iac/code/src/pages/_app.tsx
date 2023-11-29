@@ -48,8 +48,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         if (document.getElementById('cursor')) {
           document.getElementById('cursor')?.remove();
         }
+      } else {
+        window.addEventListener('mousemove', handleMouseMove, true);
       }
-      window.addEventListener('mousemove', handleMouseMove, true);
     },
     [isSsr],
     []

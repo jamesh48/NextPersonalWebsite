@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
-import {
-  getMobileBrowserState,
-  getPortraitState,
-  getSmallWindowState,
-} from '@app/appSlice';
+import { getMobileBrowserState, getSmallWindowState } from '@app/appSlice';
 import { useDispatch, useSelector } from '@app/reduxHooks';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import NestedGithubLink from './NestedGithubLink';
 import { getHoveredIndexes, setHoveredIndexes } from './nestedSlice';
 import { GithubEntry, PortfolioJSONEntry } from './portfolioTypes';
@@ -18,7 +14,7 @@ const ApplicationImgContainer = (props: {
   appData: PortfolioJSONEntry;
 }) => {
   const dispatch = useDispatch();
-  const portraitState = useSelector(getPortraitState);
+  const portraitState = useMediaQuery('(orientation: portrait)');
   const smallWindowState = useSelector(getSmallWindowState);
   const mobileBrowserState = useSelector(getMobileBrowserState);
   const [landScapeOrPortraitRenderData, setLandScapeOrPortraitRenderData] =

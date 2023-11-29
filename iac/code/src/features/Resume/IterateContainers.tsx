@@ -275,8 +275,9 @@ const IterateContainers = (props: IterateContainersProps) => {
                   sx={{
                     padding: '2% 0',
                     display: 'flex',
-                    width: '25%',
+                    width: mobileBrowser ? '100%' : '25%',
                     justifyContent: 'center',
+                    textAlign: 'center',
                     h6: {
                       display: 'flex',
                       justifyContent: 'center',
@@ -721,6 +722,12 @@ const IterateSections = (props: IterateSectionsProps) => {
                   className="minorContainerTitle"
                   sx={{
                     fontSize: '1.2vmax',
+                    ...(() => {
+                      if (mobileBrowser) {
+                        return { textAlign: 'center' };
+                      }
+                      return {};
+                    })(),
                   }}
                 >
                   {section.highlightDetail[0]?.title || ''}
@@ -729,6 +736,12 @@ const IterateSections = (props: IterateSectionsProps) => {
                   className="minorHighlights"
                   sx={{
                     margin: '0 1%',
+                    ...(() => {
+                      if (mobileBrowser) {
+                        return { textAlign: 'center' };
+                      }
+                      return {};
+                    })(),
                   }}
                 >
                   {IterateHighlights({

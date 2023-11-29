@@ -1,7 +1,10 @@
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { MarqueeInnerProps } from './marqueeTypes';
+import { useEffect, useState } from 'react';
+import { mobileBrowserCheck } from '@shared/globalUtils';
 
 const MCPortrait = (props: MarqueeInnerProps) => {
+  const [mobileBrowserState, setMobileBrowserState] = useState(false);
   const portraitOrientation = useMediaQuery('(orientation: portrait)');
   const landscapeOrientation = useMediaQuery('(orientation: landscape)');
   const bigSmile = useMediaQuery('(min-width:1600px) and (max-width: 1750px)');
@@ -11,6 +14,10 @@ const MCPortrait = (props: MarqueeInnerProps) => {
   const smallSmile = useMediaQuery(
     '(min-width:1150px) and (max-width: 1300px)'
   );
+
+  useEffect(() => {
+    setMobileBrowserState(mobileBrowserCheck());
+  }, []);
 
   const smileFlex = (() => {
     if (bigSmile) {
@@ -94,7 +101,7 @@ const MCPortrait = (props: MarqueeInnerProps) => {
                 sx={{
                   margin: '2.5% auto',
                   minHeight: '25rem',
-                  width: '90%',
+                  width: mobileBrowserState ? '90%' : '50%',
                   padding: 0,
                   backgroundImage: `url(${props.smileImage.url})`,
                   backgroundPositionY: '25%',
