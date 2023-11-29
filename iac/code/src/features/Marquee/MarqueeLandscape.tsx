@@ -12,16 +12,16 @@ const MCLandscape = (props: MarqueeInnerProps) => {
 
   const smileFlex = (() => {
     if (bigSmile) {
-      return 0.4;
+      return { flex: 0.4, minHeight: '40rem' };
     }
     if (mediumSmile) {
-      return 0.5;
+      return { flex: 0.5, minHeight: '25rem' };
     }
 
     if (smallSmile) {
-      return 0.6;
+      return { flex: 0.6, minHeight: '25rem' };
     }
-    return 0.5;
+    return { flex: 0.5, minHeight: '25rem' };
   })();
   return (
     <Box
@@ -86,7 +86,6 @@ const MCLandscape = (props: MarqueeInnerProps) => {
             <Box
               id="smile-container"
               sx={{
-                minHeight: '25rem',
                 backgroundImage: `url(${props.smileImage.url})`,
                 maxWidth: '50%',
                 minWidth: '27.5%',
@@ -96,7 +95,7 @@ const MCLandscape = (props: MarqueeInnerProps) => {
                 backgroundPositionX: '75%',
                 backgroundRepeat: 'no-repeat',
                 borderRadius: '50%',
-                flex: smileFlex,
+                ...smileFlex,
               }}
             />
           </Box>
