@@ -1,4 +1,4 @@
-import { getMobileBrowserState, getSmallWindowState } from '@app/appSlice';
+import { getSmallWindowState } from '@app/appSlice';
 import { useDispatch, useSelector } from '@app/reduxHooks';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { memo, useEffect } from 'react';
@@ -28,7 +28,6 @@ const Portfolio = (props: PortfolioProps) => {
   const dispatch = useDispatch();
   const { allLoaded, imgArr } = useSelector(getPortfolioImages);
   const outerContainerData = useSelector(getOuterContainerData);
-  const mobileBrowserState = useSelector(getMobileBrowserState);
   const portraitState = useMediaQuery('(orientation: portrait)');
   const smallWindowState = useSelector(getSmallWindowState);
 
@@ -36,7 +35,7 @@ const Portfolio = (props: PortfolioProps) => {
     if (props.portfolioJSON) {
       handleOuterContainerData(props.portfolioJSON, dispatch);
     }
-  }, [mobileBrowserState, smallWindowState, portraitState]);
+  }, [smallWindowState, portraitState]);
 
   useEffect(() => {
     if (outerContainerData[props.index]?.length) {
@@ -94,12 +93,20 @@ const Portfolio = (props: PortfolioProps) => {
                           flexDirection: 'column',
                           border: '1px solid darkgoldenrod',
                           margin: '0 1.75%',
+                          minWidth: '50%',
                           '&:hover': {
                             backgroundColor: 'darkgoldenrod',
                           },
                         }}
                       >
-                        <Typography>{appData.title}</Typography>
+                        <Typography
+                          sx={{
+                            wordWrap: 'break-word',
+                            textAlign: 'center',
+                          }}
+                        >
+                          {appData.title}
+                        </Typography>
 
                         <ApplicationImgContainer
                           appData={appData}

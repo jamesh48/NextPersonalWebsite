@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getMobileBrowserState, getSmallWindowState } from '@app/appSlice';
+import { getSmallWindowState } from '@app/appSlice';
 import { useDispatch, useSelector } from '@app/reduxHooks';
 import { Box, useMediaQuery } from '@mui/material';
 import NestedGithubLink from './NestedGithubLink';
@@ -16,7 +16,6 @@ const ApplicationImgContainer = (props: {
   const dispatch = useDispatch();
   const portraitState = useMediaQuery('(orientation: portrait)');
   const smallWindowState = useSelector(getSmallWindowState);
-  const mobileBrowserState = useSelector(getMobileBrowserState);
   const [landScapeOrPortraitRenderData, setLandScapeOrPortraitRenderData] =
     useState([[], []] as GithubEntry[][][]);
   const [nestedIndicator, setNestedIndicator] = useState(false);
@@ -34,7 +33,7 @@ const ApplicationImgContainer = (props: {
     const nestedRenderData = handleNestedContainerData(props.appData.github);
 
     setLandScapeOrPortraitRenderData(nestedRenderData as GithubEntry[][][]);
-  }, [smallWindowState, mobileBrowserState]);
+  }, [smallWindowState]);
 
   const renderData = portraitState
     ? landScapeOrPortraitRenderData[0]

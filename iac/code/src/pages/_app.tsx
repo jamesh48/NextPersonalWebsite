@@ -7,7 +7,7 @@ import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useEffectOnlyOnUpdate, useIsSsr } from '@shared/customHooks';
-import { handleMouseMove, mobileBrowserCheck } from '@shared/globalUtils';
+import { handleMouseMove, useMobileBrowserCheck } from '@shared/globalUtils';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -37,11 +37,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
 
   const isSsr = useIsSsr();
+  const mobileBrowserState = useMobileBrowserCheck();
   // Cursor
   // Only on update prevents two events listeners from being added on initial render
   useEffectOnlyOnUpdate(
     () => {
-      const mobileBrowserState = mobileBrowserCheck();
+      // const mobileBrowserState = mobileBrowserCheck();
       if (mobileBrowserState) {
         window.removeEventListener('mousemove', handleMouseMove, true);
         // If it exists remove it, if it doesn't exist (initial page load), skip...

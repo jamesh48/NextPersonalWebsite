@@ -1,16 +1,15 @@
 // import Script from 'next/script';
 // import Link from 'next/link';
-import { appInitialState, getMobileBrowserState } from '@app/appSlice';
+import { appInitialState } from '@app/appSlice';
 import { useSelector } from '@app/reduxHooks';
 import GlobalStore from '@app/store';
 import { Box } from '@mui/material';
 import { useIsSsr } from '@shared/customHooks';
-import { mobileBrowserCheck, smallWindowCheck } from '@shared/globalUtils';
+import { useMobileBrowserCheck, smallWindowCheck } from '@shared/globalUtils';
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 
 const MinesweeperHome = () => {
-  const _mobileBrowserState = useSelector(getMobileBrowserState);
   const [_isIpad, setIsIpad] = useState(false);
 
   useEffect(() => {
@@ -106,7 +105,6 @@ const Minesweeper = () => {
   let appInitialProps = {};
   if (!isSsr) {
     appInitialProps = {
-      mobileBrowserState: mobileBrowserCheck(),
       smallWindowState: smallWindowCheck(),
     };
   }

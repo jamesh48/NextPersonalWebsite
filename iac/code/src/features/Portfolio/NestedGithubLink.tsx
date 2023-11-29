@@ -1,9 +1,9 @@
-import { getMobileBrowserState } from '@app/appSlice';
 import { useDispatch } from '@app/reduxHooks';
 import { Box, Typography } from '@mui/material';
 import { memo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getNestedHovered, setNestedHovered } from './nestedSlice';
+import { useMobileBrowserCheck } from '@shared/globalUtils';
 
 const NestedGithubLink = (props: {
   nestedColumnIndex: number;
@@ -13,18 +13,19 @@ const NestedGithubLink = (props: {
   outerColumnIndex: number;
   nestedGithub: { link: string; title: string };
 }) => {
+  const nestedMobileBrowserState = useMobileBrowserCheck();
+
   const dispatch = useDispatch();
-  const mobileBrowserState = useSelector(getMobileBrowserState);
   const nestedHovered = useSelector(getNestedHovered);
   const [doubleClicked, setDoubleClicked] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (mobileBrowserState && doubleClicked) {
+    if (nestedMobileBrowserState && doubleClicked) {
       window.open(props.nestedGithub.link);
     } else if (doubleClicked === true) {
       window.open(props.nestedGithub.link);
     }
-  }, [doubleClicked, mobileBrowserState, props.nestedGithub.link]);
+  }, [doubleClicked, nestedMobileBrowserState, props.nestedGithub.link]);
 
   useEffect(() => {
     setDoubleClicked(null);
@@ -42,7 +43,7 @@ const NestedGithubLink = (props: {
       style={props.outerData.cssStyles}
       onClick={() => {
         setDoubleClicked((prev) => {
-          if (mobileBrowserState) {
+          if (nestedMobileBrowserState) {
             if (prev === null) {
               return false;
             } else if (prev === false) {

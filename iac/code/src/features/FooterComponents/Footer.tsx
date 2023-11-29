@@ -1,7 +1,7 @@
 import React from 'react';
 import { FooterItemContainer } from './FooterItemContainer';
 // import { mobileBrowserFunction } from 'GlobalUtils';
-import { mobileBrowserCheck } from '@shared/globalUtils';
+import { useMobileBrowserCheck } from '@shared/globalUtils';
 import { Box } from '@mui/material';
 // import { useGlobalContext } from 'GlobalStore';
 // import './footerStyles.scss';
@@ -13,15 +13,9 @@ function Footer(props: FooterProps) {
   const [images, setImages] = React.useState([
     { url: '', loaded: false, iconLink: '' },
   ]);
-  const [mb, setMb] = React.useState(false);
+  const footerMobileBrowserState = useMobileBrowserCheck();
   const [isLoaded, setIsLoaded] = React.useState(false);
   // const [{ mobileBrowser }, globalDispatch] = useGlobalContext();
-
-  //Set Mobile Browser
-  React.useEffect(() => {
-    const mobileBrowser = mobileBrowserCheck();
-    setMb(mobileBrowser);
-  }, []);
 
   const incrementImageLoad = (i: number) => {
     setImages((x) => {
@@ -56,13 +50,15 @@ function Footer(props: FooterProps) {
     <Box
       id="footerContainer"
       className={
-        mb ? `footer-container footer-container--Mobile` : `footer-container`
+        footerMobileBrowserState
+          ? `footer-container footer-container--Mobile`
+          : `footer-container`
       }
       sx={{
         display: 'flex',
         justifyContent: 'center',
         height: '5vh',
-        width: mb ? '90%' : '75%',
+        width: footerMobileBrowserState ? '100%' : '75%',
         margin: '0 auto',
       }}
     >

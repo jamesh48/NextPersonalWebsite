@@ -3,14 +3,17 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import resumeDetails from '../../Data/Resume.json';
 import IterateContainers from './IterateContainers';
 import { exitHoverParams } from './resumeSlice';
-import { getMobileBrowserState } from '@app/appSlice';
+import { useEffect, useState } from 'react';
+import { useMobileBrowserCheck } from '@shared/globalUtils';
+
 interface ResumeProps {
   smallWindowState: boolean;
-  mobileBrowserState: boolean;
 }
+
 const Resume = (props: ResumeProps) => {
+  const resumeMobileBrowserState = useMobileBrowserCheck();
+
   const dispatch = useDispatch();
-  const mobileBrowserState = useSelector(getMobileBrowserState);
   const landscapeOrientation = useMediaQuery('(orientation: landscape)');
   const portraitOrientation = useMediaQuery('(orientation: portrait)');
   return (
@@ -29,7 +32,7 @@ const Resume = (props: ResumeProps) => {
         sx={{
           alignSelf: 'center',
           padding: '5% 0',
-          fontSize: mobileBrowserState ? '2.5vmax' : '3rem',
+          fontSize: resumeMobileBrowserState ? '2.5vmax' : '3rem',
           ...(() => {
             if (landscapeOrientation) {
               return { marginBottom: '5%' };
@@ -49,14 +52,14 @@ const Resume = (props: ResumeProps) => {
           dispatch(exitHoverParams());
         }}
         sx={{
-          margin: mobileBrowserState ? '5% 0' : '1% 0',
+          margin: resumeMobileBrowserState ? '5% 0' : '1% 0',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
         }}
       >
         {IterateContainers({
-          mobileBrowser: mobileBrowserState,
+          mobileBrowser: resumeMobileBrowserState,
           resumeDetails: resumeDetails,
         })}
       </Box>

@@ -16,9 +16,6 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: appInitialState,
   reducers: {
-    setMobileBrowserState: (state, action: PayloadAction<boolean>) => {
-      state.mobileBrowserState = action.payload;
-    },
     setSmallWindowState: (state, action: PayloadAction<boolean>) => {
       state.smallWindowState = action.payload;
     },
@@ -28,11 +25,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setPortraitState, setMobileBrowserState, setSmallWindowState } =
-  appSlice.actions;
-
-export const getMobileBrowserState = (state: RootState) =>
-  state.app.mobileBrowserState;
+export const { setPortraitState, setSmallWindowState } = appSlice.actions;
 
 export const getSmallWindowState = (state: RootState) =>
   state.app.smallWindowState;

@@ -6,27 +6,21 @@ const cfLink = process.env.NEXT_PUBLIC_CLOUDFRONTLINK;
 import MCPortrait from './MarqueePortrait';
 import MCLandscape from './MarqueeLandscape';
 import { useDispatch, useSelector } from '@app/reduxHooks';
-import { getMobileBrowserState, getSmallWindowState } from '@app/appSlice';
+import { getSmallWindowState } from '@app/appSlice';
 import { getSmileImage, setSmileImage } from './marqueeSlice';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { SmileImageProps } from './marqueeTypes';
-import { mobileBrowserCheck } from '@shared/globalUtils';
+import { useMobileBrowserCheck } from '@shared/globalUtils';
 
 export interface MarqueeContainerProps {
   smileCallback: () => void;
 }
 
 const MarqueeContainer = (props: MarqueeContainerProps) => {
-  const [marqueeMobileBrowserState, setMarqueeMobileBrowserState] =
-    useState(false);
+  const marqueeMobileBrowserState = useMobileBrowserCheck();
   const dispatch = useDispatch();
   const smileImage = useSelector(getSmileImage);
-  const mobileBrowserState = useSelector(getMobileBrowserState);
   const smallWindowState = useSelector(getSmallWindowState);
-
-  useEffect(() => {
-    setMarqueeMobileBrowserState(mobileBrowserCheck());
-  }, []);
 
   const portraitState = useMediaQuery('(orientation: portrait)');
 
@@ -83,7 +77,7 @@ const MarqueeContainer = (props: MarqueeContainerProps) => {
   */
   const mobileBrowserWithPortrait = marqueeMobileBrowserState && portraitState;
   const notMobileBrowserAndSmallWindow =
-    !mobileBrowserState && smallWindowState;
+    !marqueeMobileBrowserState && smallWindowState;
 
   const portraitMode =
     smileImage.loaded &&

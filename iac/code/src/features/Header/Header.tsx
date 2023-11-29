@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { Box, Tab, Tabs } from '@mui/material';
-import { mobileBrowserCheck } from '@shared/globalUtils';
-import { useState, useEffect } from 'react';
+import { useMobileBrowserCheck } from '@shared/globalUtils';
 
 const Header = () => {
   const router = useRouter();
-  const [mobileBrowserState, setMobileBrowserState] = useState(false);
+  const mobileBrowserState = useMobileBrowserCheck();
+
   const handleChange = (ev: React.SyntheticEvent, value: '0' | '1' | '2') => {
     ev.preventDefault();
     const hrefMap = {
@@ -15,10 +15,6 @@ const Header = () => {
     };
     router.push(hrefMap[value]);
   };
-
-  useEffect(() => {
-    setMobileBrowserState(mobileBrowserCheck());
-  }, []);
 
   return (
     <>

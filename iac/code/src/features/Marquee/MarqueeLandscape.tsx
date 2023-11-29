@@ -2,28 +2,18 @@ import { Box, Divider, Typography, useMediaQuery } from '@mui/material';
 import { MarqueeInnerProps } from './marqueeTypes';
 
 const MCLandscape = (props: MarqueeInnerProps) => {
-  const bigSmile = useMediaQuery('(min-width:1600px) and (max-width: 1750px)');
-
-  const mediumSmile = useMediaQuery(
-    '(min-width:1300px) and (max-width: 1500px)'
-  );
-
-  const smallSmile = useMediaQuery(
-    '(min-width:1150px) and (max-width: 1300px)'
-  );
+  const bigSmile = useMediaQuery('(min-width: 1600px)');
+  const smallSmile = useMediaQuery('(min-width: 1000px)');
 
   const smileFlex = (() => {
     if (bigSmile) {
       return { flex: 0.4, minHeight: '40rem' };
     }
-    if (mediumSmile) {
+    if (smallSmile) {
       return { flex: 0.5, minHeight: '25rem' };
     }
 
-    if (smallSmile) {
-      return { flex: 0.6, minHeight: '25rem' };
-    }
-    return { flex: 0.5, minHeight: '25rem' };
+    return { flex: 0.5, minHeight: '12.5rem' };
   })();
   return (
     <Box
@@ -37,9 +27,10 @@ const MCLandscape = (props: MarqueeInnerProps) => {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            fontSize: '3rem',
+            fontSize: '4rem',
             height: '25%',
             alignItems: 'center',
+            padding: '3rem',
           }}
         >
           James Hrivnak
