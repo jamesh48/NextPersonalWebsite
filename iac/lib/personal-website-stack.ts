@@ -51,6 +51,7 @@ export class PersonalWebsiteStack extends cdk.Stack {
         ),
         loadBalancerName: 'fsh-fullstack-hrivnak-alb',
         redirectHTTP: true,
+        assignPublicIp: true,
         taskImageOptions: {
           image: ecs.ContainerImage.fromAsset('code/src'),
           taskRole: iam.Role.fromRoleName(
