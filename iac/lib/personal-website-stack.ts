@@ -1,7 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
-import * as ecsPatterns from 'aws-cdk-lib/aws-ecs-patterns';
-import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
@@ -76,7 +74,7 @@ export class PersonalWebsiteStack extends cdk.Stack {
         environment: {
           NEXT_PUBLIC_CLOUDFRONTLINK: props.svc_env.SVC_CLOUDFRONT_LINK,
         },
-        image: ecs.ContainerImage.fromAsset('../'),
+        image: ecs.ContainerImage.fromAsset('code/src'),
         logging: new ecs.AwsLogDriver({
           streamPrefix: 'fsh-container',
           logRetention: RetentionDays.FIVE_DAYS,
