@@ -50,20 +50,24 @@ export class PersonalWebsiteStack extends cdk.Stack {
             ),
           }
         ),
-        cluster: ecs.Cluster.fromClusterAttributes(this, 'jh-impoted-cluster', {
-          securityGroups: [
-            ec2.SecurityGroup.fromSecurityGroupId(
-              this,
-              'imported-default-sg',
-              props.aws_env.AWS_DEFAULT_SG
-            ),
-          ],
-          clusterName: 'jh-e1-ecs-cluster',
-          clusterArn: props.aws_env.AWS_CLUSTER_ARN,
-          vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc', {
-            vpcId: props.aws_env.AWS_VPC_ID,
-          }),
-        }),
+        cluster: ecs.Cluster.fromClusterAttributes(
+          this,
+          'jh-imported-cluster',
+          {
+            securityGroups: [
+              ec2.SecurityGroup.fromSecurityGroupId(
+                this,
+                'imported-default-sg',
+                props.aws_env.AWS_DEFAULT_SG
+              ),
+            ],
+            clusterName: 'jh-e1-ecs-cluster',
+            clusterArn: props.aws_env.AWS_CLUSTER_ARN,
+            vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc', {
+              vpcId: props.aws_env.AWS_VPC_ID,
+            }),
+          }
+        ),
         enableExecuteCommand: true,
       }
     );
