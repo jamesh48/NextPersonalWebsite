@@ -122,6 +122,10 @@ export class PersonalWebsiteStack extends cdk.Stack {
       targetGroups: [targetGroup],
       priority: 10,
       conditions: [
+        elbv2.ListenerCondition.hostHeaders([
+          'www.fullstackhrivnak.com',
+          'fullstackhrivnak.com',
+        ]),
         elbv2.ListenerCondition.pathPatterns(['/', '/fullstack/*', '/_next/*']),
       ],
     });
