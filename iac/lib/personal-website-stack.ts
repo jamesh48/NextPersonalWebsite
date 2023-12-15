@@ -121,7 +121,7 @@ export class PersonalWebsiteStack extends cdk.Stack {
     importedALBListener.addTargetGroups('fsh-listener-tg', {
       targetGroups: [targetGroup],
       priority: 10,
-      conditions: [elbv2.ListenerCondition.pathPatterns(['/fullstack'])],
+      conditions: [elbv2.ListenerCondition.pathPatterns(['/', '/fullstack/*'])],
     });
 
     // const _fshService = new ecsPatterns.ApplicationLoadBalancedFargateService(
