@@ -48,6 +48,20 @@ const portfolioDataJson = [
     ],
   },
   {
+    title: 'Job Application Express',
+    cssStyles: {
+      backgroundColor: 'ivory',
+      color: 'black',
+    },
+    imgUrl: `${cFLink}/main/main-images/indeedautomation.png`,
+    github: [
+      {
+        title: 'Github',
+        link: 'https://github.com/jamesh48/job-application-express',
+      },
+    ],
+  },
+  {
     title: 'Strava Report Generator (ts v2)',
     cssStyles: {
       backgroundColor: 'ivory',
@@ -124,20 +138,6 @@ const portfolioDataJson = [
       {
         title: 'Product Details Service',
         link: 'https://github.com/rpt26-fec-tianwen/james-service-1',
-      },
-    ],
-  },
-  {
-    title: 'Job Application Express',
-    cssStyles: {
-      backgroundColor: 'ivory',
-      color: 'black',
-    },
-    imgUrl: `${cFLink}/main/main-images/indeedautomation.png`,
-    github: [
-      {
-        title: 'Github',
-        link: 'https://github.com/jamesh48/job-application-express',
       },
     ],
   },
