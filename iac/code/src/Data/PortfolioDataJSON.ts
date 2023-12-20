@@ -2,16 +2,16 @@ const cFLink = process.env.NEXT_PUBLIC_CLOUDFRONTLINK;
 
 const portfolioDataJson = [
   {
-    title: 'fullstackhrivnak.com (ts v2)',
+    title: 'Strava Report Generator (js v1)',
     cssStyles: {
       backgroundColor: 'ivory',
       color: 'black',
     },
-    imgUrl: `${cFLink}/main/main-images/GES.jpg`,
+    imgUrl: `${cFLink}/main/main-images/Strava_Results_Generator.jpg`,
     github: [
       {
         title: 'Github',
-        link: 'https://github.com/jamesh48/NextPersonalWebsite',
+        link: 'https://github.com/jamesh48/Strava-Report-Generator',
       },
     ],
   },
@@ -48,7 +48,7 @@ const portfolioDataJson = [
     ],
   },
   {
-    title: 'Strava Results Generator (ts v2)',
+    title: 'Strava Report Generator (ts v2)',
     cssStyles: {
       backgroundColor: 'ivory',
       color: 'black',
@@ -57,7 +57,7 @@ const portfolioDataJson = [
     github: [
       {
         title: 'Deployed Website',
-        link: 'https://www.stravaresultsgenerator.com',
+        link: 'https://www.stravareportgenerator.com',
       },
       {
         title: 'Github',
@@ -70,16 +70,16 @@ const portfolioDataJson = [
     ],
   },
   {
-    title: 'Strava Results Generator (js v1)',
+    title: 'fullstackhrivnak.com (ts v2)',
     cssStyles: {
       backgroundColor: 'ivory',
       color: 'black',
     },
-    imgUrl: `${cFLink}/main/main-images/Strava_Results_Generator.jpg`,
+    imgUrl: `${cFLink}/main/main-images/GES.jpg`,
     github: [
       {
         title: 'Github',
-        link: 'https://github.com/jamesh48/Strava-Report-Generator',
+        link: 'https://github.com/jamesh48/NextPersonalWebsite',
       },
     ],
   },
