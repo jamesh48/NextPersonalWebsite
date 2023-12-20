@@ -48,7 +48,7 @@ const portfolioDataJson = [
     ],
   },
   {
-    title: 'Strava Results Generator',
+    title: 'Strava Results Generator (ts v2)',
     cssStyles: {
       backgroundColor: 'ivory',
       color: 'black',
@@ -57,8 +57,26 @@ const portfolioDataJson = [
     github: [
       {
         title: 'Deployed Website',
-        link: 'https://www.stravareportgenerator.app',
+        link: 'https://www.stravaresultsgenerator.com',
       },
+      {
+        title: 'Github',
+        link: 'https://github.com/jamesh48/next-strava-report-generator',
+      },
+      {
+        title: 'Python Backend Github',
+        link: 'https://github.com/jamesh48/SRG-Python',
+      },
+    ],
+  },
+  {
+    title: 'Strava Results Generator (js v1)',
+    cssStyles: {
+      backgroundColor: 'ivory',
+      color: 'black',
+    },
+    imgUrl: `${cFLink}/main/main-images/Strava_Results_Generator.jpg`,
+    github: [
       {
         title: 'Github',
         link: 'https://github.com/jamesh48/Strava-Report-Generator',
