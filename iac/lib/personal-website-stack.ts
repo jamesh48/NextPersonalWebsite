@@ -26,7 +26,7 @@ export class PersonalWebsiteStack extends cdk.Stack {
       this,
       'fsh-fargate-service',
       {
-        assignPublicIp: false,
+        assignPublicIp: true,
         desiredCount: 1,
         capacityProviderStrategies: [
           {
