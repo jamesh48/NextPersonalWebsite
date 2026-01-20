@@ -1,31 +1,31 @@
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './rootReducer';
+import { configureStore } from '@reduxjs/toolkit'
+import rootReducer from './rootReducer'
 
 export default class GlobalStore {
-  public store: ReturnType<typeof GlobalStore.prototype.configureGlobalStore>;
+	public store: ReturnType<typeof GlobalStore.prototype.configureGlobalStore>
 
-  static EnhancedStore: ReturnType<typeof this.prototype.configureGlobalStore>;
+	static EnhancedStore: ReturnType<typeof this.prototype.configureGlobalStore>
 
-  static RootState: ReturnType<typeof this.EnhancedStore['getState']>;
+	static RootState: ReturnType<(typeof this.EnhancedStore)['getState']>
 
-  static AppDispatch: typeof this.EnhancedStore['dispatch'];
+	static AppDispatch: (typeof this.EnhancedStore)['dispatch']
 
-  configureGlobalStore(initialState: {}) {
-    const innerStore = configureStore({
-      reducer: rootReducer,
-      preloadedState: initialState,
-      middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({ serializableCheck: { warnAfter: 100 } }),
-    });
-    this.store = innerStore;
-    // return for typing only
-    return innerStore;
-  }
+	configureGlobalStore(initialState: { [key: string]: unknown }) {
+		const innerStore = configureStore({
+			reducer: rootReducer,
+			preloadedState: initialState,
+			middleware: (getDefaultMiddleware) =>
+				getDefaultMiddleware({ serializableCheck: { warnAfter: 100 } }),
+		})
+		this.store = innerStore
+		// return for typing only
+		return innerStore
+	}
 
-  getStore() {
-    return this.store;
-  }
+	getStore() {
+		return this.store
+	}
 }
 
-export type RootState = typeof GlobalStore.RootState;
-export type AppDispatch = typeof GlobalStore.AppDispatch;
+export type RootState = typeof GlobalStore.RootState
+export type AppDispatch = typeof GlobalStore.AppDispatch

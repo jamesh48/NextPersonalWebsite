@@ -1,4 +1,5 @@
 import { Link, ListItem, Typography } from '@mui/material';
+import { Else, If, Then } from 'react-if';
 
 interface ContactDescriptionProps {
   title: string;
@@ -6,7 +7,13 @@ interface ContactDescriptionProps {
   mobileBrowserState?: boolean;
   isLink?: boolean;
 }
-export const ContactDescription = (props: ContactDescriptionProps) => {
+
+export const ContactDescription = ({
+  title,
+  descriptor,
+  isLink,
+  mobileBrowserState,
+}: ContactDescriptionProps) => {
   return (
     <ListItem
       className="contact-description-li"
@@ -14,14 +21,11 @@ export const ContactDescription = (props: ContactDescriptionProps) => {
         mt: '1rem',
         pr: '1rem',
         lineHeight: '2.25rem',
-        transform: props.mobileBrowserState
-          ? 'unset'
-          : 'translate(-1rem, 0rem)',
-
+        transform: mobileBrowserState ? 'unset' : 'translate(-1rem, 0rem)',
         transition: 'all 0.4s ease-in-out',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: props.mobileBrowserState ? 'center' : 'flex-end',
+        alignItems: mobileBrowserState ? 'center' : 'flex-end',
       }}
     >
       <Typography
@@ -33,32 +37,27 @@ export const ContactDescription = (props: ContactDescriptionProps) => {
           fontWeight: 150,
           color: 'ivory',
           padding: '.25rem 0',
-          ...(() => {
-            if (props.mobileBrowserState) {
-              return {
+          ...(mobileBrowserState
+            ? {
                 width: '100%',
                 textAlign: 'center',
-              };
-            }
-            return {
-              textAlign: 'right',
-            };
-          })(),
+              }
+            : { textAlign: 'right' }),
         }}
       >
-        {props.title}
+        {title}
       </Typography>
-      {props.isLink ? (
-        <Link href={props.descriptor} target="_blank" rel="noopener">
-          {(() => {
-            if (props.descriptor.indexOf('mailto:') > -1) {
-              return props.descriptor.split('mailto:')[1];
-            }
-            if (props.descriptor.indexOf('tel:') > -1) {
-              return props.descriptor.split('tel:')[1];
-            }
-            return props.descriptor;
-          })()}
+      {isLink ? (
+        <Link href={descriptor} target="_blank" rel="noopener">
+          <If condition={descriptor.indexOf('mailto:') > -1}>
+            <Then>{descriptor.split('mailto:')[1]}</Then>
+            <Else>
+              <If condition={descriptor.indexOf('tel:') > -1}>
+                <Then>{descriptor.split('tel:')[1]}</Then>
+                <Else>{descriptor}</Else>
+              </If>
+            </Else>
+          </If>
         </Link>
       ) : (
         <Typography
@@ -73,7 +72,7 @@ export const ContactDescription = (props: ContactDescriptionProps) => {
             padding: '.25rem 0',
           }}
         >
-          {props.descriptor}
+          {descriptor}
         </Typography>
       )}
     </ListItem>

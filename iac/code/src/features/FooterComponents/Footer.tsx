@@ -1,10 +1,7 @@
 import React from 'react';
 import { FooterItemContainer } from './FooterItemContainer';
-// import { mobileBrowserFunction } from 'GlobalUtils';
 import { useMobileBrowserCheck } from '@shared/globalUtils';
 import { Box } from '@mui/material';
-// import { useGlobalContext } from 'GlobalStore';
-// import './footerStyles.scss';
 
 interface FooterProps {
   footerJSON: { iconLink: string; imageUrl: string }[];
@@ -15,12 +12,11 @@ function Footer(props: FooterProps) {
   ]);
   const footerMobileBrowserState = useMobileBrowserCheck();
   const [isLoaded, setIsLoaded] = React.useState(false);
-  // const [{ mobileBrowser }, globalDispatch] = useGlobalContext();
 
-  const incrementImageLoad = (i: number) => {
-    setImages((x) => {
-      x[i].loaded = true;
-      return [...x];
+  const incrementImageLoad = (idx: number) => {
+    setImages((image) => {
+      image[idx].loaded = true;
+      return [...image];
     });
   };
 
@@ -42,7 +38,7 @@ function Footer(props: FooterProps) {
           url: imageUrl,
           loaded: false,
         };
-      })
+      }),
     );
   }, []);
 

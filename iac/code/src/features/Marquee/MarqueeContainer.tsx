@@ -1,12 +1,10 @@
 import Promise from 'bluebird';
-import React, { useCallback, useEffect, useState } from 'react';
-// import './marqueeContainer.scss';
-const cfLink = process.env.NEXT_PUBLIC_CLOUDFRONTLINK;
+import React, { useCallback, useEffect } from 'react';
 
 import MCPortrait from './MarqueePortrait';
 import MCLandscape from './MarqueeLandscape';
-import { useDispatch, useSelector } from '@app/reduxHooks';
 import { getSmallWindowState } from '@app/appSlice';
+import { useDispatch, useSelector } from '@app/reduxHooks';
 import { getSmileImage, setSmileImage } from './marqueeSlice';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { SmileImageProps } from './marqueeTypes';
@@ -37,21 +35,21 @@ const MarqueeContainer = (props: MarqueeContainerProps) => {
             });
           img.onerror = () => {
             reject(
-              new Error(`The ${smileImageToLoad.title} image failed to load`)
+              new Error(`The ${smileImageToLoad.title} image failed to load`),
             );
           };
           img.src = smileImageToLoad.url;
-        }
+        },
       );
 
       dispatch(setSmileImage(loadedSmileImage));
     },
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {
     handleSmileImage({
-      url: `${cfLink}/main/main-images/linkedin.jpg`,
+      url: 'https://static.fullstackhrivnak.com/main/main-images/linkedin.jpg',
       title: 'Linkedin Photo',
       loaded: false,
     });

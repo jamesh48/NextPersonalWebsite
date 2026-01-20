@@ -12,6 +12,7 @@
     "deploy:local": "DOCKER_DEFAULT_PLATFORM=linux/amd64 cdk deploy"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.11",
     "@types/jest": "^27.5.2",
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",

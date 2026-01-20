@@ -1,79 +1,56 @@
 import { useRouter } from 'next/router';
-import { Box, Tab, Tabs } from '@mui/material';
+import { styled, Tab, Tabs } from '@mui/material';
 import { useMobileBrowserCheck } from '@shared/globalUtils';
+import { useMemo } from 'react';
+
+enum HeaderTabValue {
+  'home' = '0',
+  'contact' = '1',
+}
+
+const StyledTab = styled(Tab)({
+  minWidth: 'unset',
+  maxWidth: 'unset',
+  flex: 1,
+  backgroundColor: 'ivory',
+});
 
 const Header = () => {
   const router = useRouter();
   const mobileBrowserState = useMobileBrowserCheck();
 
-  const handleChange = (ev: React.SyntheticEvent, value: '0' | '1' | '2') => {
+  const handleChange = (ev: React.SyntheticEvent, value: HeaderTabValue) => {
     ev.preventDefault();
-    const hrefMap = (() => {
-      if (mobileBrowserState) {
-        return {
-          '0': '/',
-          '1': '/fullstack/contact',
-          '2': '',
-        };
-      }
-      return {
-        '0': '/',
-        '1': '/fullstack/minesweeper',
-        '2': '/fullstack/contact',
-      };
-    })();
+
+    const hrefMap = useMemo(
+      () => ({
+        [HeaderTabValue.home]: '/',
+        [HeaderTabValue.contact]: '/fullstack/contact',
+      }),
+      [],
+    );
 
     router.push(hrefMap[value]);
   };
 
   return (
-    <>
-      <Tabs
-        onChange={handleChange}
-        sx={{
-          position: 'sticky',
-          top: 0,
-          width: mobileBrowserState ? '100%' : '75%',
-          display: 'flex',
-          zIndex: 1,
-          justifyContent: 'center',
-          height: '3rem',
-          margin: '0 auto',
-          alignSelf: 'center',
-        }}
-      >
-        <Tab
-          label="Home"
-          sx={{
-            backgroundColor: 'ivory',
-            flex: 1,
-            minWidth: 'unset',
-            maxWidth: 'unset',
-          }}
-        />
-        {!mobileBrowserState ? (
-          <Tab
-            label="Minesweeper"
-            sx={{
-              backgroundColor: 'ivory',
-              flex: 1,
-              minWidth: 'unset',
-              maxWidth: 'unset',
-            }}
-          />
-        ) : null}
-
-        <Tab
-          label="Contact"
-          sx={{
-            backgroundColor: 'ivory',
-            flex: 1,
-            minWidth: 'unset',
-            maxWidth: 'unset',
-          }}
-        />
-      </Tabs>
-    </>
+    <Tabs
+      onChange={handleChange}
+      sx={{
+        position: 'sticky',
+        top: 0,
+        width: mobileBrowserState ? '100%' : '75%',
+        display: 'flex',
+        zIndex: 1,
+        justifyContent: 'center',
+        height: '3rem',
+        margin: '0 auto',
+        alignSelf: 'center',
+      }}
+    >
+      <StyledTab label="Home" />
+      <StyledTab label="Contact" />
+    </Tabs>
   );
 };
 

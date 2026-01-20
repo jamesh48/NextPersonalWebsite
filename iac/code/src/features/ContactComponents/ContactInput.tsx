@@ -6,11 +6,12 @@ interface ContactInputProps {
   inputType: string;
   valCallback: (
     ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ind: string
+    ind: string,
   ) => void;
   indicator: string;
   localValue: string;
 }
+
 export const ContactInput = (props: ContactInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
