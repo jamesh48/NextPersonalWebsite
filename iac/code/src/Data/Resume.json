@@ -3,70 +3,371 @@
     "title": "Technical Skills",
     "detail": [
       {
-        "title": "Programming",
+        "title": "Frontend",
         "detail": [
           {
-            "title": "Advanced- Typescript, Javascript, React Hooks/Redux, Next.js, HTML5, CSS3, SCSS/SASS ",
-            "detail": []
-          },
-          {
-            "title": "Intermediate- Python",
-            "detail": []
-          },
-          {
-            "title": "Learning- Rust, Java",
+            "title": "TypeScript, React (Hooks/Context/Redux), Next.js, Angular, Material UI, Complex Forms, HTML5, CSS3, SCSS",
             "detail": []
           }
         ],
         "highlightDetail": []
       },
       {
-        "title": "Server Side",
+        "title": "Backend",
         "detail": [
           {
-            "title": "Advanced- Node.js, NGINX, Axios, RESTful API Development, server side rendering (SSR)",
+            "title": "Node.js, Python, Django, GraphQL, RESTful APIs, Event-Driven Architecture, NGINX, WebSockets",
             "detail": []
           }
         ],
         "highlightDetail": []
       },
       {
-        "title": "Database Technologies",
+        "title": "Database",
         "detail": [
           {
-            "title": "Advanced- PostgreSQL, mySQL, Sequelize, Mongo, Mongoose, DynamoDb ",
+            "title": "PostgreSQL, MySQL, MongoDB, DynamoDB, Redis, Sequelize, Mongoose, Mikro-ORM",
             "detail": []
           }
         ],
         "highlightDetail": []
       },
       {
-        "title": "Tools",
+        "title": "DevOps & Tools",
         "detail": [
           {
-            "title": "Advanced- Amazon Web-Services, Webpack, Babel, Github, pm2",
+            "title": "Docker, AWS (CDK, Lambda, ECS, Cognito, Route53, VPC, S3, CloudFront), GitHub Actions, Harness, Webpack, Babel",
+            "detail": []
+          }
+        ],
+        "highlightDetail": []
+      },
+      {
+        "title": "Testing & Monitoring",
+        "detail": [
+          {
+            "title": "Jest, React Testing Library, Mocha, Chai, Postman, Artillery, New Relic, Selenium",
+            "detail": []
+          }
+        ],
+        "highlightDetail": []
+      },
+      {
+        "title": "Currently Learning",
+        "detail": [
+          {
+            "title": "Rust, Java",
+            "detail": []
+          }
+        ],
+        "highlightDetail": []
+      }
+    ]
+  },
+  {
+    "title": "Professional Experience",
+    "detail": [
+      {
+        "title": "airx health || Senior Frontend Engineer",
+        "detail": [
+          {
+            "title": "April 2024 - November 2024",
             "detail": []
           },
           {
-            "title": "Intermediate- Docker, Grunt",
-            "detail": []
-          }
-        ],
-        "highlightDetail": []
-      },
-      {
-        "title": "Testing",
-        "detail": [
-          {
-            "title": "Advanced- Postman, Artillery, New Relic, Jest, Enzyme, React Testing Library, Mocha, Chai & Sinon Spy",
+            "title": "Led frontend architecture decisions for pharmaceutical management platform on 5-engineer team, trusted with product direction and customer satisfaction",
             "detail": []
           },
           {
-            "title": "Intermediate- Selenium",
+            "title": "Built comprehensive UI component library from scratch using Material UI, establishing consistent design system across application",
+            "detail": []
+          },
+          {
+            "title": "Engineered end-to-end Patient Scheduling Portal enabling pharmacy patients to book clinical appointments, integrating Django/Python backend with React/TypeScript frontend",
+            "detail": []
+          },
+          {
+            "title": "Implemented vial label and receipt printing integrations using Electron, Node.js WebSocket server, and Django backend",
+            "detail": []
+          },
+          {
+            "title": "Drove developer experience improvements: migrated from ESLint/Prettier to Biome, enhanced TypeScript usage, streamlined GitHub Actions workflows",
             "detail": []
           }
         ],
-        "highlightDetail": []
+        "highlightDetail": [
+          {
+            "title": "Key Technologies"
+          },
+          {
+            "title": "React/TypeScript"
+          },
+          {
+            "title": "Material UI"
+          },
+          {
+            "title": "Python/Django"
+          },
+          {
+            "title": "Electron"
+          },
+          {
+            "title": "WebSockets"
+          },
+          {
+            "title": "GitHub Actions"
+          }
+        ]
+      },
+      {
+        "title": "United Airlines || Fullstack Software Engineer",
+        "detail": [
+          {
+            "title": "February 2022 - November 2023",
+            "detail": []
+          },
+          {
+            "title": "Built key features for UnitedView, business-facing application delivering real-time flight and event data analytics to operations teams",
+            "detail": []
+          },
+          {
+            "title": "Modernized frontend architecture by migrating from Create React App to Next.js and transitioning state management to Redux Toolkit Query",
+            "detail": []
+          },
+          {
+            "title": "Developed Email Subscription Server using Node.js and event-driven architecture to deliver real-time operational alerts to thousands of users",
+            "detail": []
+          },
+          {
+            "title": "Created CI/CD pipelines across four environments using TeamCity, Harness, and GitHub Actions",
+            "detail": []
+          },
+          {
+            "title": "Implemented AWS infrastructure using CDK/CloudFormation for serverless deployments (Lambda, ECS, Fargate)",
+            "detail": []
+          }
+        ],
+        "highlightDetail": [
+          {
+            "title": "Key Technologies"
+          },
+          {
+            "title": "Next.js/React"
+          },
+          {
+            "title": "Redux Toolkit Query"
+          },
+          {
+            "title": "Node.js"
+          },
+          {
+            "title": "AWS CDK/Lambda/ECS"
+          },
+          {
+            "title": "Event-Driven Architecture"
+          },
+          {
+            "title": "CI/CD Pipelines"
+          }
+        ]
+      },
+      {
+        "title": "Galvanize || Software Engineering Immersive Resident",
+        "detail": [
+          {
+            "title": "October 2021 - March 2022",
+            "detail": []
+          },
+          {
+            "title": "Assisted students on helpdesk tickets, providing technical guidance and mentorship on core engineering concepts",
+            "detail": []
+          },
+          {
+            "title": "Led code reviews and debugging sessions for cohorts learning full-stack development",
+            "detail": []
+          }
+        ],
+        "highlightDetail": [
+          {
+            "title": "Focus Areas"
+          },
+          {
+            "title": "JavaScript/React"
+          },
+          {
+            "title": "Node.js/Express"
+          },
+          {
+            "title": "Database Design"
+          },
+          {
+            "title": "Technical Mentorship"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Selected Projects",
+    "detail": [
+      {
+        "title": "Homebridge GE Appliances Plugin || Open Source Contributor",
+        "detail": [
+          {
+            "title": "February 2025",
+            "detail": []
+          },
+          {
+            "title": "Extended existing Homebridge plugin to enable iPhone Home app control of GE Opal Ice Machine",
+            "detail": []
+          },
+          {
+            "title": "Implemented night light toggle, ice production controls, scheduler, and ice limit features",
+            "detail": []
+          }
+        ],
+        "highlightDetail": [
+          {
+            "title": "Technologies"
+          },
+          {
+            "title": "TypeScript"
+          },
+          {
+            "title": "Homebridge API"
+          },
+          {
+            "title": "IoT Integration"
+          },
+          {
+            "title": "Open Source Contribution"
+          }
+        ]
+      },
+      {
+        "title": "lmkn.net || Full-Stack Developer",
+        "detail": [
+          {
+            "title": "January 2024 - Present",
+            "detail": []
+          },
+          {
+            "title": "Built real-time messaging application using AWS SNS/Pinpoint, Step Functions, and DynamoDB",
+            "detail": []
+          },
+          {
+            "title": "Developed Next.js/React frontend enabling browser-based SMS functionality",
+            "detail": []
+          }
+        ],
+        "highlightDetail": [
+          {
+            "title": "Technologies"
+          },
+          {
+            "title": "Next.js/React"
+          },
+          {
+            "title": "AWS SNS/Pinpoint"
+          },
+          {
+            "title": "Step Functions"
+          },
+          {
+            "title": "DynamoDB"
+          },
+          {
+            "title": "Real-time Messaging"
+          }
+        ]
+      },
+      {
+        "title": "Strava Top Times Generator || Full-Stack Developer",
+        "detail": [
+          {
+            "title": "January 2021, November 2023 - April 2024",
+            "detail": []
+          },
+          {
+            "title": "Developed application leveraging Strava API to analyze and display users' top athletic performance times",
+            "detail": []
+          },
+          {
+            "title": "Built intuitive pagination system and performance metrics visualization using React/TypeScript",
+            "detail": []
+          },
+          {
+            "title": "Implemented Redis and Express-Session for secure authentication and session persistence",
+            "detail": []
+          }
+        ],
+        "highlightDetail": [
+          {
+            "title": "Technologies"
+          },
+          {
+            "title": "React/TypeScript"
+          },
+          {
+            "title": "Redux/Router"
+          },
+          {
+            "title": "Express.js/Redis"
+          },
+          {
+            "title": "PostgreSQL"
+          },
+          {
+            "title": "Strava API/OAuth2.0"
+          }
+        ]
+      },
+      {
+        "title": "Beatminesweeper.app || Full-Stack Developer",
+        "detail": [
+          {
+            "title": "Online Minesweeper game with user authentication and leaderboard",
+            "detail": []
+          },
+          {
+            "title": "Employed full-stack TypeScript with React, GraphQL, and Mikro-ORM",
+            "detail": []
+          },
+          {
+            "title": "Implemented secure session management using Redis, Argon2, and express-session",
+            "detail": []
+          },
+          {
+            "title": "Server-side rendered with static assets served from AWS CloudFront",
+            "detail": []
+          }
+        ],
+        "highlightDetail": [
+          {
+            "title": "Technologies"
+          },
+          {
+            "title": "TypeScript"
+          },
+          {
+            "title": "React/Redux"
+          },
+          {
+            "title": "GraphQL"
+          },
+          {
+            "title": "PostgreSQL/Mikro-ORM"
+          },
+          {
+            "title": "Redis/Argon2"
+          },
+          {
+            "title": "AWS (EC2, S3, CloudFront)"
+          },
+          {
+            "title": "SSR/NGINX"
+          }
+        ]
       }
     ]
   },
@@ -77,11 +378,11 @@
         "title": "Hack Reactor @ Galvanize",
         "detail": [
           {
-            "title": "Advanced Software Engineering Immersive",
+            "title": "Advanced Software Engineering Immersive Program",
             "detail": []
           },
           {
-            "title": "July 2020-July 2021",
+            "title": "July 2020 - July 2021",
             "detail": []
           },
           {
@@ -91,22 +392,22 @@
         ],
         "highlightDetail": [
           {
-            "title": "Main Technologies Learned"
+            "title": "Core Curriculum"
           },
           {
-            "title": "Javascript es6/Node"
+            "title": "JavaScript ES6/Node.js"
           },
           {
             "title": "React/Redux"
           },
           {
-            "title": "Express, NGINX"
+            "title": "Express/NGINX"
           },
           {
-            "title": "MySQL, PostgreSQL, MongoDB"
+            "title": "PostgreSQL/MongoDB"
           },
           {
-            "title": "Service Oriented Architecture"
+            "title": "Service-Oriented Architecture"
           },
           {
             "title": "Agile Development"
@@ -114,10 +415,10 @@
         ]
       },
       {
-        "title": "Universitat Autonoma de Barcelona",
+        "title": "Universitat Autònoma de Barcelona",
         "detail": [
           {
-            "title": "Masters in International Business Management",
+            "title": "Master's in International Business Management",
             "detail": []
           },
           {
@@ -131,7 +432,7 @@
         ],
         "highlightDetail": [
           {
-            "title": "Masters Highlights"
+            "title": "Highlights"
           },
           {
             "title": "Awarded Best Thesis"
@@ -145,41 +446,10 @@
         ]
       },
       {
-        "title": "Chung-Ang University",
-        "detail": [
-          {
-            "title": "International Advertising Program",
-            "detail": []
-          },
-          {
-            "title": "Seoul, South Korea",
-            "detail": []
-          },
-          {
-            "title": "February 2012 - December 2012",
-            "detail": []
-          }
-        ],
-        "highlightDetail": [
-          {
-            "title": "Study Abroad Highlights"
-          },
-          {
-            "title": "Awarded Gilman Scholarship"
-          },
-          {
-            "title": "Produced Video Blog about experience"
-          },
-          {
-            "title": "Took Graduate Level course in Global Communications"
-          }
-        ]
-      },
-      {
         "title": "Cleveland State University",
         "detail": [
           {
-            "title": "Bachelors in Communications with Dual Focus in Advertising and Public Relations",
+            "title": "Bachelor's in Communications - Advertising and Public Relations",
             "detail": []
           },
           {
@@ -193,7 +463,7 @@
         ],
         "highlightDetail": [
           {
-            "title": "Undergraduate Highlights"
+            "title": "Highlights"
           },
           {
             "title": "3.54 GPA Honor Student"
@@ -202,274 +472,12 @@
             "title": "D1 Student Swimming Athlete"
           },
           {
-            "title": "Played clarinet in pep/symphonic bands"
+            "title": "Study Abroad in Seoul, South Korea"
           },
           {
-            "title": "Studied abroad in Seoul, South Korea"
+            "title": "Gilman Scholarship Recipient"
           }
         ]
-      }
-    ]
-  },
-  {
-    "title": "Recent Applications",
-    "detail": [
-      {
-        "title": "Steammop.app",
-        "detail": [
-          {
-            "title": "Horizontally scaled AWS micro service to receive 2000 RPS with <1% error rate",
-            "detail": []
-          },
-          {
-            "title": "Optimized using NGINX Load Balancing and Caching",
-            "detail": []
-          },
-          {
-            "title": "Implemented Postgres database query optimization, sequelize connection pooling to achieve fast lookup over 125 million records",
-            "detail": []
-          },
-          {
-            "title": "Deployed 12 ec2 micro instances running pm2 & NGINX, using horizontal system design architecture.",
-            "detail": []
-          },
-          {
-            "title": "Verified results via stress testing Technologies- New Relic, Artillery & Loader.io",
-            "detail": []
-          }
-        ],
-        "highlightDetail": [
-          {
-            "title": "Main Technologies/Paradigms Used"
-          },
-          {
-            "title": "NGINX"
-          },
-          {
-            "title": "Testing- Loader.io and New Relic"
-          },
-          {
-            "title": "AWS Horizontally Scaled System Design"
-          }
-        ]
-      },
-      {
-        "title": "Fjakeraven.com",
-        "detail": [
-          {
-            "title": "Engineered a proxy server, to receive and render bundles from 4 distinct micro services in accordance with SOA.",
-            "detail": []
-          },
-          {
-            "title": "Led team with technical and empathetic guidance in understanding Service Oriented Architecture during agile meetings.",
-            "detail": []
-          },
-          {
-            "title": "Utilized SCSS Media Queries to implement responsive design distinguishing mobile view, tablet view and browser view.",
-            "detail": []
-          },
-          {
-            "title": "Constructed intuitive user interfaces and animations that directly modeled the real Fjallraven website.",
-            "detail": []
-          }
-        ],
-        "highlightDetail": [
-          {
-            "title": "Main Technologies/Paradigms Used"
-          },
-          {
-            "title": "Javascript es6"
-          },
-          {
-            "title": "Service Oriented Architecture"
-          },
-          {
-            "title": "SASS/SCSS"
-          },
-          {
-            "title": "Agile Development"
-          }
-        ]
-      },
-      {
-        "title": "Strava Top Times Generator",
-        "detail": [
-          {
-            "title": "Leveraged the Strava API to deliver the unique solution of displaying a sorted list of a user’s top times.",
-            "detail": []
-          },
-          {
-            "title": "Built an intuitive user interface using pagination, loading animations, and additional detail links.",
-            "detail": []
-          },
-          {
-            "title": "Employed Redis and Express-Session to store cookies for database lookups on future visits",
-            "detail": []
-          }
-        ],
-        "highlightDetail": [
-          {
-            "title": "Main Technologies Used"
-          },
-          {
-            "title": "Javascript es6/Typescript"
-          },
-          {
-            "title": "React Hooks, Redux, Router"
-          },
-          {
-            "title": "Express.js/Express Session/Redis"
-          },
-          {
-            "title": "PostgreSQL"
-          },
-          {
-            "title": "Strava API / OAuth2.0"
-          }
-        ]
-      },
-      {
-        "title": "FullstackHrivnak.com",
-        "detail": [
-          {
-            "title": "Created a website for promoting myself from scratch",
-            "detail": []
-          },
-          {
-            "title": "Served Static assets from AWS Cloudfront, Website is also server-side rendered",
-            "detail": []
-          },
-          {
-            "title": "Proxied in gameplay only version of beatminesweeper.app (Service Oriented Architecture)",
-            "detail": []
-          },
-          {
-            "title": "Crafted a responsive design for mobile, tablet, laptop and monitor (large) browser screens",
-            "detail": []
-          }
-        ],
-        "highlightDetail": [
-          {
-            "title": "Main Technologies Used"
-          },
-          {
-            "title": "Server Side Rendering"
-          },
-          {
-            "title": "React Hooks, Router/Redux"
-          },
-          {
-            "title": "AWS- ec2, s3, cloudfront"
-          },
-          {
-            "title": "PostgreSQL"
-          },
-          {
-            "title": "Grunt, PM2, & Webpack"
-          }
-        ]
-      },
-      {
-        "title": "Beatminesweeper.app",
-        "detail": [
-          {
-            "title": "Built a online Minesweeper Game",
-            "detail": []
-          },
-          {
-            "title": "Employed typing across technologies- Typescript with React, Mikro-ORM, GraphQL",
-            "detail": []
-          },
-          {
-            "title": "Used Redis, Argon2, and express-session to ensure secure session persistence as well as authenticated logged-in/registered users",
-            "detail": []
-          },
-          {
-            "title": "Served static assets from AWS Cloudfront, application is also server-side rendered",
-            "detail": []
-          }
-        ],
-        "highlightDetail": [
-          {
-            "title": "Main Technologies Used"
-          },
-          {
-            "title": "Typescript"
-          },
-          {
-            "title": "React- Hooks, Router, & Redux"
-          },
-          {
-            "title": "PostgreSQL"
-          },
-          {
-            "title": "GraphQL"
-          },
-          {
-            "title": "Mikro-ORM"
-          },
-          {
-            "title": "Redis"
-          },
-          {
-            "title": "Argon2"
-          },
-          {
-            "title": "AWS- ec2, s3, cloudfront"
-          },
-          {
-            "title": "Grunt, pm2, webpack"
-          },
-          {
-            "title": "Server-Side Rendering"
-          },
-          {
-            "title": "NGINX"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Professional Experience",
-    "detail": [
-      {
-        "title": "United Airlines",
-        "detail": [
-          {
-            "title": "Intergral in developing a business facing app that integrates multiple data sources to deliver real time flight and event data analytics in a beautiful and seamless user interface.",
-            "detail": []
-          }
-        ],
-        "highlightDetail": []
-      },
-      {
-        "title": "Galvanize",
-        "detail": [
-          {
-            "title": "Software Engineering Immersive Resident [SEIR]",
-            "detail": []
-          },
-          {
-            "title": "Assists students and staff with learning objectives, troubleshooting and understanding core technical concepts",
-            "detail": []
-          }
-        ],
-        "highlightDetail": []
-      },
-      {
-        "title": "Globig",
-        "detail": [
-          {
-            "title": "Participated in daily Agile Standups to discuss progress, blockers & questions",
-            "detail": []
-          },
-          {
-            "title": "Developed scripts to automate twitter, hubspot marketing outreach",
-            "detail": []
-          }
-        ],
-        "highlightDetail": []
       }
     ]
   },
@@ -480,46 +488,57 @@
         "title": "Athletic",
         "detail": [
           {
-            "title": "Former Collegiate & Current Competitive Swimmer- actively pursuing state record in 1500 meter freestyle",
+            "title": "Former collegiate and current competitive swimmer pursuing state records",
             "detail": []
           },
           {
-            "title": "Ran the 2013 Barcelona Half and Full Marathon and have run many half marathons since",
+            "title": "Completed 2014 Barcelona Half and Full Marathon, plus numerous half marathons",
             "detail": []
           }
         ],
         "highlightDetail": [
           {
-            "title": "Athletic Lessons Learned"
+            "title": "Core Values"
           },
           {
-            "title": "The power of intention"
+            "title": "Intentionality and goal-setting"
           },
           {
-            "title": "The importance of team"
+            "title": "Teamwork and collaboration"
           },
           {
-            "title": "Emotional and Physical Perseverance "
+            "title": "Physical and mental perseverance"
           }
         ]
       },
       {
-        "title": "Spiritual",
+        "title": "Community",
         "detail": [
           {
-            "title": "Extensive Buddhist Volunteer experience 2014-2019",
+            "title": "Extensive Buddhist volunteer experience (2014-2019)",
+            "detail": []
+          },
+          {
+            "title": "Volunteered for 50+ programs at local Buddhist centers",
+            "detail": []
+          },
+          {
+            "title": "Lived on retreat centers in Vermont, France, and Colorado",
             "detail": []
           }
         ],
         "highlightDetail": [
           {
-            "title": "Volunteer Highlights"
+            "title": "Experience"
           },
           {
-            "title": "Volunteered for over 50 programs at local Buddhist Center"
+            "title": "Community building"
           },
           {
-            "title": "Lived on 3 different land centers in Vermont, France, and Colorado- volunteering and learning about community and meditation"
+            "title": "Meditation practice"
+          },
+          {
+            "title": "Service and leadership"
           }
         ]
       },
@@ -527,39 +546,33 @@
         "title": "Travel",
         "detail": [
           {
-            "title": "Have visited 34 different foreign countries and have lived in 3- Korea, Spain, and France",
+            "title": "Visited 34 countries across 6 continents",
             "detail": []
           },
           {
-            "title": "Can speak some French and Spanish",
+            "title": "Lived in South Korea, Spain, and France",
             "detail": []
           },
           {
-            "title": "Have visited many second and third world countries as well",
+            "title": "Conversational in French and Spanish",
             "detail": []
           }
         ],
         "highlightDetail": [
           {
-            "title": "Favorite Countries Visited"
+            "title": "Favorite Destinations"
           },
           {
             "title": "Spain"
           },
           {
-            "title": "S. Korea"
+            "title": "South Korea"
           },
           {
             "title": "Japan"
           },
           {
             "title": "Nepal"
-          },
-          {
-            "title": "Mexico"
-          },
-          {
-            "title": "U.A.E"
           },
           {
             "title": "Iceland"
