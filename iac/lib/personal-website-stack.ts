@@ -1,190 +1,139 @@
-import * as cdk from 'aws-cdk-lib';
-import * as ecs from 'aws-cdk-lib/aws-ecs';
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import { Construct } from 'constructs';
-import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
-import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import * as cdk from 'aws-cdk-lib'
+import * as acm from 'aws-cdk-lib/aws-certificatemanager'
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront'
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
+import * as route53 from 'aws-cdk-lib/aws-route53'
+import * as targets from 'aws-cdk-lib/aws-route53-targets'
+import * as s3 from 'aws-cdk-lib/aws-s3'
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment'
+import type { Construct } from 'constructs'
 
 interface PersonalWebsiteStackProps extends cdk.StackProps {
-  aws_env: {
-    AWS_ACM_CERTIFICATE_ARN: string;
-    AWS_CLUSTER_ARN: string;
-    AWS_DEFAULT_SG: string;
-    AWS_VPC_ID: string;
-  };
-  svc_env: {
-    SVC_CLOUDFRONT_LINK: string;
-  };
+	aws_env: {
+		AWS_ACM_CERTIFICATE_ARN: string
+	}
 }
 
 export class PersonalWebsiteStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: PersonalWebsiteStackProps) {
-    super(scope, id, props);
+	public readonly distributionDomainName: string
+	public readonly bucketName: string
 
-    const fshFargateService = new ecs.FargateService(
-      this,
-      'fsh-fargate-service',
-      {
-        assignPublicIp: true,
-        desiredCount: 1,
-        capacityProviderStrategies: [
-          {
-            capacityProvider: 'FARGATE_SPOT',
-            weight: 1,
-          },
-        ],
-        taskDefinition: new ecs.FargateTaskDefinition(
-          this,
-          'fsh-task-definition',
-          {
-            taskRole: iam.Role.fromRoleName(
-              this,
-              'jh-ecs-task-definition-role',
-              'jh-ecs-task-definition-role'
-            ),
-            executionRole: iam.Role.fromRoleName(
-              this,
-              'jh-ecs-task-execution-role',
-              'jh-ecs-task-execution-role'
-            ),
-          }
-        ),
-        cluster: ecs.Cluster.fromClusterAttributes(
-          this,
-          'jh-imported-cluster',
-          {
-            securityGroups: [
-              ec2.SecurityGroup.fromSecurityGroupId(
-                this,
-                'imported-default-sg',
-                props.aws_env.AWS_DEFAULT_SG
-              ),
-            ],
-            clusterName: 'jh-e1-ecs-cluster',
-            clusterArn: props.aws_env.AWS_CLUSTER_ARN,
-            vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc', {
-              vpcId: props.aws_env.AWS_VPC_ID,
-            }),
-          }
-        ),
-        enableExecuteCommand: true,
-      }
-    );
+	constructor(scope: Construct, id: string, props: PersonalWebsiteStackProps) {
+		super(scope, id, props)
 
-    const container = fshFargateService.taskDefinition.addContainer(
-      'fsh-container',
-      {
-        environment: {
-          NEXT_PUBLIC_CLOUDFRONTLINK: props.svc_env.SVC_CLOUDFRONT_LINK,
-        },
-        image: ecs.ContainerImage.fromAsset('code/src'),
-        logging: new ecs.AwsLogDriver({
-          streamPrefix: 'fsh-container',
-          logRetention: RetentionDays.FIVE_DAYS,
-        }),
-      }
-    );
+		// Create S3 bucket for static website hosting
+		const websiteBucket = new s3.Bucket(this, 'fsh-website-bucket', {
+			bucketName: `fsh-website-${this.account}-${this.region}`,
+			blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+			removalPolicy: cdk.RemovalPolicy.RETAIN, // Change to DESTROY for dev
+			autoDeleteObjects: false, // Change to true for dev
+			encryption: s3.BucketEncryption.S3_MANAGED,
+		})
 
-    container.addPortMappings({
-      containerPort: 80,
-      hostPort: 80,
-    });
+		// Import the ACM certificate
+		const certificate = acm.Certificate.fromCertificateArn(
+			this,
+			'imported-certificate',
+			props.aws_env.AWS_ACM_CERTIFICATE_ARN,
+		)
 
-    const importedALBListener = elbv2.ApplicationListener.fromLookup(
-      this,
-      'imported-listener',
-      {
-        listenerArn:
-          'arn:aws:elasticloadbalancing:us-east-1:471507967541:listener/app/jh-alb/5927623bf7b387b8/202d118fecee2aa5',
-      }
-    );
+		// Create Origin Access Control (OAC) for CloudFront to access S3
+		const _oac = new cloudfront.CfnOriginAccessControl(this, 'fsh-oac', {
+			originAccessControlConfig: {
+				name: 'fsh-oac',
+				originAccessControlOriginType: 's3',
+				signingBehavior: 'always',
+				signingProtocol: 'sigv4',
+			},
+		})
 
-    const targetGroup = new elbv2.ApplicationTargetGroup(this, 'fsh-tg', {
-      port: 80,
-      protocol: elbv2.ApplicationProtocol.HTTP,
-      targets: [fshFargateService],
-      vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc-tg', {
-        vpcId: props.aws_env.AWS_VPC_ID,
-      }),
-      healthCheck: {
-        path: '/',
-        unhealthyThresholdCount: 2,
-        healthyHttpCodes: '200',
-        healthyThresholdCount: 5,
-        interval: cdk.Duration.seconds(30),
-        port: '80',
-        timeout: cdk.Duration.seconds(10),
-      },
-    });
+		// Create CloudFront distribution
+		const distribution = new cloudfront.Distribution(this, 'fsh-distribution', {
+			defaultBehavior: {
+				origin: new origins.S3Origin(websiteBucket),
+				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+				cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+				allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+				compress: true,
+			},
 
-    importedALBListener.addTargetGroups('fsh-listener-tg', {
-      targetGroups: [targetGroup],
-      priority: 10,
-      conditions: [
-        elbv2.ListenerCondition.hostHeaders([
-          '*.fullstackhrivnak.com',
-          'fullstackhrivnak.com',
-        ]),
-        elbv2.ListenerCondition.pathPatterns(['/', '/fullstack/*', '/_next/*']),
-      ],
-    });
+			defaultRootObject: 'index.html',
+			domainNames: ['fullstackhrivnak.com'],
+			certificate: certificate,
+			minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+			errorResponses: [
+				{
+					httpStatus: 404,
+					responseHttpStatus: 200,
+					responsePagePath: '/index.html',
+					ttl: cdk.Duration.minutes(5),
+				},
+				{
+					httpStatus: 403,
+					responseHttpStatus: 200,
+					responsePagePath: '/index.html',
+					ttl: cdk.Duration.minutes(5),
+				},
+			],
+			priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
+			enableLogging: false,
+		})
 
-    // const _fshService = new ecsPatterns.ApplicationLoadBalancedFargateService(
-    //   this,
-    //   'fsh-fullstack-hrivnak-alb',
-    //   {
-    //     certificate: acm.Certificate.fromCertificateArn(
-    //       this,
-    //       'fsh-imported-certificate',
-    //       props.aws_env.AWS_ACM_CERTIFICATE_ARN
-    //     ),
-    //     cluster: ecs.Cluster.fromClusterAttributes(
-    //       this,
-    //       'fsh-imported-cluster',
-    //       {
-    //         securityGroups: [
-    //           ec2.SecurityGroup.fromSecurityGroupId(
-    //             this,
-    //             'imported-default-sg',
-    //             props.aws_env.AWS_DEFAULT_SG
-    //           ),
-    //         ],
-    //         clusterName: 'jh-e1-ecs-cluster',
-    //         clusterArn: props.aws_env.AWS_CLUSTER_ARN,
-    //         vpc: ec2.Vpc.fromLookup(this, 'jh-imported-vpc', {
-    //           vpcId: props.aws_env.AWS_VPC_ID,
-    //         }),
-    //       }
-    //     ),
-    //     loadBalancerName: 'fsh-fullstack-hrivnak-alb',
-    //     redirectHTTP: true,
-    //     assignPublicIp: true,
-    //     taskImageOptions: {
-    //       image: ecs.ContainerImage.fromAsset('code/src'),
-    //       taskRole: iam.Role.fromRoleName(
-    //         this,
-    //         'jh-ecs-task-definition-role',
-    //         'jh-ecs-task-definition-role'
-    //       ),
-    //       executionRole: iam.Role.fromRoleName(
-    //         this,
-    //         'jh-ecs-task-execution-role',
-    //         'jh-ecs-task-execution-role'
-    //       ),
-    //       environment: {
-    //         NEXT_PUBLIC_CLOUDFRONTLINK: props.svc_env.SVC_CLOUDFRONT_LINK,
-    //       },
-    //     },
-    //     capacityProviderStrategies: [
-    //       {
-    //         capacityProvider: 'FARGATE_SPOT',
-    //         weight: 1,
-    //       },
-    //     ],
-    //     desiredCount: 1,
-    //     enableExecuteCommand: true,
-    //   }
-    // );
-  }
+		// Add bucket policy to allow CloudFront OAC access
+		websiteBucket.addToResourcePolicy(
+			new cdk.aws_iam.PolicyStatement({
+				actions: ['s3:GetObject'],
+				resources: [websiteBucket.arnForObjects('*')],
+				principals: [
+					new cdk.aws_iam.ServicePrincipal('cloudfront.amazonaws.com'),
+				],
+				conditions: {
+					StringEquals: {
+						'AWS:SourceArn': `arn:aws:cloudfront::${this.account}:distribution/${distribution.distributionId}`,
+					},
+				},
+			}),
+		)
+
+		// Deploy the static website to S3
+		new s3deploy.BucketDeployment(this, 'fsh-deploy-website', {
+			sources: [s3deploy.Source.asset('code/src/out')],
+			destinationBucket: websiteBucket,
+			distribution: distribution,
+			distributionPaths: ['/*'],
+			memoryLimit: 512,
+		})
+
+		const hostedZone = route53.HostedZone.fromLookup(this, 'fsh-hosted-zone', {
+			domainName: 'fullstackhrivnak.com',
+		})
+
+		new route53.ARecord(this, 'fsh-alias-record', {
+			zone: hostedZone,
+			recordName: 'fullstackhrivnak.com',
+			target: route53.RecordTarget.fromAlias(
+				new targets.CloudFrontTarget(distribution),
+			),
+		})
+
+		// Outputs
+		this.distributionDomainName = distribution.distributionDomainName
+		this.bucketName = websiteBucket.bucketName
+
+		new cdk.CfnOutput(this, 'CloudFrontURL', {
+			value: `https://${distribution.distributionDomainName}`,
+			description: 'CloudFront distribution URL',
+		})
+
+		new cdk.CfnOutput(this, 'CloudFrontDistributionId', {
+			value: distribution.distributionId,
+			description: 'CloudFront distribution ID',
+		})
+
+		new cdk.CfnOutput(this, 'S3BucketName', {
+			value: websiteBucket.bucketName,
+			description: 'S3 bucket name',
+		})
+	}
 }

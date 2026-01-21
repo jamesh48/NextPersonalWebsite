@@ -3,9 +3,9 @@ name: AWS Service CI/CD
 
 on:
   push:
-    branches: [no-op]
-  # pull_request:
-  #   branches: [main]
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,16 +27,17 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: 'us-east-1'
+      - name: Build Website Application
+        run: |
+          cd iac/code/src;
+          yarn install;
+          yarn export;
       - name: Deploy to AWS
         run: |
           cd iac;
-          npm install;
+          yarn install;
           cdk deploy --require-approval=never;
         env:
           AWS_ACCOUNT_NUMBER: ${{ vars.AWS_ACCOUNT_NUMBER }}
           AWS_ACM_CERTIFICATE_ARN: ${{ vars.AWS_ACM_CERTIFICATE_ARN }}
-          AWS_CLUSTER_ARN: ${{ vars.AWS_CLUSTER_ARN }}
-          AWS_DEFAULT_SG: ${{ vars.AWS_DEFAULT_SG }}
-          AWS_VPC_ID: ${{ vars.AWS_VPC_ID }}
           CDK_REGION: ${{ vars.CDK_REGION }}
-          SVC_CLOUDFRONT_LINK: ${{ vars.SVC_CLOUDFRONT_LINK }}
