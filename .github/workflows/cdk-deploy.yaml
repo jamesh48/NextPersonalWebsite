@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install CDK
-        run: npm install -g aws-cdk
+        run: yarn global add aws-cdk
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
