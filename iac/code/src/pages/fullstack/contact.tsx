@@ -1,113 +1,160 @@
-import { Box, List } from '@mui/material'
+import {
+	Email as EmailIcon,
+	LinkedIn as LinkedInIcon,
+	LocationOn as LocationIcon,
+	Phone as PhoneIcon,
+} from '@mui/icons-material'
+import { Box, Card, Container, Grid, Link, Typography } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 
-import { ContactDescription } from '../../features/ContactComponents/ContactDescription'
-
-const ContactForm = (props: { mobileBrowser: boolean }) => {
-	const mobileBrowserState = useMobileBrowserCheck()
-	if (mobileBrowserState) {
-		return (
+const ContactItem = ({
+	icon,
+	title,
+	value,
+	href,
+}: {
+	icon: React.ReactNode
+	title: string
+	value: string
+	href?: string
+}) => {
+	const content = (
+		<Card
+			sx={{
+				height: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				textAlign: 'center',
+				p: 3,
+				backgroundColor: '#2f4f4f',
+				border: '1px solid rgba(240, 255, 240, 0.15)',
+				transition: 'all 0.3s ease',
+				cursor: href ? 'pointer' : 'default',
+				'&:hover': href
+					? {
+							transform: 'translateY(-4px)',
+							backgroundColor: '#3a5f5f',
+							border: '1px solid rgba(240, 255, 240, 0.3)',
+							boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
+						}
+					: {},
+			}}
+		>
 			<Box
-				className="contact-container--Mobile"
-				sx={{ height: '95vh', display: 'flex', alignItems: 'center' }}
+				sx={{
+					mb: 2,
+					color: 'ivory',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					width: 60,
+					height: 60,
+					borderRadius: '50%',
+					backgroundColor: 'rgba(135, 206, 235, 0.3)',
+					position: 'relative',
+				}}
 			>
-				<Box
-					className={`contact-root contact-root--Mobile`}
-					sx={{ width: '100%', margin: '0 auto' }}
-				>
-					<Box
-						className="contact-wrapper"
-						sx={{
-							boxSizing: 'border-box !important',
-							width: '100%',
-							bgColor: 'red',
-							display: 'flex',
-						}}
-					>
-						<Box
-							className="contact-column contact-column-l"
-							sx={{
-								flex: 1,
-								backgroundColor: 'transparent',
-								textAlign: 'center',
-							}}
-						>
-							<List>
-								<ContactDescription
-									title="Location"
-									descriptor="Boulder, Colorado"
-									mobileBrowserState={mobileBrowserState}
-								/>
-
-								<ContactDescription
-									title="E-Mail"
-									descriptor="mailto:jameshrivnak4@gmail.com"
-									mobileBrowserState={mobileBrowserState}
-									isLink={true}
-								/>
-								<ContactDescription
-									title="Phone"
-									descriptor="tel:303-517-2085"
-									mobileBrowserState={mobileBrowserState}
-									isLink={true}
-								/>
-								<ContactDescription
-									title="linkedin"
-									descriptor="https://linkedin.com/in/james-hrivnak"
-									mobileBrowserState={mobileBrowserState}
-									isLink={true}
-								/>
-							</List>
-
-							{/* <p style={{ color: "ivory", lineHeight: 1.5 }}>
-            https://foundationinc.co/contact
-          </p> */}
-						</Box>
-					</Box>
-				</Box>
+				<Box sx={{ position: 'absolute', color: '#87CEEB' }}>{icon}</Box>
 			</Box>
+			<Typography
+				variant="overline"
+				sx={{
+					color: 'rgba(240, 255, 240, 0.6)',
+					mb: 1,
+					letterSpacing: '0.1em',
+				}}
+			>
+				{title}
+			</Typography>
+			<Typography variant="h6" sx={{ color: 'ivory', fontWeight: 400 }}>
+				{value}
+			</Typography>
+		</Card>
+	)
+
+	if (href) {
+		return (
+			<Link href={href} underline="none" target="_blank" rel="noopener">
+				{content}
+			</Link>
 		)
 	}
+
+	return content
+}
+
+const ContactForm = () => {
+	const mobileBrowserState = useMobileBrowserCheck()
+
 	return (
-		<Box>
-			<Box
-				className={
-					props.mobileBrowser
-						? `contact-root contact-root--Mobile`
-						: `contact-root`
-				}
-				sx={{ width: '75%', margin: '0 auto' }}
-			>
-				<Box
-					className="contact-wrapper"
+		<Container maxWidth="lg" sx={{ py: 8 }}>
+			<Box sx={{ textAlign: 'center', mb: 6 }}>
+				<Typography variant="h3" gutterBottom sx={{ color: 'ivory' }}>
+					Get In Touch
+				</Typography>
+				<Typography
+					variant="body1"
 					sx={{
-						boxSizing: 'border-box !important',
-						width: '100%',
-						display: 'flex',
+						maxWidth: 600,
+						mx: 'auto',
+						color: 'rgba(240, 255, 240, 0.8)',
+						lineHeight: 1.6,
 					}}
 				>
-					<Box sx={{ flex: 1, backgroundColor: 'transparent' }}>
-						<List sx={{ display: 'flex', flexDirection: 'column' }}>
-							<ContactDescription
-								title="Location"
-								descriptor="Boulder, Colorado"
-							/>
-
-							<ContactDescription
-								title="E-Mail"
-								isLink
-								descriptor="mailto:jameshrivnak4@gmail.com"
-							/>
-							<ContactDescription
-								title="Phone"
-								descriptor="tel:303-517-2085"
-								isLink
-							/>
-						</List>
-					</Box>
-				</Box>
+					Feel free to reach out through any of the channels below. I'm always
+					open to discussing new opportunities and collaborations.
+				</Typography>
 			</Box>
-		</Box>
+
+			<Grid container spacing={3}>
+				<Grid item xs={12} sm={6} md={3}>
+					<ContactItem
+						icon={<LocationIcon fontSize="large" />}
+						title="Location"
+						value="Boulder, CO"
+					/>
+				</Grid>
+
+				<Grid item xs={12} sm={6} md={3}>
+					<ContactItem
+						icon={<EmailIcon fontSize="large" />}
+						title="Email"
+						value="jameshrivnak4@gmail.com"
+						href="mailto:jameshrivnak4@gmail.com"
+					/>
+				</Grid>
+
+				<Grid item xs={12} sm={6} md={3}>
+					<ContactItem
+						icon={<PhoneIcon fontSize="large" />}
+						title="Phone"
+						value="(303) 517-2085"
+						href="tel:303-517-2085"
+					/>
+				</Grid>
+
+				<Grid item xs={12} sm={6} md={3}>
+					<ContactItem
+						icon={<LinkedInIcon fontSize="large" />}
+						title="LinkedIn"
+						value="Connect"
+						href="https://linkedin.com/in/james-hrivnak"
+					/>
+				</Grid>
+			</Grid>
+
+			{mobileBrowserState && (
+				<Box sx={{ mt: 6, textAlign: 'center' }}>
+					<Typography
+						variant="body2"
+						sx={{ color: 'rgba(240, 255, 240, 0.5)' }}
+					>
+						Tap any card to get in touch
+					</Typography>
+				</Box>
+			)}
+		</Container>
 	)
 }
 

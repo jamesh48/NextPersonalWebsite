@@ -84,6 +84,20 @@ const portfolioDataJson = [
 		],
 	},
 	{
+		title: 'Homebridge GE Opal Ice Machine Integration (Open Source)',
+		cssStyles: {
+			backgroundColor: 'ivory',
+			color: 'black',
+		},
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/opal.png`,
+		github: [
+			{
+				title: 'Github',
+				link: 'https://github.com/homebridge-plugins/homebridge-smarthq',
+			},
+		],
+	},
+	{
 		title: 'fullstackhrivnak.com (ts v2)',
 		cssStyles: {
 			backgroundColor: 'ivory',
@@ -123,6 +137,7 @@ const portfolioDataJson = [
 			},
 		],
 	},
+
 	{
 		title: 'Fjakeraven.com',
 		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/fec.jpg`,
