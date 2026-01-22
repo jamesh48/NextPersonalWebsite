@@ -1,17 +1,17 @@
 import { Box, Tooltip } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
-import React, { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FooterItemContainer } from './FooterItemContainer'
 
 interface FooterProps {
 	footerJSON: { iconLink: string; imageUrl: string; label: string }[]
 }
 function Footer(props: FooterProps) {
-	const [images, setImages] = React.useState([
+	const [images, setImages] = useState([
 		{ url: '', loaded: false, iconLink: '' },
 	])
 	const footerMobileBrowserState = useMobileBrowserCheck()
-	const [isLoaded, setIsLoaded] = React.useState(false)
+	const [isLoaded, setIsLoaded] = useState(false)
 
 	const incrementImageLoad = useCallback((idx: number) => {
 		setImages((image) => {
@@ -20,13 +20,13 @@ function Footer(props: FooterProps) {
 		})
 	}, [])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (images.every((image) => image.loaded)) {
 			setIsLoaded(true)
 		}
 	}, [images])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		setImages(
 			props.footerJSON.map(({ imageUrl, iconLink }, loadedIndex) => {
 				const img = new Image()
