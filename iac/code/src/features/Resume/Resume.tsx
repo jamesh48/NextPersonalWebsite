@@ -1,5 +1,6 @@
 import { useDispatch } from '@app/reduxHooks'
 import {
+	Download as DownloadIcon,
 	PictureAsPdf as PictureAsPdfIcon,
 	Print as PrintIcon,
 	ViewModule as ViewModuleIcon,
@@ -12,7 +13,7 @@ import {
 	useMediaQuery,
 } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import resumeDetails from '../../Data/Resume.json'
 import IterateContainers from './IterateContainers'
 import { exitHoverParams } from './resumeSlice'
@@ -24,14 +25,29 @@ const Resume = () => {
 	const portraitOrientation = useMediaQuery('(orientation: portrait)')
 	const [showPdfDesktop, setShowPdfDesktop] = useState(false)
 
-	const handlePrint = () => {
+	const isPdfVisible = resumeMobileBrowserState || showPdfDesktop
+
+	const handlePrint = useCallback(() => {
 		window.open(
 			'https://static.fullstackhrivnak.com/main/main-images/resume.pdf',
 			'_blank',
 		)
-	}
+	}, [])
 
-	const isPdfVisible = resumeMobileBrowserState || showPdfDesktop
+	const handleResumeDownload = useCallback(() => {
+		fetch('https://static.fullstackhrivnak.com/main/main-images/resume.pdf')
+			.then((response) => response.blob())
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob)
+				const a = document.createElement('a')
+				a.href = url
+				a.download = 'resume.pdf'
+				document.body.appendChild(a)
+				a.click()
+				window.URL.revokeObjectURL(url)
+				document.body.removeChild(a)
+			})
+	}, [])
 
 	return (
 		<Box
@@ -48,7 +64,14 @@ const Resume = () => {
 				})(),
 			}}
 		>
-			<Box sx={{ position: 'relative' }}>
+			<Box
+				sx={{
+					position: 'relative',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}
+			>
 				<Typography variant="h3" align="center">
 					Resume
 				</Typography>
@@ -56,16 +79,57 @@ const Resume = () => {
 				<Box
 					sx={{
 						position: 'absolute',
-						top: 0,
-						right: resumeMobileBrowserState ? 8 : 16,
-						display: 'flex',
-						gap: 0.5,
+						right: 16,
+						border: '1px solid',
+						borderColor: 'primary.main',
+						borderRadius: '2rem',
+						padding: '.25rem',
+						backgroundColor: 'background.paper',
+						backdropFilter: 'blur(8px)',
+						boxShadow: 1,
+						transition: 'all 0.2s ease-in-out',
+						'&:hover': {
+							boxShadow: 3,
+							borderColor: 'primary.dark',
+							transform: 'translateY(-2px)',
+						},
 					}}
 				>
 					{isPdfVisible && !resumeMobileBrowserState && (
 						<Tooltip title="Print Resume">
-							<IconButton onClick={handlePrint} sx={{ color: 'primary.main' }}>
+							<IconButton
+								onClick={handlePrint}
+								sx={{
+									color: 'primary.main',
+									transition: 'all 0.2s ease-in-out',
+									'&:hover': {
+										backgroundColor: 'primary.main',
+										color: 'primary.contrastText',
+										transform: 'scale(1.1)',
+									},
+								}}
+							>
 								<PrintIcon />
+							</IconButton>
+						</Tooltip>
+					)}
+
+					{isPdfVisible && (
+						<Tooltip title="Download Resume">
+							<IconButton
+								sx={{
+									color: 'primary.main',
+									transition: 'all 0.2s ease-in-out',
+									'&:hover': {
+										backgroundColor: 'primary.main',
+										color: 'primary.contrastText',
+										transform: 'scale(1.1)',
+									},
+								}}
+								aria-label="download"
+								onClick={handleResumeDownload}
+							>
+								<DownloadIcon />
 							</IconButton>
 						</Tooltip>
 					)}
@@ -78,7 +142,15 @@ const Resume = () => {
 						>
 							<IconButton
 								onClick={() => setShowPdfDesktop((prev) => !prev)}
-								sx={{ color: 'primary.main' }}
+								sx={{
+									color: 'primary.main',
+									transition: 'all 0.2s ease-in-out',
+									'&:hover': {
+										backgroundColor: 'primary.main',
+										color: 'primary.contrastText',
+										transform: 'scale(1.1)',
+									},
+								}}
 							>
 								{isPdfVisible ? <ViewModuleIcon /> : <PictureAsPdfIcon />}
 							</IconButton>
