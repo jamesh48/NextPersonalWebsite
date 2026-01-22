@@ -4,7 +4,7 @@ import React from 'react'
 import { FooterItemContainer } from './FooterItemContainer'
 
 interface FooterProps {
-	footerJSON: { iconLink: string; imageUrl: string }[]
+	footerJSON: { iconLink: string; imageUrl: string; label: string }[]
 }
 function Footer(props: FooterProps) {
 	const [images, setImages] = React.useState([
