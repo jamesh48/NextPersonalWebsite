@@ -1,82 +1,98 @@
-import React from 'react';
-import { FooterItemContainer } from './FooterItemContainer';
-import { useMobileBrowserCheck } from '@shared/globalUtils';
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material'
+import { useMobileBrowserCheck } from '@shared/globalUtils'
+import React from 'react'
+import { FooterItemContainer } from './FooterItemContainer'
 
 interface FooterProps {
-  footerJSON: { iconLink: string; imageUrl: string }[];
+	footerJSON: { iconLink: string; imageUrl: string }[]
 }
 function Footer(props: FooterProps) {
-  const [images, setImages] = React.useState([
-    { url: '', loaded: false, iconLink: '' },
-  ]);
-  const footerMobileBrowserState = useMobileBrowserCheck();
-  const [isLoaded, setIsLoaded] = React.useState(false);
+	const [images, setImages] = React.useState([
+		{ url: '', loaded: false, iconLink: '' },
+	])
+	const footerMobileBrowserState = useMobileBrowserCheck()
+	const [isLoaded, setIsLoaded] = React.useState(false)
 
-  const incrementImageLoad = (idx: number) => {
-    setImages((image) => {
-      image[idx].loaded = true;
-      return [...image];
-    });
-  };
+	const incrementImageLoad = (idx: number) => {
+		setImages((image) => {
+			image[idx].loaded = true
+			return [...image]
+		})
+	}
 
-  React.useEffect(() => {
-    if (images.every((image) => image.loaded)) {
-      setIsLoaded(true);
-    }
-  }, [images]);
+	React.useEffect(() => {
+		if (images.every((image) => image.loaded)) {
+			setIsLoaded(true)
+		}
+	}, [images])
 
-  React.useEffect(() => {
-    setImages(
-      props.footerJSON.map(({ imageUrl, iconLink }, loadedIndex) => {
-        let img = new Image();
-        img.onload = () => incrementImageLoad(loadedIndex);
-        img.src = imageUrl;
+	React.useEffect(() => {
+		setImages(
+			props.footerJSON.map(({ imageUrl, iconLink }, loadedIndex) => {
+				const img = new Image()
+				img.onload = () => incrementImageLoad(loadedIndex)
+				img.src = imageUrl
 
-        return {
-          iconLink: iconLink,
-          url: imageUrl,
-          loaded: false,
-        };
-      }),
-    );
-  }, []);
+				return {
+					iconLink: iconLink,
+					url: imageUrl,
+					loaded: false,
+				}
+			}),
+		)
+	}, [])
 
-  return isLoaded ? (
-    <Box
-      id="footerContainer"
-      className={
-        footerMobileBrowserState
-          ? `footer-container footer-container--Mobile`
-          : `footer-container`
-      }
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        height: '5vh',
-        width: footerMobileBrowserState ? '100%' : '75%',
-        margin: '0 auto',
-      }}
-    >
-      <Box
-        id="footer-items-container"
-        sx={{
-          display: 'flex',
-          width: '100%',
-          border: '3px solid darkslategray',
-          borderBottom: 'none',
-          backgroundColor: 'rgb(255, 255, 240)',
-          borderRadius: '0.7% / 25%',
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-        }}
-      >
-        {images.map((iconData, iconIndex) => {
-          return <FooterItemContainer key={iconIndex} iconData={iconData} />;
-        })}
-      </Box>
-    </Box>
-  ) : null;
+	return isLoaded ? (
+		<Box
+			id="footerContainer"
+			className={
+				footerMobileBrowserState
+					? `footer-container footer-container--Mobile`
+					: `footer-container`
+			}
+			sx={{
+				display: 'flex',
+				justifyContent: 'center',
+				height: '5vh',
+				width: footerMobileBrowserState ? '100%' : '75%',
+				margin: '0 auto',
+			}}
+		>
+			<Box
+				id="footer-items-container"
+				sx={{
+					display: 'flex',
+					width: '100%',
+					border: '3px solid darkslategray',
+					borderBottom: 'none',
+					backgroundColor: 'rgb(255, 255, 240)',
+					borderRadius: '0.7% / 25%',
+					borderBottomLeftRadius: 0,
+					borderBottomRightRadius: 0,
+				}}
+			>
+				{images.map((iconData, index) => {
+					const label = props.footerJSON[index]?.label
+
+					return (
+						<Tooltip
+							key={iconData.iconLink}
+							title={label}
+							arrow
+							placement="top"
+						>
+							<Box sx={{ flex: 1 }}>
+								<FooterItemContainer
+									key={iconData.iconLink}
+									iconData={iconData}
+								/>
+							</Box>
+						</Tooltip>
+					)
+				})}
+			</Box>
+		</Box>
+	) : null
 }
 
-export default Footer;
+export default Footer

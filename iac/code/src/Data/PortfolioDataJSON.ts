@@ -2,21 +2,29 @@ import { STATIC_CLOUDFRONT_LINK } from '../constants'
 
 const portfolioDataJson = [
 	{
-		title: 'Strava Report Generator (js v1)',
+		title: 'Strava Report Generator',
 		cssStyles: {
 			backgroundColor: 'ivory',
 			color: 'black',
 		},
 		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/Strava_Results_Generator.jpg`,
 		github: [
+			// {
+			// 	title: 'Deployed Website',
+			// 	link: 'https://www.stravareportgenerator.com',
+			// },
 			{
 				title: 'Github',
-				link: 'https://github.com/jamesh48/Strava-Report-Generator',
+				link: 'https://github.com/jamesh48/next-strava-report-generator',
+			},
+			{
+				title: 'Python Backend Github',
+				link: 'https://github.com/jamesh48/SRG-Python',
 			},
 		],
 	},
 	{
-		title: 'fullstackhrivnak.com (js v1)',
+		title: 'fullstackhrivnak.com',
 		cssStyles: {
 			backgroundColor: 'ivory',
 			color: 'black',
@@ -25,61 +33,7 @@ const portfolioDataJson = [
 		github: [
 			{
 				title: 'Github',
-				link: 'https://github.com/jamesh48/PersonalWebsite',
-			},
-		],
-	},
-	{
-		title: 'Beatminesweeper.app',
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/beatminesweeperss.png`,
-		cssStyles: {
-			backgroundColor: 'black',
-			color: 'ivory',
-		},
-		github: [
-			// {
-			//   title: 'Deployed Website',
-			//   link: 'https://www.beatminesweeper.app',
-			// },
-			{
-				title: 'Github',
-				link: 'https://github.com/jamesh48/Mini-Games/tree/master/beatminesweeper',
-			},
-		],
-	},
-	{
-		title: 'Job Application Express',
-		cssStyles: {
-			backgroundColor: 'ivory',
-			color: 'black',
-		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/indeedautomation.png`,
-		github: [
-			{
-				title: 'Github',
-				link: 'https://github.com/jamesh48/job-application-express',
-			},
-		],
-	},
-	{
-		title: 'Strava Report Generator (ts v2)',
-		cssStyles: {
-			backgroundColor: 'ivory',
-			color: 'black',
-		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/Strava_Results_Generator.jpg`,
-		github: [
-			{
-				title: 'Deployed Website',
-				link: 'https://www.stravareportgenerator.com',
-			},
-			{
-				title: 'Github',
-				link: 'https://github.com/jamesh48/next-strava-report-generator',
-			},
-			{
-				title: 'Python Backend Github',
-				link: 'https://github.com/jamesh48/SRG-Python',
+				link: 'https://github.com/jamesh48/NextPersonalWebsite',
 			},
 		],
 	},
@@ -94,20 +48,6 @@ const portfolioDataJson = [
 			{
 				title: 'Github',
 				link: 'https://github.com/homebridge-plugins/homebridge-smarthq',
-			},
-		],
-	},
-	{
-		title: 'fullstackhrivnak.com (ts v2)',
-		cssStyles: {
-			backgroundColor: 'ivory',
-			color: 'black',
-		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/GES.jpg`,
-		github: [
-			{
-				title: 'Github',
-				link: 'https://github.com/jamesh48/NextPersonalWebsite',
 			},
 		],
 	},
@@ -137,7 +77,24 @@ const portfolioDataJson = [
 			},
 		],
 	},
-
+	{
+		title: 'Beatminesweeper.app',
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/beatminesweeperss.png`,
+		cssStyles: {
+			backgroundColor: 'black',
+			color: 'ivory',
+		},
+		github: [
+			// {
+			//   title: 'Deployed Website',
+			//   link: 'https://www.beatminesweeper.app',
+			// },
+			{
+				title: 'Github',
+				link: 'https://github.com/jamesh48/Mini-Games/tree/master/beatminesweeper',
+			},
+		],
+	},
 	{
 		title: 'Fjakeraven.com',
 		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/fec.jpg`,

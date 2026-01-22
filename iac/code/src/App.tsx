@@ -22,7 +22,7 @@ import styles from './styles/Home.module.scss'
 
 const Home = (props: { portfolioJSON: {}[] }) => {
 	const mobileBrowserState = useMobileBrowserCheck()
-	const [smileLoaded, setSmileLoaded] = useState(false)
+	const [_smileLoaded, setSmileLoaded] = useState(false)
 	const dispatch = useDispatch()
 
 	const initPortraitState = useMediaQuery('(orientation: portrait)')

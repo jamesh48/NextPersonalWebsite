@@ -22,7 +22,7 @@ const Resume = () => {
 	const dispatch = useDispatch()
 	const landscapeOrientation = useMediaQuery('(orientation: landscape)')
 	const portraitOrientation = useMediaQuery('(orientation: portrait)')
-	const [showPdf, setShowPdf] = useState(false)
+	const [showPdfDesktop, setShowPdfDesktop] = useState(false)
 
 	const handlePrint = () => {
 		window.open(
@@ -30,6 +30,8 @@ const Resume = () => {
 			'_blank',
 		)
 	}
+
+	const isPdfVisible = resumeMobileBrowserState || showPdfDesktop
 
 	return (
 		<Box
@@ -60,33 +62,28 @@ const Resume = () => {
 						gap: 0.5,
 					}}
 				>
-					{showPdf && (
+					{isPdfVisible && !resumeMobileBrowserState && (
 						<Tooltip title="Print Resume">
-							<IconButton
-								onClick={handlePrint}
-								sx={{
-									color: 'primary.main',
-									cursor: 'pointer',
-								}}
-							>
+							<IconButton onClick={handlePrint} sx={{ color: 'primary.main' }}>
 								<PrintIcon />
 							</IconButton>
 						</Tooltip>
 					)}
 
-					<Tooltip
-						title={showPdf ? 'View Interactive Resume' : 'View PDF Resume'}
-					>
-						<IconButton
-							onClick={() => setShowPdf(!showPdf)}
-							sx={{
-								color: 'primary.main',
-								cursor: 'pointer',
-							}}
+					{!resumeMobileBrowserState && (
+						<Tooltip
+							title={
+								isPdfVisible ? 'View Interactive Resume' : 'View PDF Resume'
+							}
 						>
-							{showPdf ? <ViewModuleIcon /> : <PictureAsPdfIcon />}
-						</IconButton>
-					</Tooltip>
+							<IconButton
+								onClick={() => setShowPdfDesktop((prev) => !prev)}
+								sx={{ color: 'primary.main' }}
+							>
+								{isPdfVisible ? <ViewModuleIcon /> : <PictureAsPdfIcon />}
+							</IconButton>
+						</Tooltip>
+					)}
 				</Box>
 			</Box>
 
@@ -105,7 +102,7 @@ const Resume = () => {
 				<Box
 					sx={{
 						width: '100%',
-						display: showPdf ? 'flex' : 'none',
+						display: isPdfVisible ? 'flex' : 'none',
 						justifyContent: 'center',
 						alignItems: 'flex-start',
 					}}
@@ -125,7 +122,7 @@ const Resume = () => {
 				{/* Interactive View */}
 				<Box
 					sx={{
-						display: showPdf ? 'none' : 'block',
+						display: isPdfVisible ? 'none' : 'block',
 					}}
 				>
 					{IterateContainers({
