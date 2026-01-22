@@ -7,17 +7,14 @@ import {
 import { Box, Card, Container, Grid, Link, Typography } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 
-const ContactItem = ({
-	icon,
-	title,
-	value,
-	href,
-}: {
+interface ContactItemProps {
 	icon: React.ReactNode
 	title: string
 	value: string
 	href?: string
-}) => {
+}
+
+const ContactItem = ({ icon, title, value, href }: ContactItemProps) => {
 	const content = (
 		<Card
 			sx={{

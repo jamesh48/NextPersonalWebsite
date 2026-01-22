@@ -14,6 +14,7 @@ import {
 } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { useCallback, useState } from 'react'
+import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 import resumeDetails from '../../Data/Resume.json'
 import IterateContainers from './IterateContainers'
 import { exitHoverParams } from './resumeSlice'
@@ -29,13 +30,13 @@ const Resume = () => {
 
 	const handlePrint = useCallback(() => {
 		window.open(
-			'https://static.fullstackhrivnak.com/main/main-images/resume.pdf',
+			`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`,
 			'_blank',
 		)
 	}, [])
 
 	const handleResumeDownload = useCallback(() => {
-		fetch('https://static.fullstackhrivnak.com/main/main-images/resume.pdf')
+		fetch(`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`)
 			.then((response) => response.blob())
 			.then((blob) => {
 				const url = window.URL.createObjectURL(blob)
@@ -180,7 +181,7 @@ const Resume = () => {
 					}}
 				>
 					<embed
-						src="https://static.fullstackhrivnak.com/main/main-images/resume.pdf#toolbar=0&navpanes=0&view=FitH"
+						src={`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf#toolbar=0&navpanes=0&view=FitH`}
 						type="application/pdf"
 						style={{
 							width: '100%',

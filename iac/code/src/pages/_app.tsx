@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect, useRef } from 'react'
+import { STATIC_CLOUDFRONT_LINK } from '../constants'
 import Header from '../features/Header/Header'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -17,8 +18,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			if (prevRoute !== '/fullstack/minesweeper') {
 				const script = document.createElement('script')
 
-				script.src =
-					'https://static.fullstackhrivnak.com/mines/build/public/public-bundle.js'
+				script.src = `${STATIC_CLOUDFRONT_LINK}/mines/build/public/public-bundle.js`
 				script.async = true
 				document.body.appendChild(script)
 			}
@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link
 					rel="stylesheet"
-					href="https://static.fullstackhrivnak.com/mines/build/public/index.css"
+					href={`${STATIC_CLOUDFRONT_LINK}/mines/build/public/index.css`}
 				/>
 				<link
 					rel="preconnect"
@@ -63,7 +63,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			<Header />
 
 			<Component {...(pageProps as AppProps['pageProps'])} />
-			<Script src="https://static.fullstackhrivnak.com/mines/build/public/public-bundle.js" />
+			<Script
+				src={`${STATIC_CLOUDFRONT_LINK}/mines/build/public/public-bundle.js`}
+			/>
 		</>
 	)
 }

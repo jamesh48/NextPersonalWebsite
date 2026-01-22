@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { STATIC_CLOUDFRONT_LINK } from '../constants'
 
 export const useMobileBrowserCheck = () => {
 	const [mobileBrowserState, setMobileBrowserState] = useState(false)
@@ -39,7 +40,7 @@ export const handleMouseMove = (event: MouseEvent) => {
 	if (!document.getElementById('cursor')) {
 		const newCursor = document.createElement('div')
 		newCursor.id = 'cursor'
-		newCursor.style.backgroundImage = `url(https://static.fullstackhrivnak.com/main/main-images/cursor.png)`
+		newCursor.style.backgroundImage = `url(${STATIC_CLOUDFRONT_LINK}/main/main-images/cursor.png)`
 		document.querySelector('body')?.appendChild(newCursor)
 	}
 

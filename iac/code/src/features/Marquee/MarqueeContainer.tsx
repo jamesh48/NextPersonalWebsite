@@ -4,6 +4,7 @@ import { Box, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { Promise as BBPromise } from 'bluebird'
 import { useCallback, useEffect } from 'react'
+import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 import MCLandscape from './MarqueeLandscape'
 import MCPortrait from './MarqueePortrait'
 import { getSmileImage, setSmileImage } from './marqueeSlice'
@@ -13,7 +14,7 @@ export interface MarqueeContainerProps {
 	smileCallback: () => void
 }
 
-const MarqueeContainer = (props: MarqueeContainerProps) => {
+const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 	const marqueeMobileBrowserState = useMobileBrowserCheck()
 	const dispatch = useDispatch()
 	const smileImage = useSelector(getSmileImage)
@@ -48,7 +49,7 @@ const MarqueeContainer = (props: MarqueeContainerProps) => {
 
 	useEffect(() => {
 		handleSmileImage({
-			url: 'https://static.fullstackhrivnak.com/main/main-images/linkedin.jpg',
+			url: `${STATIC_CLOUDFRONT_LINK}/main/main-images/linkedin.jpg`,
 			title: 'Linkedin Photo',
 			loaded: false,
 		})
@@ -57,11 +58,11 @@ const MarqueeContainer = (props: MarqueeContainerProps) => {
 	useEffect(() => {
 		if (smileImage.loaded === true) {
 			const timeout = setTimeout(() => {
-				props.smileCallback()
+				smileCallback()
 			}, 3000)
 			return () => clearTimeout(timeout)
 		}
-	}, [smileImage.loaded, props])
+	}, [smileImage.loaded, smileCallback])
 
 	const paragraphOne = `I'm a Full-Stack Software Engineer specializing in building scalable web applications with React, TypeScript, and Node.js. Most recently, I led frontend architecture at airx health, where I built a comprehensive UI component library and engineered patient-facing features for a pharmaceutical management platform. I have deep experience with modern frontend tooling—Next.js, Redux Toolkit Query, Material UI—and backend technologies including Python/Django, GraphQL, and event-driven architectures. I'm passionate about developer experience and code quality, whether that's migrating to better tooling or integrating AI-assisted development workflows.`
 

@@ -1,27 +1,27 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react'
 
 export const useIsSsr = () => {
-  const [isSsr, setIsSsr] = useState(true);
+	const [isSsr, setIsSsr] = useState(true)
 
-  useEffect(() => {
-    setIsSsr(false);
-  }, []);
-  return isSsr;
-};
+	useEffect(() => {
+		setIsSsr(false)
+	}, [])
+	return isSsr
+}
 
 // https://www.robinwieruch.de/react-useeffect-only-on-update
 export const useEffectOnlyOnUpdate = (
-  callback: (args: any) => void,
-  dependencies: any[],
-  args: any
+	callback: (args: any) => void,
+	dependencies: any[],
+	args: any,
 ) => {
-  const didMount = useRef(false);
+	const didMount = useRef(false)
 
-  useEffect(() => {
-    if (didMount.current) {
-      callback(args);
-    } else {
-      didMount.current = true;
-    }
-  }, [...dependencies]);
-};
+	useEffect(() => {
+		if (didMount.current) {
+			callback(args)
+		} else {
+			didMount.current = true
+		}
+	}, [...dependencies])
+}
