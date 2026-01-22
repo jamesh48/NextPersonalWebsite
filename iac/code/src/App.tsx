@@ -1,10 +1,9 @@
 import {
 	appInitialState,
-	getSmallWindowState,
 	setPortraitState,
 	setSmallWindowState,
 } from '@app/appSlice'
-import { useDispatch, useSelector } from '@app/reduxHooks'
+import { useDispatch } from '@app/reduxHooks'
 import GlobalStore from '@app/store'
 import { Box, useMediaQuery } from '@mui/material'
 import { useIsSsr } from '@shared/customHooks'
@@ -20,7 +19,7 @@ import Resume from './features/Resume/Resume'
 import { smallWindowCheck, useMobileBrowserCheck } from './shared/globalUtils'
 import styles from './styles/Home.module.scss'
 
-const Home = (props: { portfolioJSON: {}[] }) => {
+const Home = (props: { portfolioJSON: { [key: string]: any }[] }) => {
 	const mobileBrowserState = useMobileBrowserCheck()
 	const [_smileLoaded, setSmileLoaded] = useState(false)
 	const dispatch = useDispatch()
@@ -29,7 +28,7 @@ const Home = (props: { portfolioJSON: {}[] }) => {
 
 	useEffect(() => {
 		dispatch(setPortraitState(initPortraitState))
-	}, [initPortraitState])
+	}, [initPortraitState, dispatch])
 
 	// useEffect(() => {
 	//   const portraitEventListener = (event: MediaQueryListEvent) => {
@@ -45,11 +44,9 @@ const Home = (props: { portfolioJSON: {}[] }) => {
 		setSmileLoaded(true)
 	}, [])
 
-	const smallWindowState = useSelector(getSmallWindowState)
-
 	useEffect(() => {
 		dispatch(setSmallWindowState(window.innerWidth < 1150))
-	}, [])
+	}, [dispatch])
 
 	return (
 		<>
@@ -138,7 +135,7 @@ const Home = (props: { portfolioJSON: {}[] }) => {
 	)
 }
 
-const App = (props: {}) => {
+const App = () => {
 	const isSsr = useIsSsr()
 	let appInitialProps = {}
 	if (!isSsr) {

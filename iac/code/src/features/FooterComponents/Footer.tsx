@@ -1,6 +1,6 @@
 import { Box, Tooltip } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { FooterItemContainer } from './FooterItemContainer'
 
 interface FooterProps {
@@ -13,12 +13,12 @@ function Footer(props: FooterProps) {
 	const footerMobileBrowserState = useMobileBrowserCheck()
 	const [isLoaded, setIsLoaded] = React.useState(false)
 
-	const incrementImageLoad = (idx: number) => {
+	const incrementImageLoad = useCallback((idx: number) => {
 		setImages((image) => {
 			image[idx].loaded = true
 			return [...image]
 		})
-	}
+	}, [])
 
 	React.useEffect(() => {
 		if (images.every((image) => image.loaded)) {
@@ -40,7 +40,7 @@ function Footer(props: FooterProps) {
 				}
 			}),
 		)
-	}, [])
+	}, [incrementImageLoad])
 
 	return isLoaded ? (
 		<Box

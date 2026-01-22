@@ -52,7 +52,12 @@ const Portfolio = (props: PortfolioProps) => {
 	return allLoaded && imgArr.length ? (
 		<Box
 			id="portfolio-container"
-			sx={{ display: 'flex', flexDirection: 'column', minWidth: '100%' }}
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				minWidth: '100%',
+				justifyContent: 'center',
+			}}
 		>
 			<Typography
 				id="portfolioTitle"
