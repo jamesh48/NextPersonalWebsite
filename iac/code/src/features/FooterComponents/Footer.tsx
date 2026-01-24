@@ -1,21 +1,24 @@
 import { Box, Tooltip } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { useCallback, useEffect, useState } from 'react'
+import { When } from 'react-if'
 import { FooterItemContainer } from './FooterItemContainer'
 
 interface FooterProps {
 	footerJSON: { iconLink: string; imageUrl: string; label: string }[]
 }
-function Footer(props: FooterProps) {
+
+const Footer = ({ footerJSON }: FooterProps) => {
+	const footerMobileBrowserState = useMobileBrowserCheck()
+
 	const [images, setImages] = useState([
 		{ url: '', loaded: false, iconLink: '' },
 	])
-	const footerMobileBrowserState = useMobileBrowserCheck()
 	const [isLoaded, setIsLoaded] = useState(false)
 
-	const incrementImageLoad = useCallback((idx: number) => {
+	const incrementImageLoad = useCallback((imageIdx: number) => {
 		setImages((image) => {
-			image[idx].loaded = true
+			image[imageIdx].loaded = true
 			return [...image]
 		})
 	}, [])
@@ -28,7 +31,7 @@ function Footer(props: FooterProps) {
 
 	useEffect(() => {
 		setImages(
-			props.footerJSON.map(({ imageUrl, iconLink }, loadedIndex) => {
+			footerJSON.map(({ imageUrl, iconLink }, loadedIndex) => {
 				const img = new Image()
 				img.onload = () => incrementImageLoad(loadedIndex)
 				img.src = imageUrl
@@ -40,59 +43,61 @@ function Footer(props: FooterProps) {
 				}
 			}),
 		)
-	}, [incrementImageLoad])
+	}, [incrementImageLoad, footerJSON])
 
-	return isLoaded ? (
-		<Box
-			id="footerContainer"
-			className={
-				footerMobileBrowserState
-					? `footer-container footer-container--Mobile`
-					: `footer-container`
-			}
-			sx={{
-				display: 'flex',
-				justifyContent: 'center',
-				height: '5vh',
-				width: footerMobileBrowserState ? '100%' : '75%',
-				margin: '0 auto',
-			}}
-		>
+	return (
+		<When condition={isLoaded}>
 			<Box
-				id="footer-items-container"
+				id="footerContainer"
+				className={
+					footerMobileBrowserState
+						? `footer-container footer-container--Mobile`
+						: `footer-container`
+				}
 				sx={{
 					display: 'flex',
-					width: '100%',
-					border: '3px solid darkslategray',
-					borderBottom: 'none',
-					backgroundColor: 'rgb(255, 255, 240)',
-					borderRadius: '0.7% / 25%',
-					borderBottomLeftRadius: 0,
-					borderBottomRightRadius: 0,
+					justifyContent: 'center',
+					height: '5vh',
+					width: footerMobileBrowserState ? '100%' : '75%',
+					margin: '0 auto',
 				}}
 			>
-				{images.map((iconData, index) => {
-					const label = props.footerJSON[index]?.label
+				<Box
+					id="footer-items-container"
+					sx={{
+						display: 'flex',
+						width: '100%',
+						border: '3px solid darkslategray',
+						borderBottom: 'none',
+						backgroundColor: 'rgb(255, 255, 240)',
+						borderRadius: '0.7% / 25%',
+						borderBottomLeftRadius: 0,
+						borderBottomRightRadius: 0,
+					}}
+				>
+					{images.map((iconData, index) => {
+						const label = footerJSON[index]?.label
 
-					return (
-						<Tooltip
-							key={iconData.iconLink}
-							title={label}
-							arrow
-							placement="top"
-						>
-							<Box sx={{ flex: 1 }}>
-								<FooterItemContainer
-									key={iconData.iconLink}
-									iconData={iconData}
-								/>
-							</Box>
-						</Tooltip>
-					)
-				})}
+						return (
+							<Tooltip
+								key={iconData.iconLink}
+								title={label}
+								arrow
+								placement="top"
+							>
+								<Box sx={{ flex: 1 }}>
+									<FooterItemContainer
+										key={iconData.iconLink}
+										iconData={iconData}
+									/>
+								</Box>
+							</Tooltip>
+						)
+					})}
+				</Box>
 			</Box>
-		</Box>
-	) : null
+		</When>
+	)
 }
 
 export default Footer
