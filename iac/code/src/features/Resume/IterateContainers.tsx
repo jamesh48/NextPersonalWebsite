@@ -55,15 +55,6 @@ const fadeOut = keyframes`
   }
 `
 
-const collapseTitleContainer = keyframes`
-  0% {
-    padding: 40% 0;
-  }
-  100% {
-    padding: 0 0;
-  }
-`
-
 const initFade = keyframes`
   0% {
     opacity: 0;

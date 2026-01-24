@@ -22,7 +22,7 @@ export const portfolioSlice = createSlice({
 		setPortfolioImages: (
 			state,
 			action: PayloadAction<{
-				imgArr: PortfolioJSONEntry[]
+				imgArr: PortfolioJSONEntry[][]
 			}>,
 		) => {
 			state.portfolioImages = {

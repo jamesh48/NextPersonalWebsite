@@ -8,16 +8,33 @@ enum HeaderTabValue {
 	contact = '1',
 }
 
-const StyledTab = styled(Tab)({
+const StyledTab = styled(Tab)(() => ({
 	minWidth: 'unset',
 	maxWidth: 'unset',
 	flex: 1,
-	backgroundColor: 'ivory',
-})
+	backgroundColor: '#2f4f4f',
+	color: 'rgba(240, 255, 240, 0.8)',
+	fontWeight: 500,
+	fontSize: '1rem',
+	transition: 'all 0.3s ease',
+	border: '1px solid rgba(240, 255, 240, 0.15)',
+	'&.Mui-selected': {
+		backgroundColor: '#3a5f5f',
+		fontWeight: 700,
+		color: 'ivory',
+		border: '1px solid rgba(240, 255, 240, 0.3)',
+	},
+	'&:hover': {
+		backgroundColor: '#3a5f5f',
+		color: 'ivory',
+		border: '1px solid rgba(240, 255, 240, 0.3)',
+	},
+}))
 
 const Header = () => {
 	const router = useRouter()
 	const mobileBrowserState = useMobileBrowserCheck()
+
 	const hrefMap = useMemo(
 		() => ({
 			[HeaderTabValue.home]: '/',
@@ -26,15 +43,29 @@ const Header = () => {
 		[],
 	)
 
+	const activeTab = useMemo(() => {
+		const currentPath = router.pathname
+		if (currentPath === '/') return HeaderTabValue.home
+		if (currentPath.startsWith('/fullstack/contact'))
+			return HeaderTabValue.contact
+		return HeaderTabValue.home
+	}, [router.pathname])
+
 	const handleChange = (ev: React.SyntheticEvent, value: HeaderTabValue) => {
 		ev.preventDefault()
-
 		router.push(hrefMap[value])
 	}
 
 	return (
 		<Tabs
+			value={activeTab}
 			onChange={handleChange}
+			TabIndicatorProps={{
+				style: {
+					backgroundColor: '#87CEEB', // Sky blue accent
+					height: '3px',
+				},
+			}}
 			sx={{
 				position: 'sticky',
 				top: 0,
@@ -45,10 +76,12 @@ const Header = () => {
 				height: '3rem',
 				margin: '0 auto',
 				alignSelf: 'center',
+				backgroundColor: '#2f4f4f',
+				boxShadow: '0 2px 8px rgba(0, 0, 0, 0.4)',
 			}}
 		>
-			<StyledTab label="Home" />
-			<StyledTab label="Contact" />
+			<StyledTab label="Home" value={HeaderTabValue.home} />
+			<StyledTab label="Contact" value={HeaderTabValue.contact} />
 		</Tabs>
 	)
 }

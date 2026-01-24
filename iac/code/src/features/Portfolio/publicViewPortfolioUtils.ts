@@ -59,11 +59,11 @@ export const handleImageData = async (
 ) => {
 	const processedImages = await BBPromise.reduce(
 		inputArr,
-		async (total: any[], row) => {
+		async (total: PortfolioJSONEntry[][], row: PortfolioJSONEntry[]) => {
 			return [
 				...total,
-				await BBPromise.mapSeries(row, async (imgData) => {
-					return new Promise((resolve, reject) => {
+				await BBPromise.mapSeries(row, async (imgData: PortfolioJSONEntry) => {
+					return new Promise<PortfolioJSONEntry>((resolve, reject) => {
 						const img = new Image()
 						img.onload = () => resolve({ ...imgData })
 						img.onerror = () => {

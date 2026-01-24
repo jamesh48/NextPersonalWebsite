@@ -67,9 +67,9 @@ const Footer = ({ footerJSON }: FooterProps) => {
 					sx={{
 						display: 'flex',
 						width: '100%',
-						border: '3px solid darkslategray',
+						border: '3px solid rgba(240, 255, 240, 0.15)',
 						borderBottom: 'none',
-						backgroundColor: 'rgb(255, 255, 240)',
+						backgroundColor: '#2f4f4f',
 						borderRadius: '0.7% / 25%',
 						borderBottomLeftRadius: 0,
 						borderBottomRightRadius: 0,
@@ -85,7 +85,24 @@ const Footer = ({ footerJSON }: FooterProps) => {
 								arrow
 								placement="top"
 							>
-								<Box sx={{ flex: 1 }}>
+								<Box
+									sx={{
+										flex: 1,
+										transition: 'all 0.3s ease',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										'&:hover': {
+											backgroundColor: '#3a5f5f',
+										},
+										// Apply to all images
+										'& img': {
+											backgroundColor: '#2f4f4f',
+											padding: '6px',
+											borderRadius: '6px',
+										},
+									}}
+								>
 									<FooterItemContainer
 										key={iconData.iconLink}
 										iconData={iconData}

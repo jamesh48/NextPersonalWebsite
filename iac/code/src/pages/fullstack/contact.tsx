@@ -4,8 +4,9 @@ import {
 	LocationOn as LocationIcon,
 	Phone as PhoneIcon,
 } from '@mui/icons-material'
-import { Box, Card, Container, Grid, Link, Typography } from '@mui/material'
+import { Box, Card, Container, Grid2, Link, Typography } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
+import Head from 'next/head'
 
 interface ContactItemProps {
 	icon: React.ReactNode
@@ -81,7 +82,7 @@ const ContactItem = ({ icon, title, value, href }: ContactItemProps) => {
 	return content
 }
 
-const ContactForm = () => {
+const ContactMe = () => {
 	const mobileBrowserState = useMobileBrowserCheck()
 
 	return (
@@ -104,42 +105,42 @@ const ContactForm = () => {
 				</Typography>
 			</Box>
 
-			<Grid container spacing={3}>
-				<Grid item xs={12} sm={6} md={3}>
+			<Grid2 container spacing={3}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
 					<ContactItem
 						icon={<LocationIcon fontSize="large" />}
 						title="Location"
 						value="Boulder, CO"
 					/>
-				</Grid>
+				</Grid2>
 
-				<Grid item xs={12} sm={6} md={3}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
 					<ContactItem
 						icon={<EmailIcon fontSize="large" />}
 						title="Email"
 						value="jameshrivnak4@gmail.com"
 						href="mailto:jameshrivnak4@gmail.com"
 					/>
-				</Grid>
+				</Grid2>
 
-				<Grid item xs={12} sm={6} md={3}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
 					<ContactItem
 						icon={<PhoneIcon fontSize="large" />}
 						title="Phone"
 						value="(303) 517-2085"
 						href="tel:303-517-2085"
 					/>
-				</Grid>
+				</Grid2>
 
-				<Grid item xs={12} sm={6} md={3}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
 					<ContactItem
 						icon={<LinkedInIcon fontSize="large" />}
 						title="LinkedIn"
 						value="Connect"
 						href="https://linkedin.com/in/james-hrivnak"
 					/>
-				</Grid>
-			</Grid>
+				</Grid2>
+			</Grid2>
 
 			{mobileBrowserState && (
 				<Box sx={{ mt: 6, textAlign: 'center' }}>
@@ -155,4 +156,16 @@ const ContactForm = () => {
 	)
 }
 
-export default ContactForm
+const Contact = () => {
+	return (
+		<>
+			<Head>
+				<title>Contact - James Hrivnak</title>
+				<meta name="description" content="Get in touch with James Hrivnak" />
+			</Head>
+			<ContactMe />
+		</>
+	)
+}
+
+export default Contact
