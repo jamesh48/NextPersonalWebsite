@@ -136,7 +136,8 @@ const ContactMe = () => {
 				sx={{
 					mx: 'auto',
 					display: 'grid',
-					gap: 3,
+					gap: 1,
+					justifyContent: 'center',
 					gridTemplateColumns: {
 						xs: '1fr',
 						sm: 'repeat(2, 1fr)',
