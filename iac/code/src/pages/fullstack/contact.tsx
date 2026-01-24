@@ -132,51 +132,53 @@ const ContactMe = () => {
 				</Typography>
 			</Box>
 
-			<Grid2 container spacing={3} sx={{ maxWidth: 1500, mx: 'auto' }}>
-				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
-					<ContactItem
-						icon={<LocationIcon fontSize="large" />}
-						title="Location"
-						value="Boulder, CO"
-					/>
-				</Grid2>
+			<Box
+				sx={{
+					mx: 'auto',
+					display: 'grid',
+					gap: 3,
+					gridTemplateColumns: {
+						xs: '1fr',
+						sm: 'repeat(2, 1fr)',
+						md: 'repeat(3, 1fr)',
+						lg: 'repeat(5, 1fr)',
+					},
+				}}
+			>
+				<ContactItem
+					icon={<LocationIcon fontSize="large" />}
+					title="Location"
+					value="Boulder, CO"
+				/>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
-					<ContactItem
-						icon={<EmailIcon fontSize="large" />}
-						title="Email"
-						value="jameshrivnak4@gmail.com"
-						href="mailto:jameshrivnak4@gmail.com"
-					/>
-				</Grid2>
+				<ContactItem
+					icon={<EmailIcon fontSize="large" />}
+					title="Email"
+					value="jameshrivnak4@gmail.com"
+					href="mailto:jameshrivnak4@gmail.com"
+				/>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
-					<ContactItem
-						icon={<PhoneIcon fontSize="large" />}
-						title="Phone"
-						value="(303) 517-2085"
-						href="tel:303-517-2085"
-					/>
-				</Grid2>
+				<ContactItem
+					icon={<PhoneIcon fontSize="large" />}
+					title="Phone"
+					value="(303) 517-2085"
+					href="tel:303-517-2085"
+				/>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
-					<ContactItem
-						icon={<LinkedInIcon fontSize="large" />}
-						title="LinkedIn"
-						value="Connect"
-						href="https://linkedin.com/in/james-hrivnak"
-					/>
-				</Grid2>
+				<ContactItem
+					icon={<LinkedInIcon fontSize="large" />}
+					title="LinkedIn"
+					value="Connect"
+					href="https://linkedin.com/in/james-hrivnak"
+				/>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
-					<ContactItem
-						icon={<DescriptionIcon fontSize="large" />}
-						title="Resume"
-						value="Download PDF"
-						onClick={handleResumeDownload}
-					/>
-				</Grid2>
-			</Grid2>
+				<ContactItem
+					icon={<DescriptionIcon fontSize="large" />}
+					title="Resume"
+					value="Download PDF"
+					onClick={handleResumeDownload}
+				/>
+			</Box>
 
 			{mobileBrowserState && (
 				<Box sx={{ mt: 6, textAlign: 'center' }}>
