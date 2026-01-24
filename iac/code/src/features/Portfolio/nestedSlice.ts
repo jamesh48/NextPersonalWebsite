@@ -2,7 +2,7 @@ import type { RootState } from '@app/store'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface NestedPortfolioInitialState {
-	nestedContainerData: any[]
+	nestedContainerData: unknown[]
 	nestedIndicator: boolean
 	nestedHovered: null | number
 	hoveredIndexes: (number | null)[]

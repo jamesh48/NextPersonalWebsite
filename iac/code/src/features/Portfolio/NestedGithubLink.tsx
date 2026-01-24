@@ -1,18 +1,23 @@
 import { useDispatch } from '@app/reduxHooks'
 import { Box, Typography } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
-import { memo, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getNestedHovered, setNestedHovered } from './nestedSlice'
 
-const NestedGithubLink = (props: {
+interface NestedGithubLinkProps {
 	nestedColumnIndex: number
 	nestedRowIndex: number
 	outerData: { cssStyles: React.CSSProperties }
-	outerRowIndex: number
-	outerColumnIndex: number
 	nestedGithub: { link: string; title: string }
-}) => {
+}
+
+const NestedGithubLink = ({
+	nestedGithub,
+	nestedColumnIndex,
+	nestedRowIndex,
+	outerData,
+}: NestedGithubLinkProps) => {
 	const nestedMobileBrowserState = useMobileBrowserCheck()
 
 	const dispatch = useDispatch()
@@ -21,44 +26,44 @@ const NestedGithubLink = (props: {
 
 	useEffect(() => {
 		if (nestedMobileBrowserState && doubleClicked) {
-			window.open(props.nestedGithub.link)
+			window.open(nestedGithub.link)
 		} else if (doubleClicked === true) {
-			window.open(props.nestedGithub.link)
+			window.open(nestedGithub.link)
 		}
-	}, [doubleClicked, nestedMobileBrowserState, props.nestedGithub.link])
+	}, [doubleClicked, nestedMobileBrowserState, nestedGithub.link])
 
 	useEffect(() => {
 		setDoubleClicked(null)
 	}, [nestedHovered])
 
+	const handleDoubleClick = useCallback(() => {
+		setDoubleClicked((prev) => {
+			if (nestedMobileBrowserState) {
+				if (prev === null) {
+					return false
+				} else if (prev === false) {
+					return true
+				} else {
+					return false
+				}
+				// Regular Browser
+			} else {
+				return true
+			}
+		})
+	}, [nestedMobileBrowserState])
+
 	return (
 		<Box
-			key={props.nestedColumnIndex}
+			key={nestedColumnIndex}
 			className="nestedGithubLinks"
 			onMouseOver={() => {
-				dispatch(
-					setNestedHovered(props.nestedRowIndex * 2 + props.nestedColumnIndex),
-				)
+				dispatch(setNestedHovered(nestedRowIndex * 2 + nestedColumnIndex))
 			}}
-			style={props.outerData.cssStyles}
-			onClick={() => {
-				setDoubleClicked((prev) => {
-					if (nestedMobileBrowserState) {
-						if (prev === null) {
-							return false
-						} else if (prev === false) {
-							return true
-						} else {
-							return false
-						}
-						// Regular Browser
-					} else {
-						return true
-					}
-				})
-			}}
+			style={outerData.cssStyles}
+			onClick={handleDoubleClick}
 		>
-			<Typography>{props.nestedGithub.title}</Typography>
+			<Typography>{nestedGithub.title}</Typography>
 		</Box>
 	)
 }

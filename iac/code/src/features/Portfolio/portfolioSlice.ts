@@ -9,6 +9,7 @@ interface PortfolioInitialSate {
 		imgArr: PortfolioJSONEntry[][][]
 	}
 }
+
 const portfolioInitialState: PortfolioInitialSate = {
 	outerContainerData: [],
 	portfolioImages: { allLoaded: false, imgArr: [] },

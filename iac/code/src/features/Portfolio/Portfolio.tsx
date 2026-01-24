@@ -1,4 +1,3 @@
-import { getSmallWindowState } from '@app/appSlice'
 import { useDispatch, useSelector } from '@app/reduxHooks'
 import { Box, Typography, useMediaQuery } from '@mui/material'
 import { memo, useEffect } from 'react'
@@ -29,7 +28,7 @@ const Portfolio = (props: PortfolioProps) => {
 	const { allLoaded, imgArr } = useSelector(getPortfolioImages)
 	const outerContainerData = useSelector(getOuterContainerData)
 	const portraitState = useMediaQuery('(orientation: portrait)')
-	const smallWindowState = useSelector(getSmallWindowState)
+
 	console.info(props.index)
 	useEffect(() => {
 		if (props.portfolioJSON) {

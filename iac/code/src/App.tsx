@@ -19,7 +19,7 @@ import Resume from './features/Resume/Resume'
 import { smallWindowCheck, useMobileBrowserCheck } from './shared/globalUtils'
 import styles from './styles/Home.module.scss'
 
-const Home = (props: { portfolioJSON: { [key: string]: any }[] }) => {
+const Home = (props: { portfolioJSON: { [key: string]: unknown }[] }) => {
 	const mobileBrowserState = useMobileBrowserCheck()
 	const [_smileLoaded, setSmileLoaded] = useState(false)
 	const dispatch = useDispatch()

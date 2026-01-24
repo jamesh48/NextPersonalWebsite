@@ -8,11 +8,17 @@ import type { GithubEntry, PortfolioJSONEntry } from './portfolioTypes'
 
 import { handleNestedContainerData } from './publicViewPortfolioUtils'
 
-const ApplicationImgContainer = (props: {
+interface ApplicationImgContainerProps {
 	rowIndex: number
 	columnIndex: number
 	appData: PortfolioJSONEntry
-}) => {
+}
+
+const ApplicationImgContainer = ({
+	rowIndex,
+	columnIndex,
+	appData,
+}: ApplicationImgContainerProps) => {
 	const dispatch = useDispatch()
 	const portraitState = useMediaQuery('(orientation: portrait)')
 	const smallWindowState = useSelector(getSmallWindowState)
@@ -22,7 +28,7 @@ const ApplicationImgContainer = (props: {
 	const [hoveredColumn, hoveredRow] = useSelector(getHoveredIndexes)
 
 	useEffect(() => {
-		if (props.rowIndex === hoveredColumn && props.columnIndex === hoveredRow) {
+		if (rowIndex === hoveredColumn && columnIndex === hoveredRow) {
 			setNestedIndicator(true)
 		} else {
 			setNestedIndicator(false)
@@ -30,7 +36,7 @@ const ApplicationImgContainer = (props: {
 	}, [hoveredColumn, hoveredRow])
 
 	useEffect(() => {
-		const nestedRenderData = handleNestedContainerData(props.appData.github)
+		const nestedRenderData = handleNestedContainerData(appData.github)
 
 		setLandScapeOrPortraitRenderData(nestedRenderData as GithubEntry[][][])
 	}, [smallWindowState])
@@ -52,13 +58,13 @@ const ApplicationImgContainer = (props: {
 			onMouseOver={
 				!nestedIndicator
 					? () => {
-							dispatch(setHoveredIndexes([props.rowIndex, props.columnIndex]))
+							dispatch(setHoveredIndexes([rowIndex, columnIndex]))
 						}
 					: () => {}
 			}
 			sx={{
-				backgroundImage: `url(${props.appData.imgUrl})`,
-				backgroundColor: props.appData.cssStyles.backgroundColor,
+				backgroundImage: `url(${appData.imgUrl})`,
+				backgroundColor: appData.cssStyles.backgroundColor,
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
@@ -113,9 +119,7 @@ const ApplicationImgContainer = (props: {
 												key={nestedGithub.title}
 												nestedRowIndex={nestedRowIndex}
 												nestedColumnIndex={nestedColumnIndex}
-												outerRowIndex={props.rowIndex}
-												outerColumnIndex={props.columnIndex}
-												outerData={props.appData}
+												outerData={appData}
 												nestedGithub={nestedGithub}
 											/>
 										)
