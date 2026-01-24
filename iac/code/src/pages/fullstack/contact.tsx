@@ -38,6 +38,7 @@ const ContactItem = ({
 				backgroundColor: '#2f4f4f',
 				border: '1px solid rgba(240, 255, 240, 0.15)',
 				transition: 'all 0.3s ease',
+				willChange: 'transform',
 				cursor: href || onClick ? 'pointer' : 'default',
 				'&:hover':
 					href || onClick
