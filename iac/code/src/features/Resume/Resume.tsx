@@ -1,39 +1,24 @@
 import { useDispatch } from '@app/reduxHooks'
-import {
-	Download as DownloadIcon,
-	PictureAsPdf as PictureAsPdfIcon,
-	Print as PrintIcon,
-	ViewModule as ViewModuleIcon,
-} from '@mui/icons-material'
-import {
-	Box,
-	IconButton,
-	Tooltip,
-	Typography,
-	useMediaQuery,
-} from '@mui/material'
+
+import { Download as DownloadIcon } from '@mui/icons-material'
+import { Box, Button, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
+import ResumeActionBar from 'features/Resume/ResumeActionBar'
 import { useCallback, useState } from 'react'
+import { When } from 'react-if'
 import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 import resumeDetails from '../../Data/Resume.json'
 import IterateContainers from './IterateContainers'
 import { exitHoverParams } from './resumeSlice'
 
 const Resume = () => {
-	const resumeMobileBrowserState = useMobileBrowserCheck()
+	const mobileBrowserState = useMobileBrowserCheck()
 	const dispatch = useDispatch()
 	const landscapeOrientation = useMediaQuery('(orientation: landscape)')
 	const portraitOrientation = useMediaQuery('(orientation: portrait)')
 	const [showPdfDesktop, setShowPdfDesktop] = useState(false)
 
-	const isPdfVisible = resumeMobileBrowserState || showPdfDesktop
-
-	const handlePrint = useCallback(() => {
-		window.open(
-			`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`,
-			'_blank',
-		)
-	}, [])
+	const isPdfVisible = mobileBrowserState || showPdfDesktop
 
 	const handleResumeDownload = useCallback(() => {
 		fetch(`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`)
@@ -42,7 +27,7 @@ const Resume = () => {
 				const url = window.URL.createObjectURL(blob)
 				const a = document.createElement('a')
 				a.href = url
-				a.download = 'resume.pdf'
+				a.download = 'James_Hrivnak_Resume.pdf'
 				document.body.appendChild(a)
 				a.click()
 				window.URL.revokeObjectURL(url)
@@ -76,88 +61,6 @@ const Resume = () => {
 				<Typography variant="h3" align="center">
 					Resume
 				</Typography>
-
-				<Box
-					sx={{
-						position: 'absolute',
-						right: 16,
-						border: '1px solid',
-						borderColor: 'primary.main',
-						borderRadius: '2rem',
-						padding: '.25rem',
-						backgroundColor: 'background.paper',
-						backdropFilter: 'blur(8px)',
-						boxShadow: 1,
-						transition: 'all 0.2s ease-in-out',
-						'&:hover': {
-							boxShadow: 3,
-							borderColor: 'primary.dark',
-							transform: 'translateY(-2px)',
-						},
-					}}
-				>
-					{isPdfVisible && !resumeMobileBrowserState && (
-						<Tooltip title="Print Resume">
-							<IconButton
-								onClick={handlePrint}
-								sx={{
-									color: 'primary.main',
-									transition: 'all 0.2s ease-in-out',
-									'&:hover': {
-										backgroundColor: 'primary.main',
-										color: 'primary.contrastText',
-										transform: 'scale(1.1)',
-									},
-								}}
-							>
-								<PrintIcon />
-							</IconButton>
-						</Tooltip>
-					)}
-
-					{isPdfVisible && (
-						<Tooltip title="Download Resume">
-							<IconButton
-								sx={{
-									color: 'primary.main',
-									transition: 'all 0.2s ease-in-out',
-									'&:hover': {
-										backgroundColor: 'primary.main',
-										color: 'primary.contrastText',
-										transform: 'scale(1.1)',
-									},
-								}}
-								aria-label="download"
-								onClick={handleResumeDownload}
-							>
-								<DownloadIcon />
-							</IconButton>
-						</Tooltip>
-					)}
-
-					{!resumeMobileBrowserState && (
-						<Tooltip
-							title={
-								isPdfVisible ? 'View Interactive Resume' : 'View PDF Resume'
-							}
-						>
-							<IconButton
-								onClick={() => setShowPdfDesktop((prev) => !prev)}
-								sx={{
-									color: 'primary.main',
-									transition: 'all 0.2s ease-in-out',
-									'&:hover': {
-										backgroundColor: 'primary.main',
-										color: 'primary.contrastText',
-										transform: 'scale(1.1)',
-									},
-								}}
-							>
-								{isPdfVisible ? <ViewModuleIcon /> : <PictureAsPdfIcon />}
-							</IconButton>
-						</Tooltip>
-					)}
-				</Box>
 			</Box>
 
 			<Box
@@ -165,19 +68,28 @@ const Resume = () => {
 					dispatch(exitHoverParams())
 				}}
 				sx={{
-					margin: resumeMobileBrowserState ? '5% 0' : '1% 0',
+					margin: mobileBrowserState ? '5% 0' : '1% 0',
 					height: '100%',
 					display: 'flex',
 					flexDirection: 'column',
+					position: 'relative',
 				}}
 			>
+				<When condition={!mobileBrowserState}>
+					<ResumeActionBar
+						isPdfVisible={isPdfVisible}
+						setShowPdfDesktop={setShowPdfDesktop}
+					/>
+				</When>
 				{/* PDF View */}
 				<Box
 					sx={{
 						width: '100%',
 						display: isPdfVisible ? 'flex' : 'none',
+						flexDirection: 'column',
+						alignItems: 'center',
 						justifyContent: 'center',
-						alignItems: 'flex-start',
+						gap: 2,
 					}}
 				>
 					<embed
@@ -186,10 +98,34 @@ const Resume = () => {
 						style={{
 							width: '100%',
 							maxWidth: '900px',
-							height: '100vh',
+							height: mobileBrowserState ? '60vh' : '100vh',
 							border: 'none',
 						}}
 					/>
+					<When condition={mobileBrowserState}>
+						<Button
+							fullWidth
+							variant="contained"
+							size="large"
+							startIcon={<DownloadIcon />}
+							onClick={handleResumeDownload}
+							sx={{
+								py: 1.5,
+								backgroundColor: '#2f4f4f',
+								color: 'ivory',
+								border: '1px solid rgba(240, 255, 240, 0.15)',
+								'&:hover': {
+									backgroundColor: '#3a5f5f',
+									border: '1px solid rgba(240, 255, 240, 0.3)',
+									transform: 'translateY(-2px)',
+									boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
+								},
+								transition: 'all 0.3s ease',
+							}}
+						>
+							Download Resume
+						</Button>
+					</When>
 				</Box>
 
 				{/* Interactive View */}
@@ -199,7 +135,7 @@ const Resume = () => {
 					}}
 				>
 					{IterateContainers({
-						mobileBrowser: resumeMobileBrowserState,
+						mobileBrowser: mobileBrowserState,
 						resumeDetails: resumeDetails,
 					})}
 				</Box>

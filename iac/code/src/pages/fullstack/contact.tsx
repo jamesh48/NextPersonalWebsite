@@ -1,4 +1,5 @@
 import {
+	Description as DescriptionIcon,
 	Email as EmailIcon,
 	LinkedIn as LinkedInIcon,
 	LocationOn as LocationIcon,
@@ -7,15 +8,24 @@ import {
 import { Box, Card, Container, Grid2, Link, Typography } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import Head from 'next/head'
+import { useCallback } from 'react'
+import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 
 interface ContactItemProps {
 	icon: React.ReactNode
 	title: string
 	value: string
 	href?: string
+	onClick?: () => void
 }
 
-const ContactItem = ({ icon, title, value, href }: ContactItemProps) => {
+const ContactItem = ({
+	icon,
+	title,
+	value,
+	href,
+	onClick,
+}: ContactItemProps) => {
 	const content = (
 		<Card
 			sx={{
@@ -28,16 +38,18 @@ const ContactItem = ({ icon, title, value, href }: ContactItemProps) => {
 				backgroundColor: '#2f4f4f',
 				border: '1px solid rgba(240, 255, 240, 0.15)',
 				transition: 'all 0.3s ease',
-				cursor: href ? 'pointer' : 'default',
-				'&:hover': href
-					? {
-							transform: 'translateY(-4px)',
-							backgroundColor: '#3a5f5f',
-							border: '1px solid rgba(240, 255, 240, 0.3)',
-							boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
-						}
-					: {},
+				cursor: href || onClick ? 'pointer' : 'default',
+				'&:hover':
+					href || onClick
+						? {
+								transform: 'translateY(-4px)',
+								backgroundColor: '#3a5f5f',
+								border: '1px solid rgba(240, 255, 240, 0.3)',
+								boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
+							}
+						: {},
 			}}
+			onClick={onClick}
 		>
 			<Box
 				sx={{
@@ -71,7 +83,7 @@ const ContactItem = ({ icon, title, value, href }: ContactItemProps) => {
 		</Card>
 	)
 
-	if (href) {
+	if (href && !onClick) {
 		return (
 			<Link href={href} underline="none" target="_blank" rel="noopener">
 				{content}
@@ -85,8 +97,23 @@ const ContactItem = ({ icon, title, value, href }: ContactItemProps) => {
 const ContactMe = () => {
 	const mobileBrowserState = useMobileBrowserCheck()
 
+	const handleResumeDownload = useCallback(() => {
+		fetch(`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`)
+			.then((response) => response.blob())
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob)
+				const a = document.createElement('a')
+				a.href = url
+				a.download = 'James_Hrivnak_Resume.pdf'
+				document.body.appendChild(a)
+				a.click()
+				window.URL.revokeObjectURL(url)
+				document.body.removeChild(a)
+			})
+	}, [])
+
 	return (
-		<Container maxWidth="lg" sx={{ py: 8 }}>
+		<Container maxWidth="xl" sx={{ py: 8 }}>
 			<Box sx={{ textAlign: 'center', mb: 6 }}>
 				<Typography variant="h3" gutterBottom sx={{ color: 'ivory' }}>
 					Get In Touch
@@ -105,8 +132,8 @@ const ContactMe = () => {
 				</Typography>
 			</Box>
 
-			<Grid2 container spacing={3}>
-				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+			<Grid2 container spacing={3} sx={{ maxWidth: 1500, mx: 'auto' }}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
 					<ContactItem
 						icon={<LocationIcon fontSize="large" />}
 						title="Location"
@@ -114,7 +141,7 @@ const ContactMe = () => {
 					/>
 				</Grid2>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
 					<ContactItem
 						icon={<EmailIcon fontSize="large" />}
 						title="Email"
@@ -123,7 +150,7 @@ const ContactMe = () => {
 					/>
 				</Grid2>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
 					<ContactItem
 						icon={<PhoneIcon fontSize="large" />}
 						title="Phone"
@@ -132,12 +159,21 @@ const ContactMe = () => {
 					/>
 				</Grid2>
 
-				<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
 					<ContactItem
 						icon={<LinkedInIcon fontSize="large" />}
 						title="LinkedIn"
 						value="Connect"
 						href="https://linkedin.com/in/james-hrivnak"
+					/>
+				</Grid2>
+
+				<Grid2 size={{ xs: 12, sm: 6, md: 2.4 }}>
+					<ContactItem
+						icon={<DescriptionIcon fontSize="large" />}
+						title="Resume"
+						value="Download PDF"
+						onClick={handleResumeDownload}
 					/>
 				</Grid2>
 			</Grid2>
