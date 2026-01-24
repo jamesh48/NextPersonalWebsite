@@ -35,7 +35,7 @@ const ResumeActionBar = ({
 	// Increase this value to make it become fixed sooner (more head start)
 	const stickyPoint = 500
 	// Adjust this to move left (positive) or right (negative)
-	const rightPadding = isPdfVisible ? 350 : -50
+	const rightPadding = isPdfVisible ? 0 : -50
 
 	const handlePrint = useCallback(() => {
 		window.open(
