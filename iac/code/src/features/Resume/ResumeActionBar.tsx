@@ -108,17 +108,17 @@ const ResumeActionBar = ({
 	const getSxStyles = () => {
 		const baseStyles = {
 			border: '1px solid',
-			borderColor: 'primary.main',
+			borderColor: 'background.paper',
 			borderRadius: '2rem',
 			padding: '.25rem',
-			backgroundColor: 'background.paper',
+			backgroundColor: '#3a5f5f',
 			backdropFilter: 'blur(8px)',
 			boxShadow: 1,
 			transition: 'box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out',
 			zIndex: 10,
 			'&:hover': {
 				boxShadow: 3,
-				borderColor: 'primary.dark',
+				borderColor: 'rgb(135, 206, 235)',
 				transform: 'translateY(-2px)',
 			},
 		}
@@ -158,11 +158,11 @@ const ResumeActionBar = ({
 					<IconButton
 						onClick={handlePrint}
 						sx={{
-							color: 'primary.main',
+							color: 'background.paper',
 							transition: 'all 0.2s ease-in-out',
 							'&:hover': {
-								backgroundColor: 'primary.main',
-								color: 'primary.contrastText',
+								backgroundColor: 'rgb(135, 206, 235)',
+								color: '#3a5f5f',
 								transform: 'scale(1.1)',
 							},
 						}}
@@ -176,11 +176,11 @@ const ResumeActionBar = ({
 				<Tooltip title="Download Resume">
 					<IconButton
 						sx={{
-							color: 'primary.main',
+							color: 'background.paper',
 							transition: 'all 0.2s ease-in-out',
 							'&:hover': {
-								backgroundColor: 'primary.main',
-								color: 'primary.contrastText',
+								backgroundColor: 'rgb(135, 206, 235);',
+								color: '#3a5f5f',
 								transform: 'scale(1.1)',
 							},
 						}}
@@ -198,11 +198,11 @@ const ResumeActionBar = ({
 				<IconButton
 					onClick={() => setShowPdfDesktop((prev) => !prev)}
 					sx={{
-						color: 'primary.main',
+						color: 'background.paper',
 						transition: 'all 0.2s ease-in-out',
 						'&:hover': {
-							backgroundColor: 'primary.main',
-							color: 'primary.contrastText',
+							backgroundColor: 'rgb(135, 206, 235);',
+							color: '#3a5f5f',
 							transform: 'scale(1.1)',
 						},
 					}}
