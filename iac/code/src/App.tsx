@@ -7,6 +7,7 @@ import PortfolioJSON from './Data/PortfolioDataJSON'
 import MarqueeContainer from './features/Marquee/MarqueeContainer'
 import PortfolioCarousel from './features/Portfolio/PortfolioCarousel/Carousel'
 import Resume from './features/Resume/Resume'
+import Section from './Section'
 
 const Home = () => {
 	const [_smileLoaded, setSmileLoaded] = useState(false)
@@ -39,46 +40,31 @@ const Home = () => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
+					gap: '2rem',
 				}}
 			>
-				<Box
+				<Section
 					id="about-me-root"
-					sx={{
-						paddingBottom: '5%',
-						minHeight: '90vh',
-						display: 'flex',
-						alignItems: 'center',
-					}}
-					data-name="About Me"
+					dataName="About Me"
+					sx={{ alignItems: 'center', justifyContent: 'center' }}
 				>
 					<MarqueeContainer smileCallback={smileCallback} />
-				</Box>
+				</Section>
 
-				<Box
-					data-name="Resume"
-					id="resume-root"
-					className="container"
-					sx={{ display: 'flex', flexDirection: 'column' }}
-				>
+				<Section id="resume-root" dataName="Resume" minHeight="unset">
 					<Resume />
-				</Box>
+				</Section>
 
-				<Box
-					data-name="Portfolio"
+				<Section
 					id="portfolio-root"
+					dataName="Portfolio"
 					sx={{
-						minHeight: '90vh',
-						display: 'flex',
-						flexDirection: 'column',
-						paddingBottom: 0,
-						marginBottom: 0,
 						width: '100%',
-						margin: '0 auto',
 						'p, h3, h4, h5, h6': { margin: '1%' },
 					}}
 				>
 					<PortfolioCarousel portfolioJSON={PortfolioJSON} />
-				</Box>
+				</Section>
 			</Box>
 		</>
 	)

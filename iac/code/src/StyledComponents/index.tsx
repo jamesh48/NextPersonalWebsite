@@ -1,4 +1,4 @@
-import { Button, styled, Typography } from '@mui/material'
+import { Button, Card, styled, Typography } from '@mui/material'
 
 export const StyledButton = styled(Button)(({ theme }) => ({
 	backgroundColor: theme.palette.primary.main,
@@ -23,4 +23,12 @@ export const SecondaryTypography = styled(Typography)(({ theme }) => ({
 
 export const DisabledTypography = styled(Typography)(({ theme }) => ({
 	color: theme.palette.text.disabled,
+}))
+
+export const StyledSectionCard = styled(Card)(({ theme }) => ({
+	backgroundColor: theme.palette.background.paper,
+	backdropFilter: 'blur(10px)',
+	borderRadius: '1rem',
+	padding: '2rem',
+	boxShadow: '0 .5rem 2rem rgba(0, 0, 0, 0.1)',
 }))

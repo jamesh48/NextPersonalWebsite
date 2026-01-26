@@ -4,7 +4,7 @@ import {
 	Print as PrintIcon,
 	ViewModule as ViewModuleIcon,
 } from '@mui/icons-material'
-import { Box, IconButton, Tooltip } from '@mui/material'
+import { Box, IconButton, styled, Tooltip } from '@mui/material'
 
 import {
 	type Dispatch,
@@ -19,11 +19,23 @@ import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 interface ResumeActionBarProps {
 	isPdfVisible: boolean
 	setShowPdfDesktop: Dispatch<SetStateAction<boolean>>
+	scrollParentRef: React.RefObject<HTMLDivElement>
 }
+
+const StyledResumeActionIcon = styled(IconButton)(({ theme }) => ({
+	color: theme.palette.secondary.main,
+	transition: 'all 0.2s ease-in-out',
+	'&:hover': {
+		backgroundColor: theme.palette.secondary.main,
+		color: theme.palette.action.hover,
+		transform: 'scale(1.1)',
+	},
+}))
 
 const ResumeActionBar = ({
 	isPdfVisible,
 	setShowPdfDesktop,
+	scrollParentRef,
 }: ResumeActionBarProps) => {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const [positionState, setPositionState] = useState<
@@ -62,7 +74,7 @@ const ResumeActionBar = ({
 	const handleScroll = useCallback(() => {
 		if (!containerRef.current) return
 
-		const parent = containerRef.current.parentElement
+		const parent = scrollParentRef.current
 		if (!parent) return
 
 		const parentRect = parent.getBoundingClientRect()
@@ -92,7 +104,7 @@ const ResumeActionBar = ({
 		else {
 			setPositionState('fixed')
 		}
-	}, [initialTopOffset, positionState, rightPadding])
+	}, [initialTopOffset, positionState, rightPadding, scrollParentRef.current])
 
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll, { passive: true })
@@ -108,7 +120,7 @@ const ResumeActionBar = ({
 	const getSxStyles = () => {
 		const baseStyles = {
 			border: '1px solid',
-			borderColor: 'background.paper',
+			borderColor: 'secondary.main',
 			borderRadius: '2rem',
 			padding: '.25rem',
 			backgroundColor: '#3a5f5f',
@@ -155,60 +167,32 @@ const ResumeActionBar = ({
 		<Box ref={containerRef} sx={getSxStyles()}>
 			{isPdfVisible && (
 				<Tooltip title="Print Resume">
-					<IconButton
-						onClick={handlePrint}
-						sx={{
-							color: 'background.paper',
-							transition: 'all 0.2s ease-in-out',
-							'&:hover': {
-								backgroundColor: 'rgb(135, 206, 235)',
-								color: '#3a5f5f',
-								transform: 'scale(1.1)',
-							},
-						}}
-					>
+					<StyledResumeActionIcon onClick={handlePrint}>
 						<PrintIcon />
-					</IconButton>
+					</StyledResumeActionIcon>
 				</Tooltip>
 			)}
 
 			{isPdfVisible && (
 				<Tooltip title="Download Resume">
-					<IconButton
-						sx={{
-							color: 'background.paper',
-							transition: 'all 0.2s ease-in-out',
-							'&:hover': {
-								backgroundColor: 'rgb(135, 206, 235);',
-								color: '#3a5f5f',
-								transform: 'scale(1.1)',
-							},
-						}}
+					<StyledResumeActionIcon
 						aria-label="download"
 						onClick={handleResumeDownload}
 					>
 						<DownloadIcon />
-					</IconButton>
+					</StyledResumeActionIcon>
 				</Tooltip>
 			)}
 
 			<Tooltip
 				title={isPdfVisible ? 'View Interactive Resume' : 'View PDF Resume'}
 			>
-				<IconButton
+				<StyledResumeActionIcon
+					aria-label="switch-view"
 					onClick={() => setShowPdfDesktop((prev) => !prev)}
-					sx={{
-						color: 'background.paper',
-						transition: 'all 0.2s ease-in-out',
-						'&:hover': {
-							backgroundColor: 'rgb(135, 206, 235);',
-							color: '#3a5f5f',
-							transform: 'scale(1.1)',
-						},
-					}}
 				>
 					{isPdfVisible ? <ViewModuleIcon /> : <PictureAsPdfIcon />}
-				</IconButton>
+				</StyledResumeActionIcon>
 			</Tooltip>
 		</Box>
 	)

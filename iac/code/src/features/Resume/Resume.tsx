@@ -1,10 +1,10 @@
-import { StyledButton } from 'StyledComponents'
+import { StyledButton, StyledSectionCard } from 'StyledComponents'
 import { useDispatch } from '@app/reduxHooks'
 import { Download as DownloadIcon } from '@mui/icons-material'
-import { Box, Button, Typography, useMediaQuery } from '@mui/material'
+import { Box, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import ResumeActionBar from 'features/Resume/ResumeActionBar'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { When } from 'react-if'
 import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 import resumeDetails from '../../Data/Resume.json'
@@ -35,99 +35,106 @@ const Resume = () => {
 			})
 	}, [])
 
-	return (
-		<Box
-			sx={{
-				width: '100%',
-				...(() => {
-					if (landscapeOrientation) {
-						return { marginBottom: '5%' }
-					}
-					if (portraitOrientation) {
-						return { paddingBottom: 0 }
-					}
-					return {}
-				})(),
-			}}
-		>
-			<Box
-				sx={{
-					position: 'relative',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}
-			>
-				<Typography variant="h3" align="center">
-					Resume
-				</Typography>
-			</Box>
+	const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-			<Box
-				onMouseLeave={() => {
-					dispatch(exitHoverParams())
-				}}
-				sx={{
-					margin: mobileBrowserState ? '5% 0' : '1% 0',
-					height: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					position: 'relative',
-				}}
-			>
-				<When condition={!mobileBrowserState}>
-					<ResumeActionBar
-						isPdfVisible={isPdfVisible}
-						setShowPdfDesktop={setShowPdfDesktop}
-					/>
-				</When>
-				{/* PDF View */}
+	return (
+		<Box sx={{ position: 'relative', width: '100%' }}>
+			<When condition={!mobileBrowserState}>
+				<ResumeActionBar
+					isPdfVisible={isPdfVisible}
+					setShowPdfDesktop={setShowPdfDesktop}
+					scrollParentRef={scrollContainerRef}
+				/>
+			</When>
+			<StyledSectionCard ref={scrollContainerRef}>
 				<Box
 					sx={{
 						width: '100%',
-						display: isPdfVisible ? 'flex' : 'none',
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
-						gap: 2,
+						...(() => {
+							if (landscapeOrientation) {
+								return { marginBottom: '5%' }
+							}
+							if (portraitOrientation) {
+								return { paddingBottom: 0 }
+							}
+							return {}
+						})(),
 					}}
 				>
-					<embed
-						src={`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf#toolbar=0&navpanes=0&view=FitH`}
-						type="application/pdf"
-						style={{
-							width: '100%',
-							maxWidth: '900px',
-							height: mobileBrowserState ? '60vh' : '100vh',
-							border: 'none',
+					<Box
+						sx={{
+							position: 'relative',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
 						}}
-					/>
-					<When condition={mobileBrowserState}>
-						<StyledButton
-							fullWidth
-							variant="contained"
-							size="large"
-							startIcon={<DownloadIcon />}
-							onClick={handleResumeDownload}
-							sx={{ py: 1.5 }}
-						>
-							Download Resume
-						</StyledButton>
-					</When>
-				</Box>
+					>
+						<Typography variant="h3" align="center">
+							Resume
+						</Typography>
+					</Box>
 
-				{/* Interactive View */}
-				<Box
-					sx={{
-						display: isPdfVisible ? 'none' : 'block',
-					}}
-				>
-					{IterateContainers({
-						mobileBrowser: mobileBrowserState,
-						resumeDetails: resumeDetails,
-					})}
+					<Box
+						onMouseLeave={() => {
+							dispatch(exitHoverParams())
+						}}
+						sx={{
+							margin: mobileBrowserState ? '5% 0' : '1% 0',
+							height: '100%',
+							display: 'flex',
+							flexDirection: 'column',
+							position: 'relative',
+						}}
+					>
+						{/* PDF View */}
+						<Box
+							sx={{
+								width: '100%',
+								display: isPdfVisible ? 'flex' : 'none',
+								flexDirection: 'column',
+								alignItems: 'center',
+								justifyContent: 'center',
+								gap: 2,
+							}}
+						>
+							<embed
+								src={`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf#toolbar=0&navpanes=0&view=FitH`}
+								type="application/pdf"
+								style={{
+									width: '100%',
+									maxWidth: '900px',
+									height: mobileBrowserState ? '60vh' : '100vh',
+									border: 'none',
+								}}
+							/>
+							<When condition={mobileBrowserState}>
+								<StyledButton
+									fullWidth
+									variant="contained"
+									size="large"
+									startIcon={<DownloadIcon />}
+									onClick={handleResumeDownload}
+									sx={{ py: 1.5 }}
+								>
+									Download Resume
+								</StyledButton>
+							</When>
+						</Box>
+
+						{/* Interactive View */}
+						<Box
+							sx={{
+								display: isPdfVisible ? 'none' : 'block',
+							}}
+						>
+							{IterateContainers({
+								mobileBrowser: mobileBrowserState,
+								resumeDetails: resumeDetails,
+							})}
+						</Box>
+					</Box>
 				</Box>
-			</Box>
+			</StyledSectionCard>
 		</Box>
 	)
 }

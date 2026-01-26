@@ -1,3 +1,4 @@
+import { StyledSectionCard } from 'StyledComponents'
 import { getSmallWindowState } from '@app/appSlice'
 import { useDispatch, useSelector } from '@app/reduxHooks'
 import { Skeleton, useMediaQuery } from '@mui/material'
@@ -95,44 +96,47 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 	const orientationDetermined = portraitState || landscapeState
 
 	return (
-		<If condition={orientationDetermined}>
-			<Then>
-				<If condition={shouldUsePortraitMode}>
-					<Then>
-						<If condition={contentReady}>
-							<Then>
-								<MCPortrait
-									smileImage={smileImage}
-									paragraphOne={paragraphOne}
-									paragraphTwo={paragraphTwo}
-								/>
-							</Then>
-							<Else>
-								<MCPortraitSkeleton />
-							</Else>
-						</If>
-					</Then>
-					<Else>
-						<If condition={contentReady}>
-							<Then>
-								<MCLandscape
-									smileImage={smileImage}
-									paragraphOne={paragraphOne}
-									paragraphTwo={paragraphTwo}
-								/>
-							</Then>
-							<Else>
-								<MCLandscapeSkeleton />
-							</Else>
-						</If>
-					</Else>
-				</If>
-			</Then>
-			<Else>
-				{/* Show Skeleton while orientation is being determined */}
-				<Skeleton height="100vh" width="100%" />
-			</Else>
-		</If>
+		// small trick to get the loading skeleton to be the right width
+		<StyledSectionCard sx={{ width: !contentReady ? '95%' : 'unset' }}>
+			<If condition={orientationDetermined}>
+				<Then>
+					<If condition={shouldUsePortraitMode}>
+						<Then>
+							<If condition={contentReady}>
+								<Then>
+									<MCPortrait
+										smileImage={smileImage}
+										paragraphOne={paragraphOne}
+										paragraphTwo={paragraphTwo}
+									/>
+								</Then>
+								<Else>
+									<MCPortraitSkeleton />
+								</Else>
+							</If>
+						</Then>
+						<Else>
+							<If condition={contentReady}>
+								<Then>
+									<MCLandscape
+										smileImage={smileImage}
+										paragraphOne={paragraphOne}
+										paragraphTwo={paragraphTwo}
+									/>
+								</Then>
+								<Else>
+									<MCLandscapeSkeleton />
+								</Else>
+							</If>
+						</Else>
+					</If>
+				</Then>
+				<Else>
+					{/* Show Skeleton while orientation is being determined */}
+					<Skeleton height="100vh" width="100%" />
+				</Else>
+			</If>
+		</StyledSectionCard>
 	)
 }
 

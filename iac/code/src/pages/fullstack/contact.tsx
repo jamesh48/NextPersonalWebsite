@@ -2,6 +2,7 @@ import {
 	DisabledTypography,
 	PrimaryTypography,
 	SecondaryTypography,
+	StyledSectionCard,
 } from 'StyledComponents'
 import {
 	Description as DescriptionIcon,
@@ -33,6 +34,7 @@ const StyledContactCard = styled(Card)(({ theme }) => ({
 	flexDirection: 'column',
 	alignItems: 'center',
 	textAlign: 'center',
+	borderRadius: '1rem', // More rounded corners for a softer look
 }))
 
 const StyledContactCardIconContainer = styled(Box)(({ theme }) => ({
@@ -43,7 +45,7 @@ const StyledContactCardIconContainer = styled(Box)(({ theme }) => ({
 	width: 60,
 	height: 60,
 	borderRadius: '50%',
-	backgroundColor: theme.palette.background.paper,
+	backgroundColor: theme.palette.primary.main,
 	position: 'relative',
 	marginBottom: 2,
 }))
@@ -64,6 +66,7 @@ const ContactItem = ({
 		<StyledContactCard
 			sx={{
 				p: 3,
+				height: '75%',
 				transition: 'all 0.3s ease',
 				willChange: 'transform',
 				cursor: href || onClick ? 'pointer' : 'default',
@@ -122,80 +125,87 @@ const ContactMe = () => {
 
 	return (
 		<Container maxWidth="xl" sx={{ py: 8 }}>
-			<Box sx={{ textAlign: 'center', mb: 6 }}>
-				<PrimaryTypography variant="h3" gutterBottom>
-					Get In Touch
-				</PrimaryTypography>
-				<SecondaryTypography
-					variant="body1"
-					sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
-				>
-					Feel free to reach out through any of the channels below.
-				</SecondaryTypography>
-				<SecondaryTypography
-					variant="body1"
-					sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
-				>
-					I'm always open to discussing new opportunities and collaborations.
-				</SecondaryTypography>
-			</Box>
-
-			<Box
+			<StyledSectionCard
 				sx={{
-					mx: 'auto',
-					display: 'grid',
-					gap: 1,
-					justifyContent: 'center',
-					gridTemplateColumns: {
-						xs: '1fr',
-						sm: 'repeat(2, 1fr)',
-						md: 'repeat(3, 1fr)',
-						lg: 'repeat(5, 1fr)',
-					},
+					// Add internal padding for breathing room
+					p: { xs: 3, sm: 4, md: 5 },
 				}}
 			>
-				<ContactItem
-					icon={<LocationIcon fontSize="large" />}
-					title="Location"
-					value="Boulder, CO"
-				/>
-
-				<ContactItem
-					icon={<EmailIcon fontSize="large" />}
-					title="Email"
-					value="jameshrivnak4@gmail.com"
-					href="mailto:jameshrivnak4@gmail.com"
-				/>
-
-				<ContactItem
-					icon={<PhoneIcon fontSize="large" />}
-					title="Phone"
-					value="(303) 517-2085"
-					href="tel:303-517-2085"
-				/>
-
-				<ContactItem
-					icon={<LinkedInIcon fontSize="large" />}
-					title="LinkedIn"
-					value="Connect"
-					href="https://linkedin.com/in/james-hrivnak"
-				/>
-
-				<ContactItem
-					icon={<DescriptionIcon fontSize="large" />}
-					title="Resume"
-					value="Download PDF"
-					onClick={handleResumeDownload}
-				/>
-			</Box>
-
-			{mobileBrowserState && (
-				<Box sx={{ mt: 6, textAlign: 'center' }}>
-					<SecondaryTypography variant="body2">
-						Tap any card to get in touch
+				<Box sx={{ textAlign: 'center', mb: 6 }}>
+					<PrimaryTypography variant="h3" gutterBottom>
+						Get In Touch
+					</PrimaryTypography>
+					<SecondaryTypography
+						variant="body1"
+						sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
+					>
+						Feel free to reach out through any of the channels below.
+					</SecondaryTypography>
+					<SecondaryTypography
+						variant="body1"
+						sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
+					>
+						I'm always open to discussing new opportunities and collaborations.
 					</SecondaryTypography>
 				</Box>
-			)}
+
+				<Box
+					sx={{
+						mx: 'auto',
+						display: 'grid',
+						gap: 2, // Increased gap between cards
+						justifyContent: 'center',
+						gridTemplateColumns: {
+							xs: '1fr',
+							sm: 'repeat(2, 1fr)',
+							md: 'repeat(3, 1fr)',
+							lg: 'repeat(5, 1fr)',
+						},
+					}}
+				>
+					<ContactItem
+						icon={<LocationIcon fontSize="large" />}
+						title="Location"
+						value="Boulder, CO"
+					/>
+
+					<ContactItem
+						icon={<EmailIcon fontSize="large" />}
+						title="Email"
+						value="jameshrivnak4@gmail.com"
+						href="mailto:jameshrivnak4@gmail.com"
+					/>
+
+					<ContactItem
+						icon={<PhoneIcon fontSize="large" />}
+						title="Phone"
+						value="(303) 517-2085"
+						href="tel:303-517-2085"
+					/>
+
+					<ContactItem
+						icon={<LinkedInIcon fontSize="large" />}
+						title="LinkedIn"
+						value="Connect"
+						href="https://linkedin.com/in/james-hrivnak"
+					/>
+
+					<ContactItem
+						icon={<DescriptionIcon fontSize="large" />}
+						title="Resume"
+						value="Download PDF"
+						onClick={handleResumeDownload}
+					/>
+				</Box>
+
+				{mobileBrowserState && (
+					<Box sx={{ mt: 6, textAlign: 'center', pb: 2 }}>
+						<SecondaryTypography variant="body2">
+							Tap any card to get in touch
+						</SecondaryTypography>
+					</Box>
+				)}
+			</StyledSectionCard>
 		</Container>
 	)
 }

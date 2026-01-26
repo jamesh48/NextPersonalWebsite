@@ -15,7 +15,7 @@ const theme = createTheme({
 		},
 		background: {
 			default: '#1f2124',
-			paper: 'rgba(135, 206, 235, 0.3)',
+			paper: 'rgba(255, 255, 255, 0.1)',
 		},
 		action: {
 			hover: '#3a5f5f',

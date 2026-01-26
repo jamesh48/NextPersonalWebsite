@@ -52,9 +52,9 @@ const Portfolio = (props: PortfolioProps) => {
 		<Box
 			id="portfolio-container"
 			sx={{
+				minWidth: '100%',
 				display: 'flex',
 				flexDirection: 'column',
-				minWidth: '100%',
 				justifyContent: 'center',
 			}}
 		>
