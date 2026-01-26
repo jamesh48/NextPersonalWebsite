@@ -1,11 +1,16 @@
 import {
+	DisabledTypography,
+	PrimaryTypography,
+	SecondaryTypography,
+} from 'StyledComponents'
+import {
 	Description as DescriptionIcon,
 	Email as EmailIcon,
 	LinkedIn as LinkedInIcon,
 	LocationOn as LocationIcon,
 	Phone as PhoneIcon,
 } from '@mui/icons-material'
-import { Box, Card, Container, Grid2, Link, Typography } from '@mui/material'
+import { Box, Card, Container, Link, styled, Typography } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import Head from 'next/head'
 import { useCallback } from 'react'
@@ -19,6 +24,35 @@ interface ContactItemProps {
 	onClick?: () => void
 }
 
+const StyledContactCard = styled(Card)(({ theme }) => ({
+	backgroundColor: theme.palette.primary.main,
+	border: '1px solid',
+	borderColor: theme.palette.border.light,
+	height: '100%',
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	textAlign: 'center',
+}))
+
+const StyledContactCardIconContainer = styled(Box)(({ theme }) => ({
+	color: theme.palette.primary.main,
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	width: 60,
+	height: 60,
+	borderRadius: '50%',
+	backgroundColor: theme.palette.background.paper,
+	position: 'relative',
+	marginBottom: 2,
+}))
+
+const StyledContactCardIcon = styled(Typography)(({ theme }) => ({
+	color: theme.palette.secondary.main,
+	position: 'absolute',
+}))
+
 const ContactItem = ({
 	icon,
 	title,
@@ -27,61 +61,34 @@ const ContactItem = ({
 	onClick,
 }: ContactItemProps) => {
 	const content = (
-		<Card
+		<StyledContactCard
 			sx={{
-				height: '100%',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				textAlign: 'center',
 				p: 3,
-				backgroundColor: '#2f4f4f',
-				border: '1px solid rgba(240, 255, 240, 0.15)',
 				transition: 'all 0.3s ease',
 				willChange: 'transform',
 				cursor: href || onClick ? 'pointer' : 'default',
-				'&:hover':
-					href || onClick
-						? {
-								transform: 'translateY(-4px)',
-								backgroundColor: '#3a5f5f',
-								border: '1px solid rgba(240, 255, 240, 0.3)',
-								boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
-							}
-						: {},
+				'&:hover': (href || onClick) && {
+					transform: 'translateY(-4px)',
+					backgroundColor: '#3a5f5f',
+					border: '1px solid rgba(240, 255, 240, 0.3)',
+					boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
+				},
 			}}
 			onClick={onClick}
 		>
-			<Box
-				sx={{
-					mb: 2,
-					color: 'ivory',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-					width: 60,
-					height: 60,
-					borderRadius: '50%',
-					backgroundColor: 'rgba(135, 206, 235, 0.3)',
-					position: 'relative',
-				}}
-			>
-				<Box sx={{ position: 'absolute', color: '#87CEEB' }}>{icon}</Box>
-			</Box>
-			<Typography
+			<StyledContactCardIconContainer>
+				<StyledContactCardIcon>{icon}</StyledContactCardIcon>
+			</StyledContactCardIconContainer>
+			<DisabledTypography
 				variant="overline"
-				sx={{
-					color: 'rgba(240, 255, 240, 0.6)',
-					mb: 1,
-					letterSpacing: '0.1em',
-				}}
+				sx={{ mb: 1, letterSpacing: '0.1em' }}
 			>
 				{title}
-			</Typography>
+			</DisabledTypography>
 			<Typography variant="h6" sx={{ color: 'ivory', fontWeight: 400 }}>
 				{value}
 			</Typography>
-		</Card>
+		</StyledContactCard>
 	)
 
 	if (href && !onClick) {
@@ -116,21 +123,21 @@ const ContactMe = () => {
 	return (
 		<Container maxWidth="xl" sx={{ py: 8 }}>
 			<Box sx={{ textAlign: 'center', mb: 6 }}>
-				<Typography variant="h3" gutterBottom sx={{ color: 'ivory' }}>
+				<PrimaryTypography variant="h3" gutterBottom>
 					Get In Touch
-				</Typography>
-				<Typography
+				</PrimaryTypography>
+				<SecondaryTypography
 					variant="body1"
-					sx={{
-						maxWidth: 600,
-						mx: 'auto',
-						color: 'rgba(240, 255, 240, 0.8)',
-						lineHeight: 1.6,
-					}}
+					sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
 				>
-					Feel free to reach out through any of the channels below. I'm always
-					open to discussing new opportunities and collaborations.
-				</Typography>
+					Feel free to reach out through any of the channels below.
+				</SecondaryTypography>
+				<SecondaryTypography
+					variant="body1"
+					sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
+				>
+					I'm always open to discussing new opportunities and collaborations.
+				</SecondaryTypography>
 			</Box>
 
 			<Box
@@ -184,12 +191,9 @@ const ContactMe = () => {
 
 			{mobileBrowserState && (
 				<Box sx={{ mt: 6, textAlign: 'center' }}>
-					<Typography
-						variant="body2"
-						sx={{ color: 'rgba(240, 255, 240, 0.5)' }}
-					>
+					<SecondaryTypography variant="body2">
 						Tap any card to get in touch
-					</Typography>
+					</SecondaryTypography>
 				</Box>
 			)}
 		</Container>

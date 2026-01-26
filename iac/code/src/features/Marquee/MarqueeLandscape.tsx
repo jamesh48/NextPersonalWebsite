@@ -1,11 +1,13 @@
 import { Box, Divider, Typography, useMediaQuery } from '@mui/material'
+import { StyledLandscapeParagraph } from 'features/Marquee/components'
+import { useMemo } from 'react'
 import type { MarqueeInnerProps } from './marqueeTypes'
 
 const MCLandscape = (props: MarqueeInnerProps) => {
 	const bigSmile = useMediaQuery('(min-width: 1600px)')
 	const smallSmile = useMediaQuery('(min-width: 1000px)')
 
-	const smileFlex = (() => {
+	const smileFlex = useMemo(() => {
 		if (bigSmile) {
 			return { flex: 0.4, minHeight: '40rem' }
 		}
@@ -14,7 +16,8 @@ const MCLandscape = (props: MarqueeInnerProps) => {
 		}
 
 		return { flex: 0.5, minHeight: '12.5rem' }
-	})()
+	}, [bigSmile, smallSmile])
+
 	return (
 		<Box
 			id="marquee-container"
@@ -44,37 +47,19 @@ const MCLandscape = (props: MarqueeInnerProps) => {
 							sx={{ display: 'flex', flexDirection: 'column', flex: 0.9 }}
 							id="marquee-paragraphs"
 						>
-							<Typography
-								id="about-me-marquee-description-1"
-								sx={{
-									width: '97.5%',
-									lineHeight: 1.95,
-									fontSize: '1.5vw',
-									fontWeight: 200,
-									letterSpacing: '.25px',
-								}}
-							>
+							<StyledLandscapeParagraph id="about-me-marquee-description-1">
 								{props.paragraphOne}
-							</Typography>
+							</StyledLandscapeParagraph>
 							<Divider
 								sx={{
-									background: 'ivory',
+									color: 'ivory',
 									marginY: '1rem',
 									visibility: 'hidden',
 								}}
 							/>
-							<Typography
-								id="about-me-marquee-description-2"
-								sx={{
-									width: '97.5%',
-									lineHeight: 1.95,
-									fontSize: '1.5vw',
-									fontWeight: 200,
-									letterSpacing: '.25px',
-								}}
-							>
+							<StyledLandscapeParagraph id="about-me-marquee-description-2">
 								{props.paragraphTwo}
-							</Typography>
+							</StyledLandscapeParagraph>
 						</Box>
 						<Box
 							id="smile-container"

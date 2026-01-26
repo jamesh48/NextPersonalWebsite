@@ -7,6 +7,8 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import Layout from '../layouts/Layout'
 import '../styles/globals.scss'
+import { ThemeProvider } from '@mui/material/styles'
+import theme from '../theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const isSsr = useIsSsr()
@@ -49,11 +51,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 					content="Full-stack web developer specializing in modern web applications."
 				/>
 			</Head>
-			<Provider store={GlobalStore.prototype.getStore()}>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</Provider>
+			<ThemeProvider theme={theme}>
+				<Provider store={GlobalStore.prototype.getStore()}>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</Provider>
+			</ThemeProvider>
 		</>
 	)
 }

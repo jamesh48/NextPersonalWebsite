@@ -1,4 +1,4 @@
-import { Box, Tooltip } from '@mui/material'
+import { Box, styled, Tooltip } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { useCallback, useEffect, useState } from 'react'
 import { When } from 'react-if'
@@ -7,6 +7,36 @@ import { FooterItemContainer } from './FooterItemContainer'
 interface FooterProps {
 	footerJSON: { iconLink: string; imageUrl: string; label: string }[]
 }
+
+const StyledFooterContainer = styled(Box)(({ theme }) => ({
+	border: '3px solid',
+	borderColor: theme.palette.border.light,
+	display: 'flex',
+	width: '100%',
+
+	borderBottom: 'none',
+	backgroundColor: '#2f4f4f',
+	borderRadius: '0.7% / 25%',
+	borderBottomLeftRadius: 0,
+	borderBottomRightRadius: 0,
+}))
+
+const StyledFooterItemContainer = styled(Box)(({ theme }) => ({
+	flex: 1,
+	transition: 'all 0.3s ease',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	'&:hover': {
+		backgroundColor: theme.palette.primary.main,
+	},
+	// Apply to all images
+	'& img': {
+		backgroundColor: theme.palette.primary.main,
+		padding: '0.375rem',
+		borderRadius: '0.375rem',
+	},
+}))
 
 const Footer = ({ footerJSON }: FooterProps) => {
 	const footerMobileBrowserState = useMobileBrowserCheck()
@@ -62,19 +92,7 @@ const Footer = ({ footerJSON }: FooterProps) => {
 					margin: '0 auto',
 				}}
 			>
-				<Box
-					id="footer-items-container"
-					sx={{
-						display: 'flex',
-						width: '100%',
-						border: '3px solid rgba(240, 255, 240, 0.15)',
-						borderBottom: 'none',
-						backgroundColor: '#2f4f4f',
-						borderRadius: '0.7% / 25%',
-						borderBottomLeftRadius: 0,
-						borderBottomRightRadius: 0,
-					}}
-				>
+				<StyledFooterContainer id="footer-items-container">
 					{images.map((iconData, index) => {
 						const label = footerJSON[index]?.label
 
@@ -85,33 +103,16 @@ const Footer = ({ footerJSON }: FooterProps) => {
 								arrow
 								placement="top"
 							>
-								<Box
-									sx={{
-										flex: 1,
-										transition: 'all 0.3s ease',
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-										'&:hover': {
-											backgroundColor: '#3a5f5f',
-										},
-										// Apply to all images
-										'& img': {
-											backgroundColor: '#2f4f4f',
-											padding: '6px',
-											borderRadius: '6px',
-										},
-									}}
-								>
+								<StyledFooterItemContainer>
 									<FooterItemContainer
 										key={iconData.iconLink}
 										iconData={iconData}
 									/>
-								</Box>
+								</StyledFooterItemContainer>
 							</Tooltip>
 						)
 					})}
-				</Box>
+				</StyledFooterContainer>
 			</Box>
 		</When>
 	)

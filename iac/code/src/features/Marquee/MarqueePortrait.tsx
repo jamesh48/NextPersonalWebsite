@@ -1,5 +1,6 @@
 import { Box, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
+import { StyledPortraitParagraph } from './components'
 import type { MarqueeInnerProps } from './marqueeTypes'
 
 const MCPortrait = (props: MarqueeInnerProps) => {
@@ -48,23 +49,9 @@ const MCPortrait = (props: MarqueeInnerProps) => {
 					sx={{
 						display: 'flex',
 						justifyContent: 'center',
-						fontSize: '2.5vw',
 						height: '25%',
 						alignItems: 'center',
-						...(() => {
-							if (portraitOrientation) {
-								return {
-									paddingBottom: '8%',
-									fontSize: '4.5vh',
-								}
-							}
-
-							if (landscapeOrientation) {
-								return {
-									fontSize: '4.5vw',
-								}
-							}
-						})(),
+						paddingY: '6%',
 					}}
 				>
 					James Hrivnak
@@ -75,20 +62,12 @@ const MCPortrait = (props: MarqueeInnerProps) => {
 						sx={{ display: 'flex', flexDirection: 'column' }}
 					>
 						<Box className="marquee-paragraphs" sx={{ textAlign: 'center' }}>
-							<Typography
+							<StyledPortraitParagraph
 								variant="body2"
 								className="about-me-marquee-description"
-								sx={{
-									textRendering: 'geometricPrecision',
-									width: '97.5%',
-									lineHeight: '1.95',
-									fontSize: '1rem',
-									fontWeight: 200,
-									letterSpacing: '0.25px',
-								}}
 							>
 								{props.paragraphOne}
-							</Typography>
+							</StyledPortraitParagraph>
 							<Box
 								className="smile-container"
 								sx={{
@@ -105,20 +84,12 @@ const MCPortrait = (props: MarqueeInnerProps) => {
 									flex: smileFlex,
 								}}
 							></Box>
-							<Typography
+							<StyledPortraitParagraph
 								variant="body2"
 								className="about-me-marquee-description"
-								sx={{
-									textRendering: 'geometricPrecision',
-									width: '97.5%',
-									lineHeight: '1.95',
-									fontSize: '1rem',
-									fontWeight: 200,
-									letterSpacing: '0.25px',
-								}}
 							>
 								{props.paragraphTwo}
-							</Typography>
+							</StyledPortraitParagraph>
 						</Box>
 					</Box>
 				</Box>

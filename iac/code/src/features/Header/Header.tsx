@@ -8,26 +8,27 @@ enum HeaderTabValue {
 	contact = '1',
 }
 
-const StyledTab = styled(Tab)(() => ({
+const StyledTab = styled(Tab)(({ theme }) => ({
 	minWidth: 'unset',
 	maxWidth: 'unset',
 	flex: 1,
-	backgroundColor: '#2f4f4f',
+	backgroundColor: theme.palette.primary.main,
 	color: 'rgba(240, 255, 240, 0.8)',
 	fontWeight: 500,
 	fontSize: '1rem',
 	transition: 'all 0.3s ease',
 	border: '1px solid rgba(240, 255, 240, 0.15)',
 	'&.Mui-selected': {
-		backgroundColor: '#3a5f5f',
+		backgroundColor: theme.palette.primary.main,
 		fontWeight: 700,
 		color: 'ivory',
 		border: '1px solid rgba(240, 255, 240, 0.3)',
 	},
 	'&:hover': {
-		backgroundColor: '#3a5f5f',
+		backgroundColor: theme.palette.action.hover,
 		color: 'ivory',
-		border: '1px solid rgba(240, 255, 240, 0.3)',
+		border: '1px solid',
+		borderColor: theme.palette.border.light,
 	},
 }))
 
@@ -62,7 +63,7 @@ const Header = () => {
 			onChange={handleChange}
 			TabIndicatorProps={{
 				style: {
-					backgroundColor: '#87CEEB', // Sky blue accent
+					backgroundColor: '#87CEEB',
 					height: '3px',
 				},
 			}}

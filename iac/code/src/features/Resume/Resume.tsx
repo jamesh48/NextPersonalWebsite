@@ -1,5 +1,5 @@
+import { StyledButton } from 'StyledComponents'
 import { useDispatch } from '@app/reduxHooks'
-
 import { Download as DownloadIcon } from '@mui/icons-material'
 import { Box, Button, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
@@ -103,28 +103,16 @@ const Resume = () => {
 						}}
 					/>
 					<When condition={mobileBrowserState}>
-						<Button
+						<StyledButton
 							fullWidth
 							variant="contained"
 							size="large"
 							startIcon={<DownloadIcon />}
 							onClick={handleResumeDownload}
-							sx={{
-								py: 1.5,
-								backgroundColor: '#2f4f4f',
-								color: 'ivory',
-								border: '1px solid rgba(240, 255, 240, 0.15)',
-								'&:hover': {
-									backgroundColor: '#3a5f5f',
-									border: '1px solid rgba(240, 255, 240, 0.3)',
-									transform: 'translateY(-2px)',
-									boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
-								},
-								transition: 'all 0.3s ease',
-							}}
+							sx={{ py: 1.5 }}
 						>
 							Download Resume
-						</Button>
+						</StyledButton>
 					</When>
 				</Box>
 
