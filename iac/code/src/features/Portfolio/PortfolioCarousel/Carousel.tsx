@@ -87,13 +87,25 @@ const PortfolioCarousel = ({ portfolioJSON }: PortfolioCarouselProps) => {
 				justifyContent: 'center',
 			}}
 		>
-			<Box id="portfolio-slider" sx={{ height: '90vh' }}>
+			<Box
+				id='portfolio-slider'
+				sx={{
+					height: '90vh',
+					display: 'flex',
+					flexDirection: 'column',
+				}}
+			>
 				<Box
-					id="outer-slider"
-					sx={{ overflow: 'hidden', position: 'relative', height: '100%' }}
+					id='outer-slider'
+					sx={{
+						overflow: 'hidden',
+						position: 'relative',
+						height: '100%',
+						flex: 1,
+					}}
 				>
 					<Box
-						id="inner-slider"
+						id='inner-slider'
 						sx={{
 							transform: `translateX(calc(${position * -101}% + ${position === 0 ? desktopAdjustment : mobileView ? '-3%' : '0%'}))`,
 							display: 'flex',
@@ -132,6 +144,7 @@ const PortfolioCarousel = ({ portfolioJSON }: PortfolioCarouselProps) => {
 							width: '50%',
 							display: 'flex',
 							alignItems: 'center',
+							flex: 0.1,
 						}}
 					>
 						{/* Prev Button Box - Left Side */}

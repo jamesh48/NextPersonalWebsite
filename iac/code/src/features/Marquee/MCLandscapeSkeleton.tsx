@@ -1,22 +1,8 @@
-import { Box, Skeleton, useMediaQuery } from '@mui/material'
-import { useMemo } from 'react'
+import { Box, Skeleton } from '@mui/material'
 
 const MCLandscapeSkeleton = () => {
-	const bigSmile = useMediaQuery('(min-width: 1600px)')
-	const smallSmile = useMediaQuery('(min-width: 1000px)')
-
-	const smileFlex = useMemo(() => {
-		if (bigSmile) {
-			return { flex: 0.4, minHeight: '40rem' }
-		}
-		if (smallSmile) {
-			return { flex: 0.5, minHeight: '25rem' }
-		}
-		return { flex: 0.5, minHeight: '12.5rem' }
-	}, [bigSmile, smallSmile])
-
 	return (
-		<Box id="marquee-container" sx={{ display: 'flex', width: '100%' }}>
+		<Box id="marquee-container" sx={{ display: 'flex', padding: '2rem' }}>
 			<Box sx={{ height: '100%', width: '100%' }} id="about-me-marquee-details">
 				{/* Title skeleton */}
 				<Box
@@ -39,22 +25,33 @@ const MCLandscapeSkeleton = () => {
 				<Box>
 					<Box
 						id="marquee-contents"
-						sx={{ display: 'flex', alignItems: 'center' }}
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							gap: 2,
+							overflow: 'hidden', // Prevent overflow
+							width: '100%', // Ensure container respects bounds
+						}}
 					>
 						{/* Paragraph skeletons */}
 						<Box
-							sx={{ display: 'flex', flexDirection: 'column', flex: 0.9 }}
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								flex: 1,
+								minWidth: 0, // Important: allows flex item to shrink below content size
+								overflow: 'hidden', // Prevent text overflow
+							}}
 							id="marquee-paragraphs"
 						>
 							{/* First paragraph */}
 							<Box>
-								<Skeleton variant="text" width="100%" height={40} />
-								<Skeleton variant="text" width="95%" height={40} />
-								<Skeleton variant="text" width="98%" height={40} />
-								<Skeleton variant="text" width="92%" height={40} />
-								<Skeleton variant="text" width="97%" height={40} />
-								<Skeleton variant="text" width="100%" height={40} />
-								<Skeleton variant="text" width="85%" height={40} />
+								<Skeleton variant="text" sx={{ width: '95%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '98%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '92%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '97%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '100%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '85%' }} height={40} />
 							</Box>
 
 							{/* Divider space */}
@@ -62,24 +59,36 @@ const MCLandscapeSkeleton = () => {
 
 							{/* Second paragraph */}
 							<Box>
-								<Skeleton variant="text" width="97%" height={40} />
-								<Skeleton variant="text" width="100%" height={40} />
-								<Skeleton variant="text" width="93%" height={40} />
-								<Skeleton variant="text" width="96%" height={40} />
-								<Skeleton variant="text" width="99%" height={40} />
-								<Skeleton variant="text" width="94%" height={40} />
-								<Skeleton variant="text" width="80%" height={40} />
+								<Skeleton variant="text" sx={{ width: '97%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '100%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '93%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '96%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '99%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '94%' }} height={40} />
+								<Skeleton variant="text" sx={{ width: '80%' }} height={40} />
 							</Box>
 						</Box>
 
-						{/* Profile image skeleton */}
+						{/* Profile image skeleton - circular with fixed dimensions */}
 						<Skeleton
 							variant="circular"
 							sx={{
-								maxWidth: '50%',
-								minWidth: '27.5%',
+								width: {
+									xs: '12.5rem',
+									md: '20rem',
+									lg: '25rem',
+									xl: '30rem',
+									'@media (min-width: 1800px)': '40rem',
+								},
+								height: {
+									xs: '12.5rem',
+									md: '20rem',
+									lg: '25rem',
+									xl: '30rem',
+									'@media (min-width: 1800px)': '40rem',
+								},
 								border: '1px solid rgba(255, 255, 240, 0.3)',
-								...smileFlex,
+								flexShrink: 0,
 							}}
 						/>
 					</Box>

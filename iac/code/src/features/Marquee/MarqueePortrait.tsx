@@ -1,31 +1,13 @@
-import { Box, Typography, useMediaQuery } from '@mui/material'
+import { Avatar, Box, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { StyledPortraitParagraph } from './components'
-import type { MarqueeInnerProps } from './marqueeTypes'
+import { paragraphOne, paragraphTwo } from './MarqueeConstants'
+import type { MarqueeInnerProps } from './MarqueeTypes'
 
-const MCPortrait = (props: MarqueeInnerProps) => {
+const MCPortrait = ({ smileImage }: MarqueeInnerProps) => {
 	const mobileBrowserState = useMobileBrowserCheck()
 	const portraitOrientation = useMediaQuery('(orientation: portrait)')
 	const landscapeOrientation = useMediaQuery('(orientation: landscape)')
-	const bigSmile = useMediaQuery('(min-width:1600px) and (max-width: 1750px)')
-	const mediumSmile = useMediaQuery(
-		'(min-width:1300px) and (max-width: 1500px)',
-	)
-	const smallSmile = useMediaQuery('(min-width:1150px) and (max-width: 1300px)')
-
-	const smileFlex = (() => {
-		if (bigSmile) {
-			return 0.4
-		}
-		if (mediumSmile) {
-			return 0.5
-		}
-
-		if (smallSmile) {
-			return 0.6
-		}
-		return 0.5
-	})()
 
 	return (
 		<Box
@@ -35,11 +17,7 @@ const MCPortrait = (props: MarqueeInnerProps) => {
 				flexDirection: 'column',
 				textAlign: 'center',
 				height: portraitOrientation ? '100%' : '90%',
-				...(() => {
-					if (landscapeOrientation) {
-						return { minHeight: '90vh' }
-					}
-				})(),
+				minHeight: landscapeOrientation ? '90vh' : undefined,
 			}}
 		>
 			<Box className="about-me-marquee-details" sx={{ height: '100%' }}>
@@ -66,29 +44,34 @@ const MCPortrait = (props: MarqueeInnerProps) => {
 								variant="body2"
 								className="about-me-marquee-description"
 							>
-								{props.paragraphOne}
+								{paragraphOne}
 							</StyledPortraitParagraph>
-							<Box
+							<Avatar
+								src={smileImage.url}
+								alt="James Hrivnak"
+								variant="rounded"
 								className="smile-container"
 								sx={{
 									margin: '2.5% auto',
-									minHeight: '25rem',
-									width: mobileBrowserState ? '90%' : '50%',
-									padding: 0,
-									backgroundImage: `url(${props.smileImage.url})`,
-									backgroundPositionY: '25%',
-									backgroundPositionX: '75%',
-									backgroundSize: 'cover',
+									width: mobileBrowserState
+										? 'min(90vw, 25rem)'
+										: 'min(50vw, 25rem)',
+									height: mobileBrowserState
+										? 'min(90vw, 25rem)'
+										: 'min(50vw, 25rem)',
+									minWidth: '15rem',
+									minHeight: '15rem',
 									border: '1px solid ivory',
-									backgroundRepeat: 'no-repeat',
-									flex: smileFlex,
+									'& img': {
+										objectPosition: '75% 25%',
+									},
 								}}
-							></Box>
+							/>
 							<StyledPortraitParagraph
 								variant="body2"
 								className="about-me-marquee-description"
 							>
-								{props.paragraphTwo}
+								{paragraphTwo}
 							</StyledPortraitParagraph>
 						</Box>
 					</Box>

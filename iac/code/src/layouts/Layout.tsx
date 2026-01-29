@@ -28,7 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
 					flex: 1,
 					width: mobileBrowserState ? '100%' : '75%',
 					margin: '0 auto',
-					paddingBottom: '5vh', // Add space for the footer
+					paddingBottom: '5vh',
 				}}
 			>
 				{children}

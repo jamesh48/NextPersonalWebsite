@@ -1,6 +1,6 @@
 import { setPortraitState, setSmallWindowState } from '@app/appSlice'
 import { useDispatch } from '@app/reduxHooks'
-import { Box, useMediaQuery } from '@mui/material'
+import { Container, useMediaQuery } from '@mui/material'
 import Head from 'next/head'
 import { useCallback, useEffect, useState } from 'react'
 import PortfolioJSON from './Data/PortfolioDataJSON'
@@ -31,33 +31,43 @@ const Home = () => {
 		<>
 			<Head>
 				<title>James Hrivnak</title>
-				<meta name="description" content="James Hrivnak's Portfolio" />
-				<link rel="icon" href="/favicon.ico" />
+				<meta name='description' content="James Hrivnak's Portfolio" />
+				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<Box
-				id="homeContainer"
+			<Container
+				maxWidth='xl'
+				id='homeContainer'
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					gap: '2rem',
+					gap: 4,
+					py: 4,
+					px: 'unset !important',
+					maxWidth: 'unset !important',
 				}}
 			>
 				<Section
-					id="about-me-root"
-					dataName="About Me"
-					sx={{ alignItems: 'center', justifyContent: 'center' }}
+					id='about-me-root'
+					dataName='About Me'
+					sx={{
+						alignItems: 'center',
+						justifyContent: 'center',
+						display: 'flex',
+						width: '100%',
+					}}
+					minHeight='unset'
 				>
 					<MarqueeContainer smileCallback={smileCallback} />
 				</Section>
 
-				<Section id="resume-root" dataName="Resume" minHeight="unset">
+				<Section id='resume-root' dataName='Resume' minHeight='unset'>
 					<Resume />
 				</Section>
 
 				<Section
-					id="portfolio-root"
-					dataName="Portfolio"
+					id='portfolio-root'
+					dataName='Portfolio'
 					sx={{
 						width: '100%',
 						'p, h3, h4, h5, h6': { margin: '1%' },
@@ -65,7 +75,7 @@ const Home = () => {
 				>
 					<PortfolioCarousel portfolioJSON={PortfolioJSON} />
 				</Section>
-			</Box>
+			</Container>
 		</>
 	)
 }

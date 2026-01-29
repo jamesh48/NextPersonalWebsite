@@ -1,6 +1,6 @@
 import type { RootState } from '@app/store'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { SmileImageProps } from './marqueeTypes'
+import type { SmileImageProps } from './MarqueeTypes'
 
 interface MarqueeInitialState {
 	smileImage: { loaded: boolean; url: string }

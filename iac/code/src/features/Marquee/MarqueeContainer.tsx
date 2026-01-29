@@ -10,10 +10,10 @@ import { Else, If, Then } from 'react-if'
 import { STATIC_CLOUDFRONT_LINK } from '../../constants'
 import MCLandscape from './MarqueeLandscape'
 import MCPortrait from './MarqueePortrait'
+import type { SmileImageProps } from './MarqueeTypes'
 import MCLandscapeSkeleton from './MCLandscapeSkeleton'
 import MCPortraitSkeleton from './MCPortraitSkeleton'
 import { getSmileImage, setSmileImage } from './marqueeSlice'
-import type { SmileImageProps } from './marqueeTypes'
 
 export interface MarqueeContainerProps {
 	smileCallback: () => void
@@ -64,7 +64,7 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 			title: 'Linkedin Photo',
 			loaded: false,
 		})
-	}, [portraitState, handleSmileImage])
+	}, [handleSmileImage])
 
 	useEffect(() => {
 		if (smileImage.loaded === true) {
@@ -74,10 +74,6 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 			return () => clearTimeout(timeout)
 		}
 	}, [smileImage.loaded, smileCallback])
-
-	const paragraphOne = `I'm a Full-Stack Software Engineer specializing in building scalable web applications with React, TypeScript, and Node.js. Most recently, I led frontend architecture at airx health, where I built a comprehensive UI component library and engineered patient-facing features for a pharmaceutical management platform. I have deep experience with modern frontend tooling—Next.js, Redux Toolkit Query, Material UI—and backend technologies including Python/Django, GraphQL, as well as event-driven architectures. I'm passionate about developer experience and code quality, whether that's migrating to better tooling or integrating AI-assisted development workflows.`
-
-	const paragraphTwo = `I excel at taking ownership of complex features from conception to deployment. At airx health, I was trusted with product direction and customer satisfaction on a small engineering team, building everything from scheduling portals to printer integrations. Previously at United Airlines, I modernized frontend architecture and built real-time notification systems serving thousands of users. I also contribute to open source—recently extending a Homebridge plugin to add smart home controls for GE appliances. I bring strong technical judgment, a collaborative mindset, and a drive to ship polished, user-focused products.`
 
 	/*
   /Load Portrait mode if its a mobileBrowser and is in portrait orientation
@@ -97,18 +93,14 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 
 	return (
 		// small trick to get the loading skeleton to be the right width
-		<StyledSectionCard sx={{ width: !contentReady ? '95%' : 'unset' }}>
+		<StyledSectionCard sx={{ width: '100%' }}>
 			<If condition={orientationDetermined}>
 				<Then>
 					<If condition={shouldUsePortraitMode}>
 						<Then>
 							<If condition={contentReady}>
 								<Then>
-									<MCPortrait
-										smileImage={smileImage}
-										paragraphOne={paragraphOne}
-										paragraphTwo={paragraphTwo}
-									/>
+									<MCPortrait smileImage={smileImage} />
 								</Then>
 								<Else>
 									<MCPortraitSkeleton />
@@ -118,11 +110,7 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 						<Else>
 							<If condition={contentReady}>
 								<Then>
-									<MCLandscape
-										smileImage={smileImage}
-										paragraphOne={paragraphOne}
-										paragraphTwo={paragraphTwo}
-									/>
+									<MCLandscape smileImage={smileImage} />
 								</Then>
 								<Else>
 									<MCLandscapeSkeleton />

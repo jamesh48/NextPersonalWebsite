@@ -5,7 +5,5 @@ export interface SmileImageProps {
 }
 
 export interface MarqueeInnerProps {
-	smileImage: { url: string }
-	paragraphOne: string
-	paragraphTwo: string
+	smileImage: { url: string; loaded: boolean }
 }

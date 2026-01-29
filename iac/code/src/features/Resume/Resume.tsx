@@ -46,7 +46,7 @@ const Resume = () => {
 					scrollParentRef={scrollContainerRef}
 				/>
 			</When>
-			<StyledSectionCard ref={scrollContainerRef}>
+			<StyledSectionCard ref={scrollContainerRef} sx={{ padding: '2rem' }}>
 				<Box
 					sx={{
 						width: '100%',

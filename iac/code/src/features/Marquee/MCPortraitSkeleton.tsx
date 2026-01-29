@@ -4,25 +4,6 @@ import { useMobileBrowserCheck } from '@shared/globalUtils'
 const MCPortraitSkeleton = () => {
 	const mobileBrowserState = useMobileBrowserCheck()
 	const portraitOrientation = useMediaQuery('(orientation: portrait)')
-	const landscapeOrientation = useMediaQuery('(orientation: landscape)')
-	const bigSmile = useMediaQuery('(min-width:1600px) and (max-width: 1750px)')
-	const mediumSmile = useMediaQuery(
-		'(min-width:1300px) and (max-width: 1500px)',
-	)
-	const smallSmile = useMediaQuery('(min-width:1150px) and (max-width: 1300px)')
-
-	const smileFlex = (() => {
-		if (bigSmile) {
-			return 0.4
-		}
-		if (mediumSmile) {
-			return 0.5
-		}
-		if (smallSmile) {
-			return 0.6
-		}
-		return 0.5
-	})()
 
 	return (
 		<Box
@@ -33,11 +14,6 @@ const MCPortraitSkeleton = () => {
 				textAlign: 'center',
 				height: portraitOrientation ? '100%' : '90%',
 				width: '100%',
-				...(() => {
-					if (landscapeOrientation) {
-						return { minHeight: '90vh' }
-					}
-				})(),
 			}}
 		>
 			<Box
@@ -70,45 +46,96 @@ const MCPortraitSkeleton = () => {
 						<Box className="marquee-paragraphs" sx={{ textAlign: 'center' }}>
 							{/* First paragraph skeleton */}
 							<Box sx={{ px: 2 }}>
-								<Skeleton variant="text" width="100%" height={35} />
-								<Skeleton variant="text" width="95%" height={35} />
-								<Skeleton variant="text" width="98%" height={35} />
-								<Skeleton variant="text" width="92%" height={35} />
-								<Skeleton variant="text" width="97%" height={35} />
-								<Skeleton variant="text" width="100%" height={35} />
 								<Skeleton
 									variant="text"
-									width="85%"
+									sx={{ width: '100%', mx: 'auto' }}
 									height={35}
-									sx={{ mx: 'auto' }}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '95%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '98%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '92%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '97%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '100%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '85%', mx: 'auto' }}
+									height={35}
 								/>
 							</Box>
 
-							{/* Profile image skeleton */}
+							{/* Profile image skeleton - square with fixed dimensions */}
 							<Skeleton
-								variant="rectangular"
+								variant="rounded"
 								sx={{
 									margin: '2.5% auto',
-									minHeight: '25rem',
-									width: mobileBrowserState ? '90%' : '50%',
+									width: mobileBrowserState
+										? 'min(90vw, 25rem)'
+										: 'min(50vw, 25rem)',
+									height: mobileBrowserState
+										? 'min(90vw, 25rem)'
+										: 'min(50vw, 25rem)',
+									minWidth: '15rem',
+									minHeight: '15rem',
 									border: '1px solid rgba(255, 255, 240, 0.3)',
-									flex: smileFlex,
 								}}
 							/>
 
 							{/* Second paragraph skeleton */}
 							<Box sx={{ px: 2 }}>
-								<Skeleton variant="text" width="97%" height={35} />
-								<Skeleton variant="text" width="100%" height={35} />
-								<Skeleton variant="text" width="93%" height={35} />
-								<Skeleton variant="text" width="96%" height={35} />
-								<Skeleton variant="text" width="99%" height={35} />
-								<Skeleton variant="text" width="94%" height={35} />
 								<Skeleton
 									variant="text"
-									width="80%"
+									sx={{ width: '97%', mx: 'auto' }}
 									height={35}
-									sx={{ mx: 'auto' }}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '100%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '93%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '96%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '99%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '94%', mx: 'auto' }}
+									height={35}
+								/>
+								<Skeleton
+									variant="text"
+									sx={{ width: '80%', mx: 'auto' }}
+									height={35}
 								/>
 							</Box>
 						</Box>

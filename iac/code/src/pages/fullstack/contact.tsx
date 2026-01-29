@@ -124,7 +124,7 @@ const ContactMe = () => {
 	}, [])
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 8 }}>
+		<Container maxWidth="xl" sx={{ py: 4, px: 'unset !important' }}>
 			<StyledSectionCard
 				sx={{
 					// Add internal padding for breathing room

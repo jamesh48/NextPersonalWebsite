@@ -29,6 +29,5 @@ export const StyledSectionCard = styled(Card)(({ theme }) => ({
 	backgroundColor: theme.palette.background.paper,
 	backdropFilter: 'blur(10px)',
 	borderRadius: '1rem',
-	padding: '2rem',
 	boxShadow: '0 .5rem 2rem rgba(0, 0, 0, 0.1)',
 }))

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from '@app/reduxHooks'
 import { Box, Typography, useMediaQuery } from '@mui/material'
+import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { memo, useEffect } from 'react'
 import ApplicationImgContainer from './ApplicationImgContainer'
 import { getOuterContainerData, getPortfolioImages } from './portfolioSlice'
@@ -25,6 +26,7 @@ const preventRerenderOnCardChange = (
 }
 const Portfolio = ({ portfolioCard, index }: PortfolioProps) => {
 	const dispatch = useDispatch()
+	const mobileView = useMobileBrowserCheck()
 	const { allLoaded, imgArr } = useSelector(getPortfolioImages)
 	const outerContainerData = useSelector(getOuterContainerData)
 	const portraitState = useMediaQuery('(orientation: portrait)')
@@ -67,7 +69,9 @@ const Portfolio = ({ portfolioCard, index }: PortfolioProps) => {
 					textAlign: 'center',
 				}}
 			>
-				Software Engineering Applications
+				{mobileView
+					? 'Selected Applications'
+					: 'Software Engineering Applications'}
 			</Typography>
 			<Box
 				id="portfolioApplicationContainer"
