@@ -1,23 +1,8 @@
-import { Box, Divider, Typography, useMediaQuery } from '@mui/material'
+import { Avatar, Box, Divider, Typography } from '@mui/material'
 import { StyledLandscapeParagraph } from 'features/Marquee/components'
-import { useMemo } from 'react'
 import type { MarqueeInnerProps } from './marqueeTypes'
 
 const MCLandscape = (props: MarqueeInnerProps) => {
-	const bigSmile = useMediaQuery('(min-width: 1600px)')
-	const smallSmile = useMediaQuery('(min-width: 1000px)')
-
-	const smileFlex = useMemo(() => {
-		if (bigSmile) {
-			return { flex: 0.4, minHeight: '40rem' }
-		}
-		if (smallSmile) {
-			return { flex: 0.5, minHeight: '25rem' }
-		}
-
-		return { flex: 0.5, minHeight: '12.5rem' }
-	}, [bigSmile, smallSmile])
-
 	return (
 		<Box
 			id="marquee-container"
@@ -41,10 +26,10 @@ const MCLandscape = (props: MarqueeInnerProps) => {
 				<Box>
 					<Box
 						id="marquee-contents"
-						sx={{ display: 'flex', alignItems: 'center' }}
+						sx={{ display: 'flex', alignItems: 'center', gap: 2 }}
 					>
 						<Box
-							sx={{ display: 'flex', flexDirection: 'column', flex: 0.9 }}
+							sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}
 							id="marquee-paragraphs"
 						>
 							<StyledLandscapeParagraph id="about-me-marquee-description-1">
@@ -61,19 +46,26 @@ const MCLandscape = (props: MarqueeInnerProps) => {
 								{props.paragraphTwo}
 							</StyledLandscapeParagraph>
 						</Box>
-						<Box
+						<Avatar
 							id="smile-container"
+							src={props.smileImage.url}
+							alt="James Hrivnak"
 							sx={{
-								backgroundImage: `url(${props.smileImage.url})`,
-								maxWidth: '50%',
-								minWidth: '27.5%',
-								backgroundSize: 'cover',
+								width: {
+									xs: '12.5rem',
+									md: '25rem',
+									xl: '40rem',
+								},
+								height: {
+									xs: '12.5rem',
+									md: '25rem',
+									xl: '40rem',
+								},
 								border: '1px solid ivory',
-								backgroundPositionY: '25%',
-								backgroundPositionX: '75%',
-								backgroundRepeat: 'no-repeat',
-								borderRadius: '50%',
-								...smileFlex,
+								flexShrink: 0,
+								'& img': {
+									objectPosition: '75% 25%',
+								},
 							}}
 						/>
 					</Box>
