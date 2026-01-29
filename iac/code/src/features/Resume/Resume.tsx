@@ -21,7 +21,7 @@ const Resume = () => {
 	const isPdfVisible = mobileBrowserState || showPdfDesktop
 
 	const handleResumeDownload = useCallback(() => {
-		fetch(`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`)
+		fetch(`${STATIC_CLOUDFRONT_LINK}/resume.pdf`)
 			.then((response) => response.blob())
 			.then((blob) => {
 				const url = window.URL.createObjectURL(blob)
@@ -69,7 +69,7 @@ const Resume = () => {
 							justifyContent: 'center',
 						}}
 					>
-						<Typography variant="h3" align="center">
+						<Typography variant='h3' align='center'>
 							Resume
 						</Typography>
 					</Box>
@@ -98,8 +98,8 @@ const Resume = () => {
 							}}
 						>
 							<embed
-								src={`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf#toolbar=0&navpanes=0&view=FitH`}
-								type="application/pdf"
+								src={`${STATIC_CLOUDFRONT_LINK}/resume.pdf#toolbar=0&navpanes=0&view=FitH`}
+								type='application/pdf'
 								style={{
 									width: '100%',
 									maxWidth: '900px',
@@ -110,8 +110,8 @@ const Resume = () => {
 							<When condition={mobileBrowserState}>
 								<StyledButton
 									fullWidth
-									variant="contained"
-									size="large"
+									variant='contained'
+									size='large'
 									startIcon={<DownloadIcon />}
 									onClick={handleResumeDownload}
 									sx={{ py: 1.5 }}

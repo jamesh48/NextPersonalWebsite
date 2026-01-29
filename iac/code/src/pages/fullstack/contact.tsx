@@ -83,12 +83,12 @@ const ContactItem = ({
 				<StyledContactCardIcon>{icon}</StyledContactCardIcon>
 			</StyledContactCardIconContainer>
 			<DisabledTypography
-				variant="overline"
+				variant='overline'
 				sx={{ mb: 1, letterSpacing: '0.1em' }}
 			>
 				{title}
 			</DisabledTypography>
-			<Typography variant="h6" sx={{ color: 'ivory', fontWeight: 400 }}>
+			<Typography variant='h6' sx={{ color: 'ivory', fontWeight: 400 }}>
 				{value}
 			</Typography>
 		</StyledContactCard>
@@ -96,7 +96,7 @@ const ContactItem = ({
 
 	if (href && !onClick) {
 		return (
-			<Link href={href} underline="none" target="_blank" rel="noopener">
+			<Link href={href} underline='none' target='_blank' rel='noopener'>
 				{content}
 			</Link>
 		)
@@ -109,7 +109,7 @@ const ContactMe = () => {
 	const mobileBrowserState = useMobileBrowserCheck()
 
 	const handleResumeDownload = useCallback(() => {
-		fetch(`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`)
+		fetch(`${STATIC_CLOUDFRONT_LINK}/resume.pdf`)
 			.then((response) => response.blob())
 			.then((blob) => {
 				const url = window.URL.createObjectURL(blob)
@@ -124,7 +124,7 @@ const ContactMe = () => {
 	}, [])
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 4, px: 'unset !important' }}>
+		<Container maxWidth='xl' sx={{ py: 4, px: 'unset !important' }}>
 			<StyledSectionCard
 				sx={{
 					// Add internal padding for breathing room
@@ -132,17 +132,17 @@ const ContactMe = () => {
 				}}
 			>
 				<Box sx={{ textAlign: 'center', mb: 6 }}>
-					<PrimaryTypography variant="h3" gutterBottom>
+					<PrimaryTypography variant='h3' gutterBottom>
 						Get In Touch
 					</PrimaryTypography>
 					<SecondaryTypography
-						variant="body1"
+						variant='body1'
 						sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
 					>
 						Feel free to reach out through any of the channels below.
 					</SecondaryTypography>
 					<SecondaryTypography
-						variant="body1"
+						variant='body1'
 						sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
 					>
 						I'm always open to discussing new opportunities and collaborations.
@@ -164,43 +164,43 @@ const ContactMe = () => {
 					}}
 				>
 					<ContactItem
-						icon={<LocationIcon fontSize="large" />}
-						title="Location"
-						value="Boulder, CO"
+						icon={<LocationIcon fontSize='large' />}
+						title='Location'
+						value='Boulder, CO'
 					/>
 
 					<ContactItem
-						icon={<EmailIcon fontSize="large" />}
-						title="Email"
-						value="jameshrivnak4@gmail.com"
-						href="mailto:jameshrivnak4@gmail.com"
+						icon={<EmailIcon fontSize='large' />}
+						title='Email'
+						value='jameshrivnak4@gmail.com'
+						href='mailto:jameshrivnak4@gmail.com'
 					/>
 
 					<ContactItem
-						icon={<PhoneIcon fontSize="large" />}
-						title="Phone"
-						value="(303) 517-2085"
-						href="tel:303-517-2085"
+						icon={<PhoneIcon fontSize='large' />}
+						title='Phone'
+						value='(303) 517-2085'
+						href='tel:303-517-2085'
 					/>
 
 					<ContactItem
-						icon={<LinkedInIcon fontSize="large" />}
-						title="LinkedIn"
-						value="Connect"
-						href="https://linkedin.com/in/james-hrivnak"
+						icon={<LinkedInIcon fontSize='large' />}
+						title='LinkedIn'
+						value='Connect'
+						href='https://linkedin.com/in/james-hrivnak'
 					/>
 
 					<ContactItem
-						icon={<DescriptionIcon fontSize="large" />}
-						title="Resume"
-						value="Download PDF"
+						icon={<DescriptionIcon fontSize='large' />}
+						title='Resume'
+						value='Download PDF'
 						onClick={handleResumeDownload}
 					/>
 				</Box>
 
 				{mobileBrowserState && (
 					<Box sx={{ mt: 6, textAlign: 'center', pb: 2 }}>
-						<SecondaryTypography variant="body2">
+						<SecondaryTypography variant='body2'>
 							Tap any card to get in touch
 						</SecondaryTypography>
 					</Box>
@@ -215,7 +215,7 @@ const Contact = () => {
 		<>
 			<Head>
 				<title>Contact - James Hrivnak</title>
-				<meta name="description" content="Get in touch with James Hrivnak" />
+				<meta name='description' content='Get in touch with James Hrivnak' />
 			</Head>
 			<ContactMe />
 		</>

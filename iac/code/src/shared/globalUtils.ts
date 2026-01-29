@@ -40,7 +40,7 @@ export const handleMouseMove = (event: MouseEvent) => {
 	if (!document.getElementById('cursor')) {
 		const newCursor = document.createElement('div')
 		newCursor.id = 'cursor'
-		newCursor.style.backgroundImage = `url(${STATIC_CLOUDFRONT_LINK}/main/main-images/cursor.png)`
+		newCursor.style.backgroundImage = `url(${STATIC_CLOUDFRONT_LINK}/cursor.png)`
 		document.querySelector('body')?.appendChild(newCursor)
 	}
 

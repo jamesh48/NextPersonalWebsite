@@ -50,14 +50,11 @@ const ResumeActionBar = ({
 	const rightPadding = isPdfVisible ? 0 : -50
 
 	const handlePrint = useCallback(() => {
-		window.open(
-			`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`,
-			'_blank',
-		)
+		window.open(`${STATIC_CLOUDFRONT_LINK}/resume.pdf`, '_blank')
 	}, [])
 
 	const handleResumeDownload = useCallback(() => {
-		fetch(`${STATIC_CLOUDFRONT_LINK}/main/main-images/resume.pdf`)
+		fetch(`${STATIC_CLOUDFRONT_LINK}/resume.pdf`)
 			.then((response) => response.blob())
 			.then((blob) => {
 				const url = window.URL.createObjectURL(blob)
@@ -166,7 +163,7 @@ const ResumeActionBar = ({
 	return (
 		<Box ref={containerRef} sx={getSxStyles()}>
 			{isPdfVisible && (
-				<Tooltip title="Print Resume">
+				<Tooltip title='Print Resume'>
 					<StyledResumeActionIcon onClick={handlePrint}>
 						<PrintIcon />
 					</StyledResumeActionIcon>
@@ -174,9 +171,9 @@ const ResumeActionBar = ({
 			)}
 
 			{isPdfVisible && (
-				<Tooltip title="Download Resume">
+				<Tooltip title='Download Resume'>
 					<StyledResumeActionIcon
-						aria-label="download"
+						aria-label='download'
 						onClick={handleResumeDownload}
 					>
 						<DownloadIcon />
@@ -188,7 +185,7 @@ const ResumeActionBar = ({
 				title={isPdfVisible ? 'View Interactive Resume' : 'View PDF Resume'}
 			>
 				<StyledResumeActionIcon
-					aria-label="switch-view"
+					aria-label='switch-view'
 					onClick={() => setShowPdfDesktop((prev) => !prev)}
 				>
 					{isPdfVisible ? <ViewModuleIcon /> : <PictureAsPdfIcon />}

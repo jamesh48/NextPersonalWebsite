@@ -7,7 +7,7 @@ const portfolioDataJson = [
 			backgroundColor: 'ivory',
 			color: 'black',
 		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/Strava_Results_Generator.jpg`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/Strava_Results_Generator.jpg`,
 		github: [
 			// {
 			// 	title: 'Deployed Website',
@@ -29,7 +29,7 @@ const portfolioDataJson = [
 			backgroundColor: 'ivory',
 			color: 'black',
 		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/GES.jpg`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/GES.jpg`,
 		github: [
 			{
 				title: 'Github',
@@ -43,7 +43,7 @@ const portfolioDataJson = [
 			backgroundColor: 'ivory',
 			color: 'black',
 		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/opal.png`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/opal.png`,
 		github: [
 			{
 				title: 'Github',
@@ -57,7 +57,7 @@ const portfolioDataJson = [
 			backgroundColor: 'black',
 			color: 'ivory',
 		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/backendArchitecture.jpeg`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/backendArchitecture.jpeg`,
 		github: [
 			{
 				title: 'Steammop.app Proxy Server',
@@ -79,7 +79,7 @@ const portfolioDataJson = [
 	},
 	{
 		title: 'Beatminesweeper.app',
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/beatminesweeperss.png`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/beatminesweeperss.png`,
 		cssStyles: {
 			backgroundColor: 'black',
 			color: 'ivory',
@@ -97,7 +97,7 @@ const portfolioDataJson = [
 	},
 	{
 		title: 'Fjakeraven.com',
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/main/main-images/fec.jpg`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/fec.jpg`,
 		cssStyles: {
 			backgroundColor: 'ivory',
 			color: 'black',

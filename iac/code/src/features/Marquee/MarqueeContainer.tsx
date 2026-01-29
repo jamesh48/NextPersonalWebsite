@@ -60,7 +60,7 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 
 	useEffect(() => {
 		handleSmileImage({
-			url: `${STATIC_CLOUDFRONT_LINK}/main/main-images/linkedin.jpg`,
+			url: `${STATIC_CLOUDFRONT_LINK}/linkedin.jpg`,
 			title: 'Linkedin Photo',
 			loaded: false,
 		})
@@ -121,7 +121,7 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 				</Then>
 				<Else>
 					{/* Show Skeleton while orientation is being determined */}
-					<Skeleton height="100vh" width="100%" />
+					<Skeleton height='100vh' width='100%' />
 				</Else>
 			</If>
 		</StyledSectionCard>
