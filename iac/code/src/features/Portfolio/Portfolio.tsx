@@ -10,7 +10,7 @@ import {
 } from './publicViewPortfolioUtils'
 
 interface PortfolioProps {
-	portfolioJSON: PortfolioJSONEntry[]
+	portfolioCard: PortfolioJSONEntry[]
 	index: number
 }
 
@@ -23,30 +23,28 @@ const preventRerenderOnCardChange = (
 	}
 	return false
 }
-const Portfolio = (props: PortfolioProps) => {
+const Portfolio = ({ portfolioCard, index }: PortfolioProps) => {
 	const dispatch = useDispatch()
 	const { allLoaded, imgArr } = useSelector(getPortfolioImages)
 	const outerContainerData = useSelector(getOuterContainerData)
 	const portraitState = useMediaQuery('(orientation: portrait)')
 
-	console.info(props.index)
 	useEffect(() => {
-		if (props.portfolioJSON) {
-			handleOuterContainerData(props.portfolioJSON, dispatch)
+		if (portfolioCard) {
+			handleOuterContainerData(portfolioCard, dispatch)
 		}
-	}, [props.portfolioJSON, dispatch])
+	}, [portfolioCard, dispatch])
 
 	useEffect(() => {
 		const asyncFn = async () => {
-			if (outerContainerData[props.index]?.length) {
-				// console.info(outerContainerData[props.index][1])
+			if (outerContainerData[index]?.length) {
 				// Landscape
-				await handleImageData(outerContainerData[props.index][1], dispatch)
+				await handleImageData(outerContainerData[index][1], dispatch)
 			}
 		}
 
 		asyncFn()
-	}, [outerContainerData, props.index, dispatch])
+	}, [outerContainerData, index, dispatch])
 
 	return allLoaded && imgArr.length ? (
 		<Box
@@ -75,7 +73,7 @@ const Portfolio = (props: PortfolioProps) => {
 				id="portfolioApplicationContainer"
 				sx={{ display: 'flex', flexDirection: 'column', height: '75vh' }}
 			>
-				{imgArr[props.index]?.map(
+				{imgArr[index]?.map(
 					(portfolioRow: PortfolioJSONEntry[], rowIndex: number) => {
 						return (
 							<Box

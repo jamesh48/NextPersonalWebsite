@@ -115,4 +115,6 @@ const portfolioDataJson = [
 	},
 ]
 
+export type TPortfolioJSON = typeof portfolioDataJson
+
 export default portfolioDataJson
