@@ -31,11 +31,24 @@ export class PersonalWebsiteStack extends cdk.Stack {
 		})
 
 		// Import the ACM certificate
-		const certificate = acm.Certificate.fromCertificateArn(
-			this,
-			'imported-certificate',
-			props.aws_env.AWS_ACM_CERTIFICATE_ARN,
-		)
+		// const certificate = acm.Certificate.fromCertificateArn(
+		// 	this,
+		// 	'imported-certificate',
+		// 	props.aws_env.AWS_ACM_CERTIFICATE_ARN,
+		// )
+
+		const hostedZone = route53.HostedZone.fromLookup(this, 'fsh-hosted-zone', {
+			domainName: 'fullstackhrivnak.com',
+		})
+
+		const certificate = new acm.Certificate(this, 'fsh-certificate', {
+			domainName: 'fullstackhrivnak.com',
+			subjectAlternativeNames: [
+				// Covers www, static, and any future subdomains
+				'*.fullstackhrivnak.com',
+			],
+			validation: acm.CertificateValidation.fromDns(hostedZone),
+		})
 
 		// Create Origin Access Control (OAC) for CloudFront to access S3
 		const _oac = new cloudfront.CfnOriginAccessControl(this, 'fsh-oac', {
@@ -59,7 +72,11 @@ export class PersonalWebsiteStack extends cdk.Stack {
 			},
 
 			defaultRootObject: 'index.html',
-			domainNames: ['fullstackhrivnak.com'],
+			domainNames: [
+				'fullstackhrivnak.com',
+				'www.fullstackhrivnak.com',
+				'static.fullstackhrivnak.com',
+			],
 			certificate: certificate,
 			minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
 			errorResponses: [
@@ -105,13 +122,25 @@ export class PersonalWebsiteStack extends cdk.Stack {
 			memoryLimit: 512,
 		})
 
-		const hostedZone = route53.HostedZone.fromLookup(this, 'fsh-hosted-zone', {
-			domainName: 'fullstackhrivnak.com',
-		})
-
 		new route53.ARecord(this, 'fsh-alias-record', {
 			zone: hostedZone,
 			recordName: 'fullstackhrivnak.com',
+			target: route53.RecordTarget.fromAlias(
+				new targets.CloudFrontTarget(distribution),
+			),
+		})
+
+		new route53.ARecord(this, 'fsh-www-alias-record', {
+			zone: hostedZone,
+			recordName: 'www.fullstackhrivnak.com',
+			target: route53.RecordTarget.fromAlias(
+				new targets.CloudFrontTarget(distribution),
+			),
+		})
+
+		new route53.ARecord(this, 'fsh-static-alias-record', {
+			zone: hostedZone,
+			recordName: 'static.fullstackhrivnak.com',
 			target: route53.RecordTarget.fromAlias(
 				new targets.CloudFrontTarget(distribution),
 			),
