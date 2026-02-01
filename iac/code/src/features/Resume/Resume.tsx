@@ -4,6 +4,7 @@ import { Download as DownloadIcon } from '@mui/icons-material'
 import { Box, Typography, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import ResumeActionBar from 'features/Resume/ResumeActionBar'
+import PageHeader from 'features/shared/PageHeader'
 import { useCallback, useRef, useState } from 'react'
 import { When } from 'react-if'
 import { STATIC_CLOUDFRONT_LINK } from '../../constants'
@@ -61,18 +62,7 @@ const Resume = () => {
 						})(),
 					}}
 				>
-					<Box
-						sx={{
-							position: 'relative',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-					>
-						<Typography variant='h3' align='center'>
-							Resume
-						</Typography>
-					</Box>
+					<PageHeader>Resume</PageHeader>
 
 					<Box
 						onMouseLeave={() => {

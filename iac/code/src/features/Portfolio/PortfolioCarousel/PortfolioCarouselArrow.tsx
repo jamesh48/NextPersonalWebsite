@@ -13,8 +13,6 @@ const StyledPortfolioCarouselArrowContainer = styled(Box)(({ theme }) => ({
 	height: '100%',
 	width: '5%',
 	'&:hover': {
-		borderLeft: '1px solid',
-		borderColor: theme.palette.secondary.main,
 		backgroundColor: theme.palette.primary.main,
 		cursor: 'pointer',
 	},
@@ -83,8 +81,21 @@ const PortfolioCarouselArrow = ({
 				}
 				sx={{
 					...(direction === CarouselDirection.RIGHT || mobileView
-						? { right: 0 }
-						: {}),
+						? {
+								right: 0,
+								'&:hover': {
+									borderRight: '1px solid',
+									borderColor: 'secondary.main',
+								},
+							}
+						: direction === CarouselDirection.LEFT
+							? {
+									'&:hover': {
+										borderLeft: '1px solid',
+										borderColor: 'secondary.main',
+									},
+								}
+							: {}),
 				}}
 			>
 				<StyledPortfolioCarouselArrowButton
@@ -93,21 +104,21 @@ const PortfolioCarouselArrow = ({
 					disabled={disabledButton}
 				>
 					<StyledPortfolioCarouselArrowButtonSVG
-						className="arrow-button-icon"
-						viewBox="0 0 100 100"
+						className='arrow-button-icon'
+						viewBox='0 0 100 100'
 					>
 						<title>
 							Arrow {direction === CarouselDirection.RIGHT ? 'Next' : 'Prev'}{' '}
 							Button Icon
 						</title>
 						<path
-							className="arrow"
+							className='arrow'
 							style={{
 								fill: 'lightgray',
 								pointerEvents: 'none',
 								opacity: 0.8,
 							}}
-							d="M33.8352105,100 C31.4906934,99.997936 29.2429547,99.0649124 27.5861629,97.4060557 C24.1379457,93.9535448 24.1379457,88.3604714 27.5861629,84.9079605 L62.6044109,49.8897124 L27.5861629,14.8714644 C24.3395013,11.3872106 24.4353002,5.95761395 27.8028539,2.59006023 C31.1704076,-0.777493487 36.6000043,-0.873292384 40.0842581,2.37336919 L87.6006014,49.8897124 L40.0842581,97.4060557 C38.4274663,99.0649124 36.1797276,99.997936 33.8352105,100 L33.8352105,100 Z"
+							d='M33.8352105,100 C31.4906934,99.997936 29.2429547,99.0649124 27.5861629,97.4060557 C24.1379457,93.9535448 24.1379457,88.3604714 27.5861629,84.9079605 L62.6044109,49.8897124 L27.5861629,14.8714644 C24.3395013,11.3872106 24.4353002,5.95761395 27.8028539,2.59006023 C31.1704076,-0.777493487 36.6000043,-0.873292384 40.0842581,2.37336919 L87.6006014,49.8897124 L40.0842581,97.4060557 C38.4274663,99.0649124 36.1797276,99.997936 33.8352105,100 L33.8352105,100 Z'
 							{...(direction === CarouselDirection.RIGHT && {
 								transform: 'translate(100, 100) rotate(180)',
 							})}

@@ -1,14 +1,14 @@
 import { StyledSectionCard } from 'StyledComponents'
 import { getSmallWindowState } from '@app/appSlice'
 import { useDispatch, useSelector } from '@app/reduxHooks'
-import { Skeleton, useMediaQuery } from '@mui/material'
+import { Box, Skeleton, useMediaQuery } from '@mui/material'
 import { useMobileBrowserCheck } from '@shared/globalUtils'
 import { useMinimumFetchTimeElapsed } from '@shared/useMinimumFetchTimeElapsed'
 import { Promise as BBPromise } from 'bluebird'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { Else, If, Then } from 'react-if'
 import { STATIC_CLOUDFRONT_LINK } from '../../constants'
-import MCLandscape from './MarqueeLandscape'
+import MarqueeLandscape from './MarqueeLandscape'
 import MCPortrait from './MarqueePortrait'
 import type { SmileImageProps } from './MarqueeTypes'
 import MCLandscapeSkeleton from './MCLandscapeSkeleton'
@@ -30,7 +30,7 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 
 	const contentReady = useMinimumFetchTimeElapsed({
 		isLoaded: smileImage.loaded,
-		minimumTime: 1500,
+		minimumTime: 1000,
 	})
 
 	const handleSmileImage = useCallback(
@@ -91,39 +91,64 @@ const MarqueeContainer = ({ smileCallback }: MarqueeContainerProps) => {
 	// Check if orientation is determined
 	const orientationDetermined = portraitState || landscapeState
 
+	const mobileStyles = useMemo(() => {
+		if (portraitState) {
+			return {
+				display: 'flex',
+				flexDirection: 'column',
+				textAlign: 'center',
+				height: portraitState ? '100%' : '90%',
+				minHeight: portraitState ? '90vh' : 'initial',
+			}
+		}
+
+		return {}
+	}, [portraitState])
+
 	return (
-		// small trick to get the loading skeleton to be the right width
-		<StyledSectionCard sx={{ width: '100%' }}>
-			<If condition={orientationDetermined}>
-				<Then>
-					<If condition={shouldUsePortraitMode}>
-						<Then>
-							<If condition={contentReady}>
-								<Then>
-									<MCPortrait smileImage={smileImage} />
-								</Then>
-								<Else>
-									<MCPortraitSkeleton />
-								</Else>
-							</If>
-						</Then>
-						<Else>
-							<If condition={contentReady}>
-								<Then>
-									<MCLandscape smileImage={smileImage} />
-								</Then>
-								<Else>
-									<MCLandscapeSkeleton />
-								</Else>
-							</If>
-						</Else>
-					</If>
-				</Then>
-				<Else>
-					{/* Show Skeleton while orientation is being determined */}
-					<Skeleton height='100vh' width='100%' />
-				</Else>
-			</If>
+		<StyledSectionCard
+			sx={{
+				boxSizing: 'border-box',
+				width: '100%',
+				p: { xs: 3, sm: 4, md: 5 },
+			}}
+		>
+			<Box
+				id='marquee-container'
+				className='portfolioFader'
+				sx={{ display: 'flex', ...mobileStyles }}
+			>
+				<If condition={orientationDetermined}>
+					<Then>
+						<If condition={shouldUsePortraitMode}>
+							<Then>
+								<If condition={contentReady}>
+									<Then>
+										<MCPortrait smileImage={smileImage} />
+									</Then>
+									<Else>
+										<MCPortraitSkeleton />
+									</Else>
+								</If>
+							</Then>
+							<Else>
+								<If condition={contentReady}>
+									<Then>
+										<MarqueeLandscape smileImage={smileImage} />
+									</Then>
+									<Else>
+										<MCLandscapeSkeleton />
+									</Else>
+								</If>
+							</Else>
+						</If>
+					</Then>
+					<Else>
+						{/* Show Skeleton while orientation is being determined */}
+						<Skeleton height='100vh' width='100%' />
+					</Else>
+				</If>
+			</Box>
 		</StyledSectionCard>
 	)
 }

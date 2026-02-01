@@ -77,8 +77,6 @@ const PortfolioCarousel = ({ portfolioJSON }: PortfolioCarouselProps) => {
 		changeImage,
 	}
 
-	const desktopAdjustment = mobileView ? '-3%' : '-6%'
-
 	return (
 		<StyledSectionCard
 			sx={{
@@ -107,7 +105,7 @@ const PortfolioCarousel = ({ portfolioJSON }: PortfolioCarouselProps) => {
 					<Box
 						id='inner-slider'
 						sx={{
-							transform: `translateX(calc(${position * -101}% + ${position === 0 ? desktopAdjustment : mobileView ? '-3%' : '0%'}))`,
+							transform: `translateX(${position * -100}%)`,
 							display: 'flex',
 							position: 'absolute',
 							height: '100%',
@@ -124,17 +122,30 @@ const PortfolioCarousel = ({ portfolioJSON }: PortfolioCarouselProps) => {
 					</Box>
 
 					<When condition={!mobileView}>
-						{/* Previous Button Box - Left Side */}
-						<PortfolioCarouselArrow
-							{...commonProps}
-							direction={CarouselDirection.LEFT}
-						/>
+						<Box
+							sx={{
+								position: 'absolute',
+								height: '100%',
+								width: '100%',
+								display: 'flex',
+								pointerEvents: 'none',
+								'& > *': {
+									pointerEvents: 'auto',
+								},
+							}}
+						>
+							{/* Previous Button Box - Left Side */}
+							<PortfolioCarouselArrow
+								{...commonProps}
+								direction={CarouselDirection.LEFT}
+							/>
 
-						{/* Next Button Box - Right Side */}
-						<PortfolioCarouselArrow
-							{...commonProps}
-							direction={CarouselDirection.RIGHT}
-						/>
+							{/* Next Button Box - Right Side */}
+							<PortfolioCarouselArrow
+								{...commonProps}
+								direction={CarouselDirection.RIGHT}
+							/>
+						</Box>
 					</When>
 				</Box>
 				<When condition={mobileView}>

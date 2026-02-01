@@ -1,6 +1,5 @@
 import {
 	DisabledTypography,
-	PrimaryTypography,
 	SecondaryTypography,
 	StyledSectionCard,
 } from 'StyledComponents'
@@ -16,6 +15,7 @@ import { useMobileBrowserCheck } from '@shared/globalUtils'
 import Head from 'next/head'
 import { useCallback } from 'react'
 import { STATIC_CLOUDFRONT_LINK } from '../../constants'
+import PageHeader from '../../features/shared/PageHeader'
 
 interface ContactItemProps {
 	icon: React.ReactNode
@@ -34,7 +34,7 @@ const StyledContactCard = styled(Card)(({ theme }) => ({
 	flexDirection: 'column',
 	alignItems: 'center',
 	textAlign: 'center',
-	borderRadius: '1rem', // More rounded corners for a softer look
+	borderRadius: '1rem',
 }))
 
 const StyledContactCardIconContainer = styled(Box)(({ theme }) => ({
@@ -127,14 +127,15 @@ const ContactMe = () => {
 		<Container maxWidth='xl' sx={{ py: 4, px: 'unset !important' }}>
 			<StyledSectionCard
 				sx={{
+					width: '100%',
+					boxSizing: 'border-box',
 					// Add internal padding for breathing room
 					p: { xs: 3, sm: 4, md: 5 },
 				}}
 			>
+				<PageHeader>Get In Touch</PageHeader>
+
 				<Box sx={{ textAlign: 'center', mb: 6 }}>
-					<PrimaryTypography variant='h3' gutterBottom>
-						Get In Touch
-					</PrimaryTypography>
 					<SecondaryTypography
 						variant='body1'
 						sx={{ maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
