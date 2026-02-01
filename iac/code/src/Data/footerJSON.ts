@@ -11,11 +11,11 @@ const footerJSON = [
 		imageUrl: `${STATIC_CLOUDFRONT_LINK}/githubicon.jpg`,
 		label: 'Github',
 	},
-	{
-		iconLink: 'https://www.instagram.com/jameshrivnak',
-		imageUrl: `${STATIC_CLOUDFRONT_LINK}/instaicon.jpg`,
-		label: 'Instagram',
-	},
+	// {
+	// 	iconLink: 'https://www.instagram.com/jameshrivnak',
+	// 	imageUrl: `${STATIC_CLOUDFRONT_LINK}/instaicon.jpg`,
+	// 	label: 'Instagram',
+	// },
 ]
 
 export default footerJSON

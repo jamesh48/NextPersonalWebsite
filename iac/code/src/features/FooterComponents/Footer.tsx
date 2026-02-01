@@ -9,13 +9,12 @@ interface FooterProps {
 }
 
 const StyledFooterContainer = styled(Box)(({ theme }) => ({
-	border: '3px solid',
+	border: '2px solid',
 	borderColor: theme.palette.border.light,
 	display: 'flex',
 	width: '100%',
-
 	borderBottom: 'none',
-	backgroundColor: '#2f4f4f',
+	backgroundColor: theme.palette.primary.main,
 	borderRadius: '0.7% / 25%',
 	borderBottomLeftRadius: 0,
 	borderBottomRightRadius: 0,
@@ -28,11 +27,11 @@ const StyledFooterItemContainer = styled(Box)(({ theme }) => ({
 	alignItems: 'center',
 	justifyContent: 'center',
 	'&:hover': {
-		backgroundColor: theme.palette.primary.main,
+		backgroundColor: theme.palette.action.hover,
 	},
 	// Apply to all images
 	'& img': {
-		backgroundColor: theme.palette.primary.main,
+		backgroundColor: theme.palette.action.hover,
 		padding: '0.375rem',
 		borderRadius: '0.375rem',
 	},
@@ -78,7 +77,7 @@ const Footer = ({ footerJSON }: FooterProps) => {
 	return (
 		<When condition={isLoaded}>
 			<Box
-				id="footerContainer"
+				id='footerContainer'
 				className={
 					footerMobileBrowserState
 						? `footer-container footer-container--Mobile`
@@ -92,7 +91,7 @@ const Footer = ({ footerJSON }: FooterProps) => {
 					margin: '0 auto',
 				}}
 			>
-				<StyledFooterContainer id="footer-items-container">
+				<StyledFooterContainer id='footer-items-container'>
 					{images.map((iconData, index) => {
 						const label = footerJSON[index]?.label
 
@@ -101,7 +100,7 @@ const Footer = ({ footerJSON }: FooterProps) => {
 								key={iconData.iconLink}
 								title={label}
 								arrow
-								placement="top"
+								placement='top'
 							>
 								<StyledFooterItemContainer>
 									<FooterItemContainer
