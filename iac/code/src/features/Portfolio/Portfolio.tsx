@@ -95,7 +95,7 @@ const Portfolio = ({ portfolioCard, index }: PortfolioProps) => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					height: '75vh',
+					flex: 1,
 				}}
 			>
 				{imgArr[index]?.map((portfolioRow: PortfolioJSONEntry[]) => {

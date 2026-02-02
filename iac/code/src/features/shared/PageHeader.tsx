@@ -25,6 +25,7 @@ const PageHeader = ({
 				width: '100%',
 				mt: 2,
 				mb: 1,
+				flex: 0.2,
 				...containerSx,
 			}}
 		>
