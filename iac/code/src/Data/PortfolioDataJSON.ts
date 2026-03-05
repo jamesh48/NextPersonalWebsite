@@ -7,7 +7,7 @@ const portfolioDataJson = [
 			backgroundColor: 'ivory',
 			color: 'black',
 		},
-		imgUrl: `${STATIC_CLOUDFRONT_LINK}/Strava_Results_Generator.jpg`,
+		imgUrl: `${STATIC_CLOUDFRONT_LINK}/Strava_Results_Generator.png`,
 		github: [
 			// {
 			// 	title: 'Deployed Website',
