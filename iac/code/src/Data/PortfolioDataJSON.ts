@@ -19,7 +19,7 @@ const portfolioDataJson = [
 			},
 			{
 				title: 'Python Backend Github',
-				link: 'https://github.com/jamesh48/SRG-Python',
+				link: 'https://github.com/jamesh48/strava-report-generator-backend',
 			},
 		],
 	},
