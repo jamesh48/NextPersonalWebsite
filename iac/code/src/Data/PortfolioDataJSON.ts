@@ -52,6 +52,20 @@ const portfolioDataJson = [
 		],
 	},
 	{
+		title: 'AI Job Coach',
+		cssStyles: {
+			backgroundColor: 'ivory',
+			color: 'black',
+			imgUrl: `${STATIC_CLOUDFRONT_LINK}/ai-job-coach.png`,
+			github: [
+				{
+					title: 'Github',
+					link: 'https://github.com/jamesh48/fsh-ai-job-coach',
+				},
+			],
+		},
+	},
+	{
 		title: 'steammop.app',
 		cssStyles: {
 			backgroundColor: 'black',
